@@ -1,32 +1,27 @@
 {
-  "name": "spacefood",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Backend Server for SpaceFood",
+  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZeinShehab/SpaceFood.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ZeinShehab/SpaceFood/issues"
-  },
-  "homepage": "https://github.com/ZeinShehab/SpaceFood#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "express-async-handler": "^1.2.0",
-    "express-rate-limit": "^6.7.0",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mailgen": "^2.0.27",
+    "mongodb-memory-server": "^8.10.2",
+    "mongoose": "^6.8.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.22"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.22",
+    "otp-generator": "^4.0.0"
   }
 }
