@@ -1,39 +1,63 @@
-import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layout'
-import Public from './components/Public'
-import Login from './features/auth/Login';
-import DashLayout from './components/DashLayout'
-import Welcome from './features/auth/Welcome'
-import UsersList from './features/users/UsersList'
-import EditUser from './features/users/EditUser'
-import NewUserForm from './features/users/NewUserForm'
-import Prefetch from './features/auth/Prefetch'
+import React from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-function App() {
+
+/** import all components */
+import Username from './components/Username';
+import Password from './components/Password';
+import Register from './components/Register';
+import Profile from './components/Profile';
+import Recovery from './components/Recovery';
+import Reset from './components/Reset';
+import Homepage from './components/Homepage';
+import PageNotFound from './components/PageNotFound';
+
+
+
+/** auth middleware */
+import { AuthorizeUser, ProtectRoute } from './middleware/auth'
+
+
+/** root routes */
+const router = createBrowserRouter([
+    {
+        path : '/',
+        element : <Username></Username>
+    },
+    {
+        path : '/register',
+        element : <Register></Register>
+    },
+    {
+        path : '/password',
+        element : <ProtectRoute><Password /></ProtectRoute>
+    },
+    {
+        path : '/profile',
+        element : <AuthorizeUser><Profile /></AuthorizeUser>
+    },
+    {
+        path : '/recovery',
+        element : <Recovery></Recovery>
+    },
+    {
+        path : '/reset',
+        element : <Reset></Reset>
+    },
+    {
+        path : '*',
+        element : <PageNotFound></PageNotFound>
+    },
+    {
+        path : '/Homepage',
+        element : <Homepage></Homepage>
+    }
+])
+
+export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Public />} />
-        <Route path="login" element={<Login />} />
-
-        <Route element={<Prefetch />}>
-          <Route path="dash" element={<DashLayout />}>
-
-            <Route index element={<Welcome />} />
-
-            <Route path="users">
-              <Route index element={<UsersList />} />
-              <Route path=":id" element={<EditUser />} />
-              <Route path="new" element={<NewUserForm />} />
-            </Route>
-
-
-          </Route>{/* End Dash */}
-        </Route>
-
-      </Route>
-    </Routes>
-  );
+    <main>
+        <RouterProvider router={router}></RouterProvider>
+    </main>
+  )
 }
-
-export default App;
