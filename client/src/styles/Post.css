@@ -1,0 +1,326 @@
+.post-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .post-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .post-description {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  .other-images-container {
+    margin-bottom: 20px;
+  }
+  
+  .other-images-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .other-images-slideshow {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 20px;
+  }
+  
+  .other-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+    scroll-snap-align: center;
+  }
+  
+  .post-interactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .post-reactions {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .like-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .like-btn img {
+    width: 100px;
+    height: 60px;
+    
+    background-image: url("../assets/burger.png");
+  }
+  
+  .likes-count {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  .comment-input {
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+  }
+  
+  .comment-submit-btn {
+    background-color: #FF6347;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .comment-submit-btn:hover {
+    background-color: #FF5733;
+  }
+  
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating p {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .stars {
+    display: flex;
+    align-items: center;
+  }
+  
+  .stars input[type="radio"] {
+    display: none;
+  }
+  
+  .stars label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .stars label:hover,
+  .stars label:hover ~ label,
+  .stars input[type="radio"]:checked ~ label {
+    color: #FFD700;
+  }
+  
+  .rating-count {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  .comments-container {
+    margin-top: 20px;
+  }
+  
+  .comments-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+.comment {
+    font-size: 18px;
+    margin-bottom: 10px; 
+    margin: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-input {
+    width: 80%;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-submit-btn {
+    background-color: #ff6f69;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    
+    .comment-submit-btn:hover {
+    background-color: #d7385e;
+    }
+    
+    .rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    }
+    
+    .stars input[type="radio"] {
+    display: none;
+    }
+    
+    .stars label {
+    font-size: 30px;
+    color: #e5e5e5;
+    cursor: pointer;
+    
+    }
+    .stars label:hover,
+    .stars label:hover ~ label,
+    .stars input[type="radio"]:checked ~ label {
+    color: #ffd700;
+    }
+    
+    .rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating p {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.stars input[type="radio"] {
+  display: none;
+}
+
+.stars label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  position: relative;
+}
+
+.stars label:hover,
+.stars label:hover ~ label,
+.stars input[type="radio"]:checked ~ label {
+  color: #FFD700;
+}
+
+.stars label::before {
+  content: '\2605';
+  position: absolute;
+  left: 0;
+  color: inherit;
+}
+
+.stars input[type="radio"]:checked ~ label::before {
+    content: '\2605';
+    color: #FFD700;
+    animation: fill-stars 0.5s ease backwards;
+    animation-fill-mode: backwards;
+  }
+    .rating-count {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff6f69;
+    }
+    
+    @media only screen and (max-width: 600px) {
+    .post-container {
+    width: 100%;
+    margin-bottom: 30px;
+    }
+    
+    .post-image {
+    width: 100%;
+    height: auto;
+    }
+    
+    .other-images-container {
+    width: 100%;
+    margin-top: 20px;
+    }
+    
+    .other-images-slideshow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
+    
+    .other-image {
+    width: 100%;
+    height: auto;
+    margin: 10px;
+    }
+    
+    .post-interactions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .rating {
+    margin-top: 20px;
+    }
+    
+    .rating-count {
+    margin-left: 0;
+    margin-top: 10px;
+    }
+    
+    .comment-submit-btn {
+    width: 100%;
+    }
+    
+    .comment-input {
+    width: 70%;
+    margin-right: 0;
+    margin-bottom: 10px;
+    }
+    }

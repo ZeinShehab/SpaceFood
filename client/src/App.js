@@ -11,6 +11,7 @@ import Recovery from './components/Recovery';
 import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
+import Post from './components/Post';
 
 
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
     {
         path : '/Homepage',
         element : <Homepage></Homepage>
+    },
+    {
+        path : '/post/:id',
+        element : <Post></Post>
     }
 ])
 
