@@ -14,6 +14,7 @@ import extend from '../styles/Profile.module.css'
 export default function Profile() {
 
   const [file, setFile] = useState();
+  const [cert, setcert] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
  
@@ -23,7 +24,9 @@ export default function Profile() {
       lastName: apiData?.lastName || '',
       email: apiData?.email || '',
       mobile: apiData?.mobile || '',
-      address : apiData?.address || ''
+      address : apiData?.address || '',
+      certification: apiData?.certification || '',
+      role : apiData?.roles || ''
     },
     enableReinitialize: true,
     validate : profileValidation,
@@ -31,6 +34,7 @@ export default function Profile() {
     validateOnChange: false,
     onSubmit : async values => {
       values = await Object.assign(values, { profile : file || apiData?.profile || ''})
+      values.role ="Chef"
       let updatePromise = updateUser(values);
 
       toast.promise(updatePromise, {
@@ -46,6 +50,10 @@ export default function Profile() {
   const onUpload = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
+  }
+  const onUploadCert = async e => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setcert(base64);
   }
 
   // logout handler function
@@ -90,6 +98,12 @@ export default function Profile() {
                 <div className="name flex w-3/4 gap-10">
                   <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.' />
                   <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*' />
+                </div>
+
+                <div className="flex w-3/4 gap-10">
+                  <h3>Become a chef and post your recipes</h3>
+                  <label for="file" style={{border:'1px solid black'}}>Choose file</label>
+                  <input {...formik.getFieldProps('certification')} value = {apiData?.certification}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
                 </div>
 
                
