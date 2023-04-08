@@ -27,7 +27,10 @@ export default function Homepage() {
       </nav>
 
       <section className="recent-posts">
-        <h2>Recent Posts</h2>
+        <div className="post-section">
+        <h2 className="TempHeader">Recent Posts</h2>
+        
+        </div>
         <div className="post-grid">
           <Link to="/post/1">
             <div className="post">
