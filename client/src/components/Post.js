@@ -25,7 +25,7 @@ export default function Post(props) {
   return (
     <div className="post-container">
       <img className="post-image" src={props.mainImage} alt="Main Post Image" />
-      <img src="https://via.placeholder.com/1400x800" alt="Post Image" />
+      <img src="https://via.placeholder.com/300x200" alt="Post Image" />
       <h2 className="post-title">Delicious Pizza Recipe{props.title}</h2>
       <p className="post-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper.{props.description}</p>
 

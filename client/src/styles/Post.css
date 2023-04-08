@@ -1,16 +1,26 @@
 .post-container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-  }
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto; /* Set margin to auto for centering and adjust top/bottom margin */
+  max-width: 90%; /* Set a max-width to limit container width */
+}
+
   
-  .post-image {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
+.post-image {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-image img {
+  margin: auto; /* Center the image horizontally */
+  max-width: 100%; /* Make sure the image doesn't overflow its container */
+}
   
   .post-title {
     font-size: 24px;
@@ -72,8 +82,8 @@
   }
   
   .like-btn img {
-    width: 100px;
-    height: 60px;
+    width: 50px;
+    height: 40px;
     
     background-image: url("../assets/burger.png");
   }
@@ -117,7 +127,7 @@
   }
   
   .stars {
-    display: flex;
+    display:flex;
     align-items: center;
   }
   
