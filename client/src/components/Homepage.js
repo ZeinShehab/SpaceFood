@@ -8,10 +8,19 @@ export default function Homepage(){
         navigate('/')
       }
     return (
-            <nav class="navMenu " style={{float:'right'}}>
-            <span className='text-gray-500' style={{padding:'20px'}}><button className='text-purple-500'  onClick={userLogout} to="/">Logout</button></span>
-            <span className='text-gray-500'><Link className='text-purple-500' to="/profile">edit profile</Link></span>
-            </nav>
+      <nav>
+      <div className="logo">
+        <Link to="/Homepage">SpaceFood</Link>
+      </div>
+      <ul className="nav-links">
+        <li>
+          <Link to="/" onClick={userLogout}>Logout</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+      </ul>
+    </nav>
             
     )
   }
