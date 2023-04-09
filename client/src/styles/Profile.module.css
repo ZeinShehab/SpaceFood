@@ -11,15 +11,32 @@
 }
 
 .label{
-    padding-top: 20px;
-    font-size: small;
-    color: indigo;
+    text-align: center;
+    font-size: smaller;
+    color: #ff6a6a;
 }
 
 .btnsmall{
-    @apply border bg-indigo-500 w-1/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    @apply border bg-indigo-500 w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
 }
 
 .btnsmall:hover{
     background-color: #ff6a6a;
+}
+
+.chefform{
+    @apply w-3/4 gap-5 pt-4 pb-4 grid;
+    border-top: 5px solid #ff6a6a;
+    border-bottom: 5px solid #ff6a6a;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.btnremove{
+    @apply border py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    background-color: #ff6a6a;
+}
+
+.btnremove:hover{
+    @apply border bg-indigo-500
 }
