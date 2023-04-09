@@ -34,7 +34,13 @@ export default function Profile() {
     validateOnChange: false,
     onSubmit : async values => {
       values = await Object.assign(values, { profile : file || apiData?.profile || ''})
-      values.role ="Chef"
+
+      if (cert != null) {
+        values.certification = cert;
+        values.role ="Chef";
+      }
+      // console.log(values.certification);
+
       let updatePromise = updateUser(values);
 
       toast.promise(updatePromise, {
@@ -51,6 +57,7 @@ export default function Profile() {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
   }
+
   const onUploadCert = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
     setcert(base64);
@@ -102,8 +109,9 @@ export default function Profile() {
 
                 <div className="flex w-3/4 gap-10">
                   <h3>Become a chef and post your recipes</h3>
-                  <label for="file" style={{border:'1px solid black'}}>Choose file</label>
-                  <input {...formik.getFieldProps('certification')} value = {apiData?.certification}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
+                  <label for="file" style={{border:'2px solid indigo',padding: '4px',
+                borderRadius: '5px'}}>Choose file</label>
+                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
                 </div>
 
                
