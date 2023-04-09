@@ -15,6 +15,7 @@ export default function Profile() {
 
   const [file, setFile] = useState();
   const [cert, setcert] = useState();
+  const [certName, setName] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
  
@@ -26,7 +27,8 @@ export default function Profile() {
       mobile: apiData?.mobile || '',
       address : apiData?.address || '',
       certification: apiData?.certification || '',
-      role : apiData?.roles || ''
+      role : apiData?.roles || '',
+      certificationName : apiData?.certificationName || ''
     },
     enableReinitialize: true,
     validate : profileValidation,
@@ -37,9 +39,14 @@ export default function Profile() {
 
       if (cert != null) {
         values.certification = cert;
+
+        // Set role to chef directly without validation of uploaded file
         values.role ="Chef";
+
+        values.certificationName = certName;
       }
-      // console.log(values.certification);
+      console.log(values.certification);
+      // console.log(values.certificationName);
 
       let updatePromise = updateUser(values);
 
@@ -60,6 +67,7 @@ export default function Profile() {
 
   const onUploadCert = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
+    setName(e.target.files[0].name);
     setcert(base64);
   }
 
@@ -109,8 +117,8 @@ export default function Profile() {
 
                 <div className="flex w-3/4 gap-10">
                   <h3>Become a chef and post your recipes</h3>
-                  <label for="file" style={{border:'2px solid indigo',padding: '4px',
-                borderRadius: '5px'}}>Choose file</label>
+                  <label for="certName" className={`${styles.label} ${extend.label}`}>{apiData?.certificationName}</label>
+                  <label for="file" className={`${styles.btnsmall} ${extend.btnsmall}`}>Choose file</label>
                   <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
                 </div>
 

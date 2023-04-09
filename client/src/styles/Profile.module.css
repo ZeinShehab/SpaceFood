@@ -9,3 +9,17 @@
 .textbox{
     @apply w-3/4;
 }
+
+.label{
+    padding-top: 20px;
+    font-size: small;
+    color: indigo;
+}
+
+.btnsmall{
+    @apply border bg-indigo-500 w-1/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+}
+
+.btnsmall:hover{
+    background-color: #ff6a6a;
+}
