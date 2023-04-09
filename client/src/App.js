@@ -13,7 +13,6 @@ import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
 
 
-
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
 
@@ -50,7 +49,7 @@ const router = createBrowserRouter([
     },
     {
         path : '/Homepage',
-        element : <Homepage></Homepage>
+        element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
     }
 ])
 
