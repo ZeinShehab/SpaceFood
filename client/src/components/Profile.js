@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import avatar from '../assets/profile.png';
+import logout from '../assets/power.png';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { profileValidation } from '../helper/validate';
@@ -85,7 +86,11 @@ export default function Profile() {
   // logout handler function
   function userLogout(){
     localStorage.removeItem('token');
-    navigate('/')
+    navigate('/');
+  }
+
+  function goBack(){
+    navigate('/Homepage');
   }
 
   if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
@@ -100,7 +105,12 @@ export default function Profile() {
         <div className={`${styles.glass} ${extend.glass}`} style={{ width: "45%", paddingTop: '3em'}}>
 
           <div className="title flex flex-col items-center">
-            <h4 className='text-5xl font-bold'>Profile</h4>
+            <div className="flex gap-40">
+              <button onClick={goBack} className='text-red-500 text-7xl' to="/Homepage">←</button>
+              <h4 className='text-5xl font-bold pt-5'>Profile</h4>
+              <button onClick={userLogout} className='text-red-500 text-2xl pt-3' to="/">Logout</button>
+              {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
+            </div>
             <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
                 You can update the details.
             </span>
@@ -143,12 +153,10 @@ export default function Profile() {
                   <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
                 </div>
                   
-                <button className={styles.btn} type='submit'>Update</button>
+                <button className={styles.btn} type='submit'>Save Changes</button>
               </div>
 
-              {/* <div className="text-center py-4">
-                <span className='text-gray-500'>come back later? <button onClick={userLogout} className='text-red-500' to="/">Logout</button></span>
-              </div> */}
+              
 
           </form>
 
