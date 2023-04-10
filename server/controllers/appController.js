@@ -285,28 +285,28 @@ body: {
 */
 export async function createPost(req,res){
     try{
+        const {username} = req.params
+        
         const {title, photo} = req.body
         if(!title || !photo){
             return res.status(422).send("Please enter all fields")
         }
-        const userId = req.query.id
-        let exist = await UserModel.findOne({ _id: userId });
+        let exist = await UserModel.findOne({ username});
         if(!exist) return res.status(404).send({ error : "Can't find User!"});
-        console.log(exist)
         if(exist.role !="Chef"){
             return res.status(401).send({error: "You must be a chef before posting"})
         }
         const post = new PostModel({
             title,
             photo,
-            owner: userId
+            owner: exist
         })
         post.save()
         .then(result => res.status(201).send({ msg: "Post created Successfully"}))
         .catch(error => res.status(500).send({error}))
 
     }catch(error){
-        return res.status(401).send({ error });
+        return res.status(401).send({ error: "Couldn't create Post, try again later." });
     }
 
 }
@@ -316,13 +316,13 @@ export async function createPost(req,res){
 }
 */
 export async function getPosts(req,res){
-    const userId = req.query.id
-    let exist = await UserModel.findOne({ _id: userId });
+    const {username} = req.params
+    let exist = await UserModel.findOne({ username });
     if(!exist) return res.status(404).send({ error : "Can't find User!"});
     if(exist.role !="Chef"){
         return res.status(401).send({error: "You must be a chef in order to post and view your posts"})
     }
-    PostModel.find({owner: req.query.id}).then(mypost =>{
+    PostModel.find({owner: exist}).then(mypost =>{
         res.json({mypost})
     }).catch(error=> {console.log(error)})
 }

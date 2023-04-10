@@ -27,9 +27,9 @@ router.route('/resetPassword').put(controller.verifyUser, controller.resetPasswo
 
 /* PostModel */
 /* POST Methods */
-router.route('/createPost').post(Auth,controller.createPost)
+router.route('/user/:username/createPost').post(Auth,controller.createPost)
 
 /* GET Methods */
-router.route('/getPosts').get(Auth,controller.getPosts)
+router.route('/user/:username/getPosts').get(Auth,controller.getPosts)
 
 export default router;
