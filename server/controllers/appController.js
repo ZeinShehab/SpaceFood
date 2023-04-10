@@ -1,4 +1,5 @@
 import UserModel from '../model/User.model.js'
+import PostModel from '../model/Post.model.js'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import ENV from '../config.js'
@@ -273,5 +274,54 @@ export async function resetPassword(req,res){
         return res.status(401).send({ error })
     }
 }
+/** POST: http://localhost:8080/api/updateuser 
+ * @param: {
+  "id" : "value"
+}
+body: {
+    title: '',
+    photo : '',
+}
+*/
+export async function createPost(req,res){
+    try{
+        const {title, photo} = req.body
+        if(!title || !photo){
+            return res.status(422).send("Please enter all fields")
+        }
+        const userId = req.query.id
+        let exist = await UserModel.findOne({ _id: userId });
+        if(!exist) return res.status(404).send({ error : "Can't find User!"});
+        if(exist.role !="Chef"){
+            return res.status(401).send({error: "You must be a chef before posting"})
+        }
+        const post = new PostModel({
+            title,
+            photo,
+            owner: userId
+        })
+        post.save()
+        .then(result => res.status(201).send({ msg: "Post created Successfully"}))
+        .catch(error => res.status(500).send({error}))
 
+    }catch(error){
+        return res.status(401).send({ error });
+    }
 
+}
+/** POST: http://localhost:8080/api/updateuser 
+ * @param: {
+  "id" : "value"
+}
+*/
+export async function getPosts(req,res){
+    const userId = req.query.id
+    let exist = await UserModel.findOne({ _id: userId });
+    if(!exist) return res.status(404).send({ error : "Can't find User!"});
+    if(exist.role !="Chef"){
+        return res.status(401).send({error: "You must be a chef in order to post and view your posts"})
+    }
+    PostModel.find({owner: req.query.id}).then(mypost =>{
+        res.json({mypost})
+    }).catch(error=> {console.log(error)})
+}
