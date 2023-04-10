@@ -292,6 +292,7 @@ export async function createPost(req,res){
         const userId = req.query.id
         let exist = await UserModel.findOne({ _id: userId });
         if(!exist) return res.status(404).send({ error : "Can't find User!"});
+        console.log(exist)
         if(exist.role !="Chef"){
             return res.status(401).send({error: "You must be a chef before posting"})
         }

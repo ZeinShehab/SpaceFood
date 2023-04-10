@@ -4,12 +4,9 @@ import morgan from 'morgan';
 import connect from './database/conn.js';
 import router from './router/route.js';
 
-import postRoutes from './routes/posts.js';
-
 const app = express();
 
 /** middlewares */
-app.use('/posts', postRoutes);
 app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
