@@ -1,8 +1,12 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 
 /** import all components */
+import memories from './images/memories.png';
+import Posts from './components/Posts/Posts';
+import Form from './components/Form/Form';
+
 import Username from './components/Username';
 import Password from './components/Password';
 import Register from './components/Register';
