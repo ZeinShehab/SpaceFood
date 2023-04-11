@@ -34,4 +34,8 @@ router.route('/user/:username/getPosts').get(Auth,controller.getPosts)
 router.route('/chefs').get(controller.getChefs)
 router.route('/AllPosts').get(controller.getAllPosts)
 
+/* DELETE Methods */
+router.route('/user/:username/DeleteAllPosts').delete(Auth,controller.deleteAllPosts)
+router.route('/DeletePost/:Id').delete(controller.deletePost)
+
 export default router;

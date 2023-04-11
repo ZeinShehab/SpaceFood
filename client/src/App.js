@@ -13,7 +13,7 @@ import PageNotFound from './components/PageNotFound';
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
 import Post from './components/Post';
 import { AuthorizeUserAsChef } from './middleware/authChef';
-
+import PostList from './components/PostList';
 
 /** root routes */
 const router = createBrowserRouter([
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
     {
         path : '/Post',
         element: <AuthorizeUser><AuthorizeUserAsChef><Post></Post></AuthorizeUserAsChef></AuthorizeUser>
+    },
+    {
+        path: '/AllPosts',
+        element: <AuthorizeUser><PostList></PostList></AuthorizeUser>
     }
 ])
 
