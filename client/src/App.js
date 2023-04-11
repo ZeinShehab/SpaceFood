@@ -9,9 +9,10 @@ import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
 
-
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
+import Post from './components/Post';
+import { AuthorizeUserAsChef } from './middleware/authChef';
 
 
 /** root routes */
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     {
         path : '/Homepage',
         element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
+    },
+    {
+        path : '/Post',
+        element: <AuthorizeUser><AuthorizeUserAsChef><Post></Post></AuthorizeUserAsChef></AuthorizeUser>
     }
 ])
 
