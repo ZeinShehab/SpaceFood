@@ -16,6 +16,18 @@ export const PostSchema = new mongoose.Schema({
     },
     createdAt: { 
         type: Date, default: Date.now 
+    },
+    tags: {
+        type: [String]
+    },
+    description: {
+        type: String
+    },
+    rating: {
+        type: Number
+    },
+    ratings: {
+        type: [Number]
     }
 });
 
