@@ -1,3 +1,37 @@
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo a {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+	text-decoration: none;
+  }
+  
+  .nav-links {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+  }
+  
+  .nav-links li a {
+	color: #333;
+	text-decoration: none;
+	font-size: 1.2rem;
+	font-weight: bold;
+  }
+  
+  .nav-links li a:hover {
+	color: #ff8c00;
+  }
 .post-container {
   background-color: #fff;
   border-radius: 10px;

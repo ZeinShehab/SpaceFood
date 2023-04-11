@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
 import '../styles/Post.css';
 
 export default function Post(props) {
+  const navigate = useNavigate()
   const [rating, setRating] = useState(0);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
@@ -21,8 +23,26 @@ export default function Post(props) {
     setComments([...comments, commentInput]);
     setCommentInput("");
   }
+  function userLogout() {
+    localStorage.removeItem('token')
+    navigate('/')
+  }
 
   return (
+    <div>
+      <nav>
+        <div className="logo">
+          <Link to="/Homepage.js">SpaceFood</Link>
+        </div>
+        <ul className="nav-links">
+          <li>
+            <Link to="/Username.js" onClick={userLogout}>Logout</Link>
+          </li>
+          <li>
+            <Link to="/profile.js">Profile</Link>
+          </li>
+        </ul>
+      </nav>
     <div className="post-container">
       <h2 className="post-title">Delicious Pizza Recipe{props.title}</h2>
       <img className="post-image" src={props.mainImage} alt="Main Post Image" />
@@ -75,6 +95,7 @@ export default function Post(props) {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   );
 }
