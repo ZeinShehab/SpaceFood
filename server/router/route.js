@@ -31,5 +31,7 @@ router.route('/user/:username/createPost').post(Auth,controller.createPost)
 
 /* GET Methods */
 router.route('/user/:username/getPosts').get(Auth,controller.getPosts)
+router.route('/chefs').get(controller.getChefs)
+router.route('/AllPosts').get(controller.getAllPosts)
 
 export default router;

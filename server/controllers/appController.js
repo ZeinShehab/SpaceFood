@@ -326,3 +326,23 @@ export async function getPosts(req,res){
         res.json({mypost})
     }).catch(error=> {console.log(error)})
 }
+
+export async function getChefs(req,res){
+    try{
+        const users = await UserModel.find({ role: "Chef" }).exec();
+        if(!users){return res.status(404).send({ error : "No chefs found"});}
+        res.json(users)
+    }catch(err){
+        res.status(500).send({error : "Couldn't get all chefs"})
+    }
+}
+
+export async function getAllPosts(req,res){
+    try{
+        const posts = await PostModel.find()
+        if(!posts){res.status(404).send({error: "No posts found"})}
+        res.json(posts)
+    }catch(err){
+        res.status(500).send({error: "Couldn't get all posts"})
+    }
+}
