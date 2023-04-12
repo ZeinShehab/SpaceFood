@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllPosts } from '../helper/helper';
 import '../styles/PostList.css'
+import{Link} from 'react-router-dom'
 function PostList() {
     const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -15,13 +16,12 @@ function PostList() {
     }
     fetchData();
   }, []);
-  console.log(posts)
   return (
     <div className='post-list'>
       {posts? posts.map((post) => (
         <div className="post">
+          <img src={post.photo}/>
           <h2>{post.title}</h2>
-          <p>{post.body}</p>
           <p>posted by: {post.owner}</p>
           <p>Description: {post.description && post.description}</p>
         </div>

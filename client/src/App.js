@@ -52,11 +52,12 @@ const router = createBrowserRouter([
     {
         path : '/Post',
         element: <AuthorizeUser><AuthorizeUserAsChef><Post></Post></AuthorizeUserAsChef></AuthorizeUser>
-    },
-    {
-        path: '/AllPosts',
-        element: <AuthorizeUser><PostList></PostList></AuthorizeUser>
     }
+    // ,
+    // {
+    //     path: '/AllPosts',
+    //     element: <AuthorizeUser><PostList></PostList></AuthorizeUser>
+    // }
 ])
 
 export default function App() {
