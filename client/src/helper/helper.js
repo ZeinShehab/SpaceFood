@@ -108,3 +108,13 @@ export async function resetPassword({ username, password }){
         return Promise.reject({ error })
     }
 }
+
+export async function getAllPosts(){
+    try{
+        const posts = await axios.get('/api/AllPosts')
+        return Promise.resolve(posts)
+    
+    }catch(error){
+        return Promise.reject({error})
+    }
+}

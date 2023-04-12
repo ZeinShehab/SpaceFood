@@ -1,8 +1,5 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-
-/** import all components */
 import Username from './components/Username';
 import Password from './components/Password';
 import Register from './components/Register';
@@ -12,10 +9,11 @@ import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
 
-
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
-
+import Post from './components/Post';
+import { AuthorizeUserAsChef } from './middleware/authChef';
+import PostList from './components/PostList';
 
 /** root routes */
 const router = createBrowserRouter([
@@ -50,7 +48,16 @@ const router = createBrowserRouter([
     {
         path : '/Homepage',
         element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
+    },
+    {
+        path : '/Post',
+        element: <AuthorizeUser><AuthorizeUserAsChef><Post></Post></AuthorizeUserAsChef></AuthorizeUser>
     }
+    // ,
+    // {
+    //     path: '/AllPosts',
+    //     element: <AuthorizeUser><PostList></PostList></AuthorizeUser>
+    // }
 ])
 
 export default function App() {
