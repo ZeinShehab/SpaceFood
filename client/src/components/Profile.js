@@ -14,6 +14,9 @@ import extend from '../styles/Profile.module.css'
 export default function Profile() {
 
   const [file, setFile] = useState();
+  const [cert, setcert] = useState();
+  const [certName, setName] = useState();
+  const [removeCert, setRemove] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
  
@@ -23,7 +26,10 @@ export default function Profile() {
       lastName: apiData?.lastName || '',
       email: apiData?.email || '',
       mobile: apiData?.mobile || '',
-      address : apiData?.address || ''
+      address : apiData?.address || '',
+      certification: apiData?.certification || '',
+      role : apiData?.roles || '',
+      certificationName : apiData?.certificationName || ''
     },
     enableReinitialize: true,
     validate : profileValidation,
@@ -31,6 +37,20 @@ export default function Profile() {
     validateOnChange: false,
     onSubmit : async values => {
       values = await Object.assign(values, { profile : file || apiData?.profile || ''})
+
+      if (cert != null) {
+        values.certification = cert;
+        values.certificationName = certName;
+
+        // Set role to chef directly without validation of uploaded file
+        values.role ="Chef";
+      }
+      if (removeCert) {
+        values.certification = null;
+        values.certificationName = "";
+        values.role = "User";
+      }
+
       let updatePromise = updateUser(values);
 
       toast.promise(updatePromise, {
@@ -48,10 +68,28 @@ export default function Profile() {
     setFile(base64);
   }
 
+  const onUploadCert = async e => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setName(e.target.files[0].name);
+    setcert(base64);
+    setRemove(false);
+  }
+
+  const onRemoveCert = async e => {
+    e.preventDefault();
+    setName("");
+    setcert(null);
+    setRemove(true);
+  }
+
   // logout handler function
   function userLogout(){
     localStorage.removeItem('token');
-    navigate('/')
+    navigate('/');
+  }
+
+  function goBack(){
+    navigate('/Homepage');
   }
 
   if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
@@ -66,7 +104,12 @@ export default function Profile() {
         <div className={`${styles.glass} ${extend.glass}`} style={{ width: "45%", paddingTop: '3em'}}>
 
           <div className="title flex flex-col items-center">
-            <h4 className='text-5xl font-bold'>Profile</h4>
+            <div className="flex gap-40">
+              <button onClick={goBack} className='text-red-500 text-7xl' to="/Homepage">←</button>
+              <h4 className='text-5xl font-bold pt-5'>Profile</h4>
+              <button onClick={userLogout} className='text-red-500 text-2xl pt-3' to="/">Logout</button>
+              {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
+            </div>
             <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
                 You can update the details.
             </span>
@@ -91,17 +134,28 @@ export default function Profile() {
                   <input {...formik.getFieldProps('mobile')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Mobile No.' />
                   <input {...formik.getFieldProps('email')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Email*' />
                 </div>
-
                
                   <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address' />
-                  <button className={styles.btn} type='submit'>Update</button>
                
+                  <div className={`${styles.chefform} ${extend.chefform}`}>
                   
+                    <div className='flex gap-11'>
+                      <h3 className='label flex w-3/4'>Upload a certificate to become a chef and post recipes.</h3>
+                      <label for="certName" className={`${styles.label} ${extend.label}`}>{ removeCert ? certName : (apiData?.certificationName || certName)}</label>
+                    </div>
+                    
+                    <div className='flex gap-10'>
+                      <label for="file" className={`${styles.btnsmall} ${extend.btnsmall}`}>Upload</label>
+                      <button className={`${styles.btnremove} ${extend.btnremove}`} onClick={onRemoveCert}>Remove</button>
+                    </div>
+                  
+                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
+                </div>
+                  
+                <button className={styles.btn} type='submit'>Save Changes</button>
               </div>
 
-              <div className="text-center py-4">
-                <span className='text-gray-500'>come back later? <button onClick={userLogout} className='text-red-500' to="/">Logout</button></span>
-              </div>
+              
 
           </form>
 

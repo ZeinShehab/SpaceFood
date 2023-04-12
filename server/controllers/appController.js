@@ -1,4 +1,5 @@
 import UserModel from '../model/User.model.js'
+import PostModel from '../model/Post.model.js'
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import ENV from '../config.js'
@@ -273,5 +274,117 @@ export async function resetPassword(req,res){
         return res.status(401).send({ error })
     }
 }
+/** POST: http://localhost:8080/api/updateuser 
+ * @param: {
+  "id" : "value"
+}
+body: {
+    title: '',
+    photo : '',
+}
+*/
+export async function createPost(req,res){
+    try{
+        const {username} = req.params
+        
+        const {title, photo,tags,description} = req.body
+        if(!title || !photo){
+            return res.status(422).send("Please enter all fields")
+        }
+        let exist = await UserModel.findOne({ username});
+        if(!exist) return res.status(404).send({ error : "Can't find User!"});
+        if(exist.role !="Chef"){
+            return res.status(401).send({error: "You must be a chef before posting"})
+        }
+        const post = new PostModel({
+            title,
+            photo,
+            tags,
+            description,
+            owner: exist
+        })
+        post.save()
+        .then(result => res.status(201).send({ msg: "Post created Successfully"}))
+        .catch(error => res.status(500).send({error}))
 
+    }catch(error){
+        return res.status(401).send({ error: "Couldn't create Post, try again later." });
+    }
 
+}
+/** POST: http://localhost:8080/api/updateuser 
+ * @param: {
+  "id" : "value"
+}
+*/
+export async function getPosts(req,res){
+    try{
+        const {username} = req.params
+        let exist = await UserModel.findOne({ username });
+        if(!exist) return res.status(404).send({ error : "Can't find User!"});
+        if(exist.role !="Chef"){
+            return res.status(401).send({error: "You must be a chef in order to post and view your posts"})
+        }
+        PostModel.find({owner: exist}).then(async myposts =>{
+            const modifiedPosts = await Promise.all(myposts.map(async post => {
+                const owner = await UserModel.findById(post.owner);
+                return {...post.toObject(), owner: owner.username}
+            }));
+            res.json(modifiedPosts)
+        }).catch(error=>{console.log("error occured")})
+    }catch(error){
+        res.status(500).send({error:"Unable to get posts "})
+    }
+}
+
+export async function getChefs(req,res){
+    try{
+        const users = await UserModel.find({ role: "Chef" }).exec();
+        if(!users){return res.status(404).send({ error : "No chefs found"});}
+        res.json(users)
+    }catch(err){
+        res.status(500).send({error : "Couldn't get all chefs"})
+    }
+}
+
+export async function getAllPosts(req,res){
+    try{
+        const posts = await PostModel.find().populate({ path: 'owner', model: UserModel, select: 'username' })
+        if(!posts){res.status(404).send({error: "No posts found"})}
+        const modifiedPosts = posts.map(post => {
+            return {
+                ...post._doc,
+                owner: post.owner.username
+            }
+        })
+
+        res.json(modifiedPosts)
+    }catch(err){
+        res.status(500).send({error: "Couldn't get all posts"})
+    }
+}
+/* DELETES all posts for a user */
+export async function deleteAllPosts(req,res){
+    try{
+        const {username} = req.params
+        let exist = await UserModel.findOne({ username });
+        if(!exist) return res.status(404).send({ error : "Can't find User!"});
+        await PostModel.deleteMany({owner: exist})
+        res.status(200).send("All posts deleted successfully!")
+
+    }catch(error){
+        res.status(500).send({error: "Couldn't delete all posts"})
+    }
+}
+
+export async function deletePost(req,res){
+    try{
+        const PostId = req.params.Id
+        let exist = await PostModel.findById({_id: PostId})
+        if(!exist) return res.status(404).send({ error : "Can't find Post!"});
+        await PostModel.deleteOne({_id: PostId})
+        return res.status(200).send("Post Deleted Successfully !")
+    }catch(error){
+        res.status(500).send({error: "Couldn't delete this post"})
+    }
+}
