@@ -10,15 +10,15 @@ export default function Post(props) {
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
 
-  const handleRatingChange = (event) => {{/*Rating Callback */}
+  const handleRatingChange = (event) => {
     setRating(parseInt(event.target.value));
   }
 
   const handleLikeClick = () => {
-    setLikes(likes + 1);{/*Like count*/}
+    setLikes(likes + 1);
   }
 
-  const handleCommentSubmit = (event) => {{/*comment callback*/}
+  const handleCommentSubmit = (event) => {
     event.preventDefault();
     setComments([...comments, commentInput]);
     setCommentInput("");
@@ -45,10 +45,10 @@ export default function Post(props) {
       </nav>
     <div className="post-container">
       <h2 className="post-title">Delicious Pizza Recipe{props.title}</h2>
-      <img className="post-image" src={props.mainImage} alt="Main Post Image" />{/*Image Backend */}
-      <img src="https://via.placeholder.com/300x200" alt="Post Image" /> {/*place holder */}
-      <p className="post-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper. This is just a place holder{props.description}</p>{/*Description backend*/}
-      {/*Image Backend 
+      <img className="post-image" src={props.mainImage} alt="Main Post Image" />
+      <img src="https://via.placeholder.com/300x200" alt="Post Image" />
+      <p className="post-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper.{props.description}</p>
+
       <div className="other-images-container">
         <h3>Other Photos:</h3>
         <div className="other-images-slideshow">
@@ -57,23 +57,22 @@ export default function Post(props) {
           ))}
         </div>
       </div>
-          */}
 
       <div className="post-interactions">
         <div className="post-reactions">
-        <button className="like-btn" onClick={handleLikeClick}>{/*LIke count */}
+        <button className="like-btn" onClick={handleLikeClick}>
             <img src={require('../assets/burger.png')} alt="Burger Icon" />
         </button>
-          <p className="likes-count">{likes}</p>{/*Image Backend */}
+          <p className="likes-count">{likes}</p>
         </div>
-        <form onSubmit={handleCommentSubmit}>{/*Comments handler */}
+        <form onSubmit={handleCommentSubmit}>
           <input type="text" placeholder="Add a comment..." value={commentInput} onChange={(event) => setCommentInput(event.target.value)} className="comment-input" />
           <button type="submit" className="comment-submit-btn">Post</button>
         </form>
         <div className="rating">
-          <p>Rate this recipe:</p>{/*Rating sectoin */}
+          <p>Rate this recipe:</p>
           <div className="stars">
-            <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />{/*ratin callback */}
+            <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />
             <label htmlFor="star5">&#9733;</label>
             <input type="radio" id="star4" name="rating" value="4" onChange={handleRatingChange} />
             <label htmlFor="star4">&#9733;</label>
