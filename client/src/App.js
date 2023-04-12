@@ -8,6 +8,7 @@ import Recovery from './components/Recovery';
 import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
+import Post from './components/Post';
 
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
@@ -47,7 +48,12 @@ const router = createBrowserRouter([
     },
     {
         path : '/Homepage',
-        element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
+        element : <Homepage></Homepage>
+    },
+    {
+        path : '/post/:id',
+        element : <Post></Post>
+        //element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
     },
     {
         path : '/Post',

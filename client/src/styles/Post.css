@@ -1,3 +1,247 @@
+
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo a {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+	text-decoration: none;
+  }
+  
+  .nav-links {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+  }
+  
+  .nav-links li a {
+	color: #333;
+	text-decoration: none;
+	font-size: 1.2rem;
+	font-weight: bold;
+  }
+  
+  .nav-links li a:hover {
+	color: #ff8c00;
+  }
+.post-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto; /* Set margin to auto for centering and adjust top/bottom margin */
+  max-width: 90%; /* Set a max-width to limit container width */
+}
+
+  
+.post-image {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-image img {
+  margin: auto; /* Center the image horizontally */
+  max-width: 100%; /* Make sure the image doesn't overflow its container */
+}
+  
+  .post-title {
+    font-size: 350%;
+    font-weight: bold;
+    margin-left: 400px;
+  }
+  
+  .post-description {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  .other-images-container {
+    margin-bottom: 20px;
+  }
+  
+  .other-images-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .other-images-slideshow {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 20px;
+  }
+  
+  .other-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+    scroll-snap-align: center;
+  }
+  
+  .post-interactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .post-reactions {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .like-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .like-btn img {
+    width: 50px;
+    height: 40px;
+    
+    background-image: url("../assets/burger.png");
+  }
+  
+  .likes-count {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  .comment-input {
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+  }
+  
+  .comment-submit-btn {
+    background-color: #FF6347;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .comment-submit-btn:hover {
+    background-color: #FF5733;
+  }
+  
+  .rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating p {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .stars {
+    display:flex;
+    align-items: center;
+  }
+  
+  .stars input[type="radio"] {
+    display: none;
+  }
+  
+  .stars label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .stars label:hover,
+  .stars label:hover ~ label,
+  .stars input[type="radio"]:checked ~ label {
+    color: #FFD700;
+  }
+  
+  .rating-count {
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  
+  .comments-container {
+    margin-top: 20px;
+  }
+  
+  .comments-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+.comment {
+    font-size: 18px;
+    margin-bottom: 10px; 
+    margin: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-input {
+    width: 80%;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-submit-btn {
+    margin-top: 10px;
+    background-color: #ff6f69;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    
+    .comment-submit-btn:hover {
+    background-color: #d7385e;
+    }
+    
+=======
 .create-post-form {
     background-color: #f5f5f5;
     padding: 20px;
