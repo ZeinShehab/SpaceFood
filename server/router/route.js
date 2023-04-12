@@ -33,7 +33,7 @@ router.route('/user/:username/createPost').post(Auth,controller.createPost)
 router.route('/user/:username/getPosts').get(Auth,controller.getPosts)
 router.route('/chefs').get(controller.getChefs)
 router.route('/AllPosts').get(controller.getAllPosts)
-
+router.route('/Post/:Id').get(controller.viewPost)
 /* DELETE Methods */
 router.route('/user/:username/DeleteAllPosts').delete(Auth,controller.deleteAllPosts)
 router.route('/DeletePost/:Id').delete(controller.deletePost)

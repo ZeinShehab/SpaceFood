@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom';
 import Username from './components/Username';
 import Password from './components/Password';
 import Register from './components/Register';
@@ -12,10 +12,9 @@ import Post from './components/Post';
 
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
-import Post from './components/Post';
 import { AuthorizeUserAsChef } from './middleware/authChef';
 import PostList from './components/PostList';
-
+import CreatePost from './components/CreatePost';
 /** root routes */
 const router = createBrowserRouter([
     {
@@ -51,13 +50,13 @@ const router = createBrowserRouter([
         element : <Homepage></Homepage>
     },
     {
-        path : '/post/:id',
+        path : '/post/:params',
         element : <Post></Post>
         //element : <AuthorizeUser><Homepage></Homepage></AuthorizeUser>
     },
     {
         path : '/Post',
-        element: <AuthorizeUser><AuthorizeUserAsChef><Post></Post></AuthorizeUserAsChef></AuthorizeUser>
+        element: <AuthorizeUser><AuthorizeUserAsChef><CreatePost></CreatePost></AuthorizeUserAsChef></AuthorizeUser>
     }
     // ,
     // {
@@ -70,6 +69,7 @@ export default function App() {
   return (
     <main>
         <RouterProvider router={router}></RouterProvider>
+
     </main>
   )
 }

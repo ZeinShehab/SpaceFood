@@ -118,3 +118,13 @@ export async function getAllPosts(){
         return Promise.reject({error})
     }
 }
+
+export async function getPost(Id){
+    try{
+        const post = await axios.get(`/api/Post/${Id}`);
+        return Promise.resolve(post)
+    }
+    catch(error){
+        return Promise.reject({error})
+    }
+}

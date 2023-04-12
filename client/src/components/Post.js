@@ -1,14 +1,33 @@
 import React from 'react';
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate, useParams} from 'react-router-dom'
 import { useState } from 'react';
 import '../styles/Post.css';
-
+import { useEffect } from 'react'
+import axios from "axios";
+import '../styles/Post.css'
+import useFetch from '../hooks/fetch.hook'; 
+import convertToBase64 from "../helper/convert";
+import { getPost } from '../helper/helper';
 export default function Post(props) {
   const navigate = useNavigate()
   const [rating, setRating] = useState(0);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
+  const [postData, setPostData] = useState()
+  const {params} = useParams()
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const postData = await getPost(params);
+        setPostData(postData.data);
+        console.log(postData)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
 
   const handleRatingChange = (event) => {{/*Rating Callback */}
     setRating(parseInt(event.target.value));
@@ -27,12 +46,13 @@ export default function Post(props) {
     localStorage.removeItem('token')
     navigate('/')
   }
+  
 
   return (
     <div>
       <nav>
         <div className="logo">
-          <Link to="/Homepage.js">SpaceFood</Link>
+          <Link to="/Homepage">SpaceFood</Link>
         </div>
         <ul className="nav-links">
           <li>
@@ -44,10 +64,9 @@ export default function Post(props) {
         </ul>
       </nav>
     <div className="post-container">
-      <h2 className="post-title">Delicious Pizza Recipe{props.title}</h2>
-      <img className="post-image" src={props.mainImage} alt="Main Post Image" />{/*Image Backend */}
-      <img src="https://via.placeholder.com/300x200" alt="Post Image" /> {/*place holder */}
-      <p className="post-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper. This is just a place holder{props.description}</p>{/*Description backend*/}
+      <h2 className="post-title">{postData&& postData.title}</h2>
+      <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
+      <p className="post-description">{postData && postData.description}</p>{/*Description backend*/}
       {/*Image Backend 
       <div className="other-images-container">
         <h3>Other Photos:</h3>
@@ -66,12 +85,7 @@ export default function Post(props) {
         </button>
           <p className="likes-count">{likes}</p>{/*Image Backend */}
         </div>
-        <form onSubmit={handleCommentSubmit}>{/*Comments handler */}
-          <input type="text" placeholder="Add a comment..." value={commentInput} onChange={(event) => setCommentInput(event.target.value)} className="comment-input" />
-          <button type="submit" className="comment-submit-btn">Post</button>
-        </form>
         <div className="rating">
-          <p>Rate this recipe:</p>{/*Rating sectoin */}
           <div className="stars">
             <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />{/*ratin callback */}
             <label htmlFor="star5">&#9733;</label>
@@ -84,12 +98,15 @@ export default function Post(props) {
             <input type="radio" id="star1" name="rating" value="1" onChange={handleRatingChange} />
             <label htmlFor="star1">&#9733;</label>
           </div>
-          <p className="rating-count">{rating}/5</p>
         </div>
       </div>
 
       <div className="comments-container">
         <h3>Comments:</h3>
+        <form onSubmit={handleCommentSubmit}>{/*Comments handler */}
+          <input type="text" placeholder="Add a comment..." value={commentInput} onChange={(event) => setCommentInput(event.target.value)} className="comment-input" />
+          <button type="submit" className="comment-submit-btn">Post</button>
+        </form>
         <ul className="comments-list">
           {comments.map((comment, index) => (
             <li key={index} className="comment">{comment}</li>
@@ -100,71 +117,4 @@ export default function Post(props) {
     </div>
   );
 }
-=======
-import React, { useState } from "react";
-import axios from "axios";
-import '../styles/Post.css'
-import useFetch from '../hooks/fetch.hook'; 
-import convertToBase64 from "../helper/convert";
-export default function Post(){
-  const [title, setTitle] = useState("");
-  const [photo, setPhoto] = useState();
-  const [description,setDescription] = useState("")
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  
-  const [{ isLoading, apiData, serverError }] = useFetch();
-  const [file, setFile] = useState();
-  const username = apiData?.username;
-  const onUpload = async e => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setPhoto(base64);
-  }
-  const handleDescriptionChange = (e) => setDescription(e.target.value)
-
-  const handleSubmit = async (e) => {
-    
-    e.preventDefault();
-    try {
-        const user = await axios.get(`/api/user/${username}`)
-        const token = await localStorage.getItem('token');
-        // console.log(file, title)
-        await axios.post(`/api/user/${username}/createPost`, {
-            title,
-            photo,
-            owner: apiData
-        },{ headers : { "Authorization" : `Bearer ${token}`}});
-        setTitle("");
-        alert("Post created successfully!");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to create post");
-    }
-  };
-  return (
-    <form className="create-post-form" onSubmit={handleSubmit}>
-      <label>
-        Title:
-        <input type="text" value={title} onChange={handleTitleChange} />
-      </label>
-      <br />
-      
-        
-          {photo!=null? 
-        <label htmlFor="img">
-            <img src={photo} />
-            <input onChange={onUpload} type="file" id='img' name='img' />
-          </label>
-            : 
-          <label htmlFor="img">
-            Choose File
-          <input onChange={onUpload} type="file" id='img' name='img' />
-      </label>}
-      <br />
-      <label >Description: 
-        <input type="text" value={description} onChange={handleDescriptionChange}/>
-      </label>
-      <button type="submit">Create Post</button>
-    </form>
-  );
-};
 
