@@ -58,7 +58,10 @@ export default function Homepage(){
             <div className="post">
               <img src={post.photo} alt="Post Image" />
               <h3>{post.title}</h3>
-              <p>{post.description}</p>
+              <p>{
+                post.description.length >= 85 ? post.description.substring(0,80) + "..." :
+              post.description
+              }</p>
             </div>
           </Link>)):<h1>Loading</h1>}        
         </div>
