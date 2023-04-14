@@ -400,17 +400,16 @@ export async function viewPost(req,res){
     }
 }
 
-export async function updateUser(req,res){
+export async function updatePost(req,res){
     try {
         
         // const id = req.query.id;
-        const { postId } = req.params.Id;
-
+        const  postId  = req.params.Id;
         if(postId){
             const body = req.body;
-
+            
             // update the data
-            UserModel.updateOne({ _id : userId }, body, function(err, data){
+            PostModel.updateOne({ _id : postId }, body, function(err, data){
                 if(err) throw err;
 
                 return res.status(201).send({ msg : "Record Updated...!"});

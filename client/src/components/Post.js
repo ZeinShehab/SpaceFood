@@ -7,7 +7,7 @@ import axios from "axios";
 import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
-import { getPost } from '../helper/helper';
+import { getPost, updatePost } from '../helper/helper';
 export default function Post(props) {
   const navigate = useNavigate()
   const [rating, setRating] = useState(0);
@@ -21,7 +21,8 @@ export default function Post(props) {
       try {
         const postData = await getPost(params);
         setPostData(postData.data);
-        console.log(postData)
+        setComments(postData.data.comments)
+        setRating(postData.data.rating)
       } catch (error) {
         console.log(error);
       }
@@ -29,8 +30,15 @@ export default function Post(props) {
     fetchData();
   }, []);
 
-  const handleRatingChange = (event) => {{/*Rating Callback */}
+  const handleRatingChange = async (event) => {{/*Rating Callback */}
     setRating(parseInt(event.target.value));
+    try {
+      // const response = await axios.put(`/api/post/${params}/updatePost`, { rating }); this works as well
+      const response = updatePost(params,{rating})
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const handleLikeClick = () => {
@@ -40,6 +48,12 @@ export default function Post(props) {
   const handleCommentSubmit = (event) => {{/*comment callback*/}
     event.preventDefault();
     setComments([...comments, commentInput]);
+    try{
+      const response = updatePost(params,{...postData, comments: [...comments,commentInput]})
+      console.log(response ,"\n",postData.comments)
+    }catch(error){
+      console.log(error)
+    }
     setCommentInput("");
   }
   function userLogout() {
@@ -88,15 +102,15 @@ export default function Post(props) {
         </div>
         <div className="rating">
           <div className="stars">
-            <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />{/*ratin callback */}
+            <input type="radio" id="star5" name="rating" value="1" onChange={handleRatingChange} />{/*ratin callback */}
             <label htmlFor="star5">&#9733;</label>
-            <input type="radio" id="star4" name="rating" value="4" onChange={handleRatingChange} />
+            <input type="radio" id="star4" name="rating" value="2" onChange={handleRatingChange} />
             <label htmlFor="star4">&#9733;</label>
             <input type="radio" id="star3" name="rating" value="3" onChange={handleRatingChange} />
             <label htmlFor="star3">&#9733;</label>
-            <input type="radio" id="star2" name="rating" value="2" onChange={handleRatingChange} />
+            <input type="radio" id="star2" name="rating" value="4" onChange={handleRatingChange} />
             <label htmlFor="star2">&#9733;</label>
-            <input type="radio" id="star1" name="rating" value="1" onChange={handleRatingChange} />
+            <input type="radio" id="star1" name="rating" value="5" onChange={handleRatingChange} />
             <label htmlFor="star1">&#9733;</label>
           </div>
         </div>

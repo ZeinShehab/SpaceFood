@@ -128,3 +128,12 @@ export async function getPost(Id){
         return Promise.reject({error})
     }
 }
+
+export async function updatePost(id,body){
+    try{
+        const post =  await axios.put(`/api/Post/${id}/updatePost`, body);
+        return Promise.resolve(post)
+    }catch(error){
+        return Promise.reject({error})
+    }
+}
