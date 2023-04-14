@@ -70,10 +70,10 @@ export default function Post(props) {
         </div>
         <ul className="nav-links">
           <li>
-            <Link to="/Username.js" onClick={userLogout}>Logout</Link>
+            <Link to="/Username" onClick={userLogout}>Logout</Link>
           </li>
           <li>
-            <Link to="/profile.js">Profile</Link>
+            <Link to="/profile">Profile</Link>
           </li>
         </ul>
       </nav>
