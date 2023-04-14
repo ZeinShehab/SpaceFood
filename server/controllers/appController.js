@@ -391,10 +391,12 @@ export async function deletePost(req,res){
 export async function viewPost(req,res){
     try{
         const PostId = req.params.Id
-        let Post = await PostModel.findById({_id:PostId})
+        let Post = await PostModel.findById(PostId).populate('owner', 'username')
         if(!Post) {return res.status(404).send({error: "Post not found"})}
+        Post.owner = Post.owner.username;
         return res.json(Post)
     }catch(error){
         res.status(500).send({error: "Couldn't view this post"})
     }
 }
+//this sends the post to the front with owner being the id and the username. we can modify this later 

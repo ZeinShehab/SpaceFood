@@ -65,6 +65,7 @@ export default function Post(props) {
       </nav>
     <div className="post-container">
       <h2 className="post-title">{postData&& postData.title}</h2>
+      <h3>Posted by: {postData && postData.owner.username}</h3>
       <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
       <p className="post-description">{postData && postData.description}</p>{/*Description backend*/}
       {/*Image Backend 
