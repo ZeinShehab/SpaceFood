@@ -399,4 +399,29 @@ export async function viewPost(req,res){
         res.status(500).send({error: "Couldn't view this post"})
     }
 }
+
+export async function updateUser(req,res){
+    try {
+        
+        // const id = req.query.id;
+        const { postId } = req.params.Id;
+
+        if(postId){
+            const body = req.body;
+
+            // update the data
+            UserModel.updateOne({ _id : userId }, body, function(err, data){
+                if(err) throw err;
+
+                return res.status(201).send({ msg : "Record Updated...!"});
+            })
+
+        }else{
+            return res.status(401).send({ error : "Post Not Found...!"});
+        }
+
+    } catch (error) {
+        return res.status(401).send({ error });
+    }
+}
 //this sends the post to the front with owner being the id and the username. we can modify this later 

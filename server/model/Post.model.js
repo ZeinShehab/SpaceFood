@@ -28,6 +28,9 @@ export const PostSchema = new mongoose.Schema({
     },
     ratings: {
         type: [Number]
+    },
+    comments: {
+        type: [String]
     }
 });
 
