@@ -119,5 +119,10 @@ nav {
 	color: #0a0a0a; /* orange color, can be adjusted as needed */
 	font-family: 'Poppins', sans-serif; /* or any other font that you prefer */
   }
+  .search-bar {
+	display: flex;
+    justify-content: center;
+	
+  }
   /* new changes */
   
