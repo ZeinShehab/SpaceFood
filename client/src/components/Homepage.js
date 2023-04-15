@@ -36,11 +36,11 @@ export default function Homepage() {
   // }
   return (
     <div>
-      <nav>
+      <nav className='homepage-header'>
         <div className="logo">
           <Link to="/Homepage">SpaceFood</Link>
         </div>
-        <ul className="nav-links">
+        <div className="nav-links">
           <li>
             <Link to="/" onClick={userLogout}>Logout</Link>
           </li>
@@ -50,16 +50,16 @@ export default function Homepage() {
           <li>
             <Link to="/Post" >Post a recipe</Link>
           </li>
-        </ul>
+        </div>
       </nav>
 
-      <section className="recent-posts">
+      <div className="recent-posts">
         <div className="post-section">
-          <h2 className="TempHeader">Recent Posts</h2>
+          <div className="TempHeader">Recent Posts</div>
         </div>
-        <div className='search-bar'>
+        {/* <div className='search-bar'>
           <div className='text-muted'>
-            {/* Filters <span className='fad fa-sliders-h'> </span> */}
+            Filters <span className='fad fa-sliders-h'> </span>
           </div>
           <nav className='navbar navbar-expand-lg navbar-light bg-light border-top p-3'>
             <form className="form-inline my-2 my-lg-0">
@@ -70,22 +70,22 @@ export default function Homepage() {
           <div>
 
           </div>
-        </div>
+        </div> */}
         <div className="post-grid">
           {posts ? posts.map((post) => (
             // {const url = `/Post/${post.Id}`};
-            <Link to={`/post/${post._id}`} state={post._id}>
+            <Link className='card-link' to={`/post/${post._id}`} state={post._id}>
               <div className="post">
+                <div className='card-title'>{post.title}</div>
                 <img src={post.photo} alt="Post Image" />
-                <h3>{post.title}</h3>
-                <p>{
+                <div className='card-description'>{
                   post.description.length >= 85 ? post.description.substring(0, 80) + "..." :
                     post.description
-                }</p>
+                }</div>
               </div>
             </Link>)) : <h1>Loading</h1>}
         </div>
-      </section>
+      </div>
     </div>
   )
 }

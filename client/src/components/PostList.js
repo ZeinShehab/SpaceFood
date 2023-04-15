@@ -22,8 +22,8 @@ function PostList() {
         <div className="post">
           <img src={post.photo}/>
           <h2>{post.title}</h2>
-          <p>posted by: {post.owner}</p>
-          <p>Description: {post.description && post.description}</p>
+          <div>posted by: {post.owner}</div>
+          <div>Description: {post.description && post.description}</div>
         </div>
       )):<h1>Loading Posts</h1>}
     </div>

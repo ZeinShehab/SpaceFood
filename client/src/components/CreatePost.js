@@ -23,7 +23,7 @@ export default function CreatePost(){
     const onTagAdd = async (e) => {
         setTags(tags => [...tags, e.target.value[0]]);
     }
-
+debugger
     const handleSubmit = async (e) => {  
       e.preventDefault();
       try {
