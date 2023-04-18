@@ -129,7 +129,7 @@ export default function Post(props) {
         </form>
         <ul className="comments-list">
           {comments.map((comment, index) => (
-            <li key={index} className="comment">{comment.postedBy.username+": "+comment.text}</li>
+            <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}</li>
           ))}
         </ul>
       </div>

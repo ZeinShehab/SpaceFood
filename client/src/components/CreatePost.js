@@ -4,11 +4,11 @@ import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
 import { Link, useNavigate} from 'react-router-dom'
+import {RxCross2} from 'react-icons/rx'
 export default function CreatePost(){
     const [title, setTitle] = useState("");
     const [photo, setPhoto] = useState();
     const [description,setDescription] = useState("")
-    const [tags, setTags] = useState([]);
     const handleTitleChange = (e) => setTitle(e.target.value);
     
     const [{ isLoading, apiData, serverError }] = useFetch();
@@ -20,9 +20,7 @@ export default function CreatePost(){
     
     const handleDescriptionChange = (e) => setDescription(e.target.value)
 
-    const onTagAdd = async (e) => {
-        setTags(tags => [...tags, e.target.value[0]]);
-    }
+
 
     const handleSubmit = async (e) => {  
       e.preventDefault();
@@ -105,17 +103,6 @@ export default function CreatePost(){
         
         {/* <p className="post-description" onChange={handleDescriptionChange}>{description}</p> */}
         <textarea className="create-post-description" onChange={handleDescriptionChange} placeholder="Enter Description" type="textarea"/>
-      </div>
-      <div className="gap4">
-            {tags? tags.map((tag)=>(
-            // {const url = `/Post/${post.Id}`};
-            <div className="tag">
-              {/* <img src={posts.photo} alt="Post Image" /> */}
-              <h3>{tag}</h3>
-              {/* <p>{post.description}</p> */}
-            </div>
-          )) :
-          <input placeholder="Enter tag" onChange={onTagAdd}/>}  
       </div>
 
     <button className="submit-post" type="submit">Create Post</button>
