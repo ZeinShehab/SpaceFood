@@ -29,9 +29,11 @@ export const PostSchema = new mongoose.Schema({
     ratings: {
         type: [Number]
     },
-    comments: {
-        type: [String]
-    }
+    comments: [{
+        text: String,
+        created: {type: Date, default: Date.now},
+        postedBy: {type: mongoose.Schema.Types.ObjectId, ref:"User"}
+    }]
 });
 
 export default mongoose.model.Post || mongoose.model('Post', PostSchema);

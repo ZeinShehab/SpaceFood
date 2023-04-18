@@ -390,15 +390,18 @@ export async function deletePost(req,res){
 }
 export async function viewPost(req,res){
     try{
-        const PostId = req.params.Id
-        let Post = await PostModel.findById(PostId).populate('owner', 'username')
-        if(!Post) {return res.status(404).send({error: "Post not found"})}
-        Post.owner = Post.owner.username;
-        return res.json(Post)
+        const postId = req.params.Id;
+        let post = await PostModel.findById(postId).populate({
+            path: 'comments.postedBy',
+            select: '_id username'
+        }).populate('owner', 'username');
+        if(!post) {return res.status(404).send({error: "Post not found"})}
+        return res.json(post)
     }catch(error){
         res.status(500).send({error: "Couldn't view this post"})
     }
 }
+
 
 export async function updatePost(req,res){
     try {
@@ -423,4 +426,28 @@ export async function updatePost(req,res){
         return res.status(401).send({ error });
     }
 }
+
+export async function addComment(req, res) {
+    let comment = req.body.comments;
+    const user = await UserModel.findById(req.body.comments.user);
+    comment.postedBy = user;
+  
+    const updatedPost = await PostModel.findByIdAndUpdate(
+      req.params.Id,
+      { $push: { comments: comment } },
+      { new: true }
+    )
+      .populate("comments.postedBy", "_id name")
+      .populate({
+        path: "comments.postedBy",
+        select: "_id username",
+        options: { strictPopulate: false } // add the strictPopulate option to override the error
+      })
+      .exec();
+  
+    updatedPost.postedBy = user; // add the user who posted the comment to the post
+  
+    res.json(updatedPost);
+  }
+  
 //this sends the post to the front with owner being the id and the username. we can modify this later 

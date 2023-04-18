@@ -15,6 +15,7 @@ export default function Post(props) {
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
   const [postData, setPostData] = useState()
+  const[{apiData}] = useFetch()
   const {params} = useParams()
   useEffect(() => {
     async function fetchData() {
@@ -45,16 +46,20 @@ export default function Post(props) {
     setLikes(likes + 1);{/*Like count*/}
   }
 
-  const handleCommentSubmit = (event) => {{/*comment callback*/}
+  const handleCommentSubmit = async (event) => {{/*comment callback*/}
     event.preventDefault();
-    setComments([...comments, commentInput]);
+    
     try{
-      const response = updatePost(params,{...postData, comments: [...comments,commentInput]})
-      console.log(response ,"\n",postData.comments)
+      const id = await apiData?._id
+      const username = await apiData?.username
+      const newComment = { text: commentInput, postedBy: { username: username} }
+      const updatedComments = [...comments, newComment]
+      const response = await updatePost(params,{...postData, comments: [...comments,{text:commentInput,postedBy:id}]})
+      setComments(updatedComments)
+      setCommentInput("")
     }catch(error){
       console.log(error)
     }
-    setCommentInput("");
   }
   function userLogout() {
     localStorage.removeItem('token')
@@ -124,7 +129,7 @@ export default function Post(props) {
         </form>
         <ul className="comments-list">
           {comments.map((comment, index) => (
-            <li key={index} className="comment">{comment}</li>
+            <li key={index} className="comment">{comment.postedBy.username+": "+comment.text}</li>
           ))}
         </ul>
       </div>

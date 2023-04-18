@@ -37,6 +37,8 @@ router.route('/Post/:Id').get(controller.viewPost)
 /* DELETE Methods */
 router.route('/user/:username/DeleteAllPosts').delete(Auth,controller.deleteAllPosts)
 router.route('/DeletePost/:Id').delete(controller.deletePost)
-router.route('/Post/:Id/updatePost').put(controller.updatePost)
 
+/* PUT Methods */
+router.route('/Post/:Id/updatePost').put(controller.updatePost)
+router.route('/Post/:Id/addComment').put(controller.addComment)
 export default router;
