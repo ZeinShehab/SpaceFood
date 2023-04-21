@@ -428,10 +428,10 @@ export async function updatePost(req,res){
 }
 
 export async function addComment(req, res) {
-    let comment = req.body.comments;
-    const user = await UserModel.findById(req.body.comments.user);
-    comment.postedBy = user;
-  
+    const user = await UserModel.findById(req.body.postedBy);
+    console.log(user.username)
+    let comment = req.body
+    console.log(comment, req.params.Id)
     const updatedPost = await PostModel.findByIdAndUpdate(
       req.params.Id,
       { $push: { comments: comment } },
@@ -445,9 +445,31 @@ export async function addComment(req, res) {
       })
       .exec();
   
-    updatedPost.postedBy = user; // add the user who posted the comment to the post
-  
     res.json(updatedPost);
   }
   
 //this sends the post to the front with owner being the id and the username. we can modify this later 
+
+export async function addBookmark(req, res){
+    try{
+        const {username} = req.params
+        const postId = req.body.post
+        const post = await PostModel.findById(postId)
+        const user = await UserModel.findOneAndUpdate({ username: username }, { $push: { bookmarkedPosts: post } }, { new: true });
+        return res.status(201).send("Bookmark added!")
+    }catch(error){
+        res.status(500).send({error})
+    }
+    
+}
+
+export async function removeBookmark(req,res){
+    try{
+        const {username} = req.params
+        const postId = req.body.post
+        const user = await UserModel.findOneAndUpdate({ username: username }, { $pull: { bookmarkedPosts: postId } }, { new: true });
+        return res.status(201).send("Bookmark removed!")
+    }catch(error){
+        res.status(500).send({error})
+    }
+}

@@ -7,16 +7,18 @@ import axios from "axios";
 import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
-import { getPost, updatePost } from '../helper/helper';
-export default function Post(props) {
+import { addBookmark, getPost, updatePost, removeBookmark, addComment} from '../helper/helper';
+import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
+export default function Post() {
   const navigate = useNavigate()
   const [rating, setRating] = useState(0);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
   const [commentInput, setCommentInput] = useState("");
   const [postData, setPostData] = useState()
-  const[{apiData}] = useFetch()
+  const[{isLoading, apiData, serverError}] = useFetch()
   const {params} = useParams()
+  const [bookmarked, setBookmarked]= useState()
   useEffect(() => {
     async function fetchData() {
       try {
@@ -24,12 +26,14 @@ export default function Post(props) {
         setPostData(postData.data);
         setComments(postData.data.comments)
         setRating(postData.data.rating)
+        setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
+        
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
-  }, []);
+  }, [apiData]);
 
   const handleRatingChange = async (event) => {{/*Rating Callback */}
     setRating(parseInt(event.target.value));
@@ -54,7 +58,9 @@ export default function Post(props) {
       const username = await apiData?.username
       const newComment = { text: commentInput, postedBy: { username: username} }
       const updatedComments = [...comments, newComment]
-      const response = await updatePost(params,{...postData, comments: [...comments,{text:commentInput,postedBy:id}]})
+      // const response = await updatePost(params,{...postData, comments: [...comments,{text:commentInput,postedBy:id}]})
+      const body = {text:commentInput,postedBy:id}
+      const response = await addComment(postData._id,body)
       setComments(updatedComments)
       setCommentInput("")
     }catch(error){
@@ -65,7 +71,33 @@ export default function Post(props) {
     localStorage.removeItem('token')
     navigate('/')
   }
-  
+  async function handleBookmarks(){
+    const username = apiData?.username
+    const postId = postData._id
+    if(bookmarked){  
+      try{
+        const response = await removeBookmark(username,postId)
+        if(response){
+          setBookmarked(false)
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    else{
+      try{
+        const response = await addBookmark(username,postId)
+        if(response){
+          setBookmarked(true)
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+  }
+  if( isLoading){
+    return <h1>Loading...</h1>
+  }
 
   return (
     <div>
@@ -83,6 +115,8 @@ export default function Post(props) {
         </ul>
       </nav>
     <div className="post-container">
+      {bookmarked? <BsBookmarksFill className='bookmark' onClick={handleBookmarks}/>:<BsBookmarks className='bookmark' onClick={handleBookmarks}/>}
+      {/* {bookmarked ==true ? <BsBookmarksFill className='bookmark' onClick={handleBookmarks}/> : <BsBookmarks className='bookmark' onClick={handleBookmarks}/>} */}
       <h2 className="post-title">{postData&& postData.title}</h2>
       <h3>Posted by: {postData && postData.owner.username}</h3>
       <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
@@ -128,7 +162,7 @@ export default function Post(props) {
           <button type="submit" className="comment-submit-btn">Post</button>
         </form>
         <ul className="comments-list">
-          {comments.map((comment, index) => (
+          {comments&&comments.map((comment, index) => (
             <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}</li>
           ))}
         </ul>

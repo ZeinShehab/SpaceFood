@@ -41,4 +41,6 @@ router.route('/DeletePost/:Id').delete(controller.deletePost)
 /* PUT Methods */
 router.route('/Post/:Id/updatePost').put(controller.updatePost)
 router.route('/Post/:Id/addComment').put(controller.addComment)
+router.route('/user/:username/Bookmark').put(controller.addBookmark)
+router.route('/user/:username/removeBookmark').put(controller.removeBookmark)
 export default router;

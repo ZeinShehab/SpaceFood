@@ -153,4 +153,34 @@ export async function createPost(username, title, photo, description, tags, apiD
         throw error
     }
   };
+  export async function addBookmark(username,postId){
+    try{
+
+        const response = await axios.put(`/api/user/${username}/Bookmark`,{post: postId})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+
+  export async function removeBookmark(username,postId){
+    try{
+
+        const response = await axios.put(`/api/user/${username}/removeBookmark`,{post: postId})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+
+  export async function addComment(id,body){
+    try{
+        console.log(body)
+        const response = await axios.put(`/api/Post/${id}/addComment`,body)
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+  
   
