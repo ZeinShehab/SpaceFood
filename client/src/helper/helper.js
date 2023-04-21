@@ -137,3 +137,20 @@ export async function updatePost(id,body){
         return Promise.reject({error})
     }
 }
+
+export async function createPost(username, title, photo, description, tags, apiData, token) {
+
+    try{
+        const response = await axios.post(`/api/user/${username}/createPost`, {
+            title,
+            photo,
+            description,
+            tags,
+            owner: apiData
+          }, { headers : { "Authorization" : `Bearer ${token}`}});
+          return response
+    }catch(error){
+        throw error
+    }
+  };
+  
