@@ -4,13 +4,15 @@ import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
 import { Link, useNavigate} from 'react-router-dom'
+import { toast, Toaster } from "react-hot-toast";
+import {createPost} from '../helper/helper'
+import {RxCross2} from 'react-icons/rx'
 export default function CreatePost(){
     const [title, setTitle] = useState("");
     const [photo, setPhoto] = useState();
     const [description,setDescription] = useState("")
-    const [tags, setTags] = useState([]);
     const handleTitleChange = (e) => setTitle(e.target.value);
-    
+    const [tags, setTags] = useState([]);
     const [{ isLoading, apiData, serverError }] = useFetch();
     const username = apiData?.username;
     const onUpload = async e => {
@@ -20,24 +22,28 @@ export default function CreatePost(){
     
     const handleDescriptionChange = (e) => setDescription(e.target.value)
 
-    const onTagAdd = async (e) => {
-        setTags(tags => [...tags, e.target.value[0]]);
-    }
+
 
     const handleSubmit = async (e) => {  
       e.preventDefault();
       try {
           const user = await axios.get(`/api/user/${username}`)
           const token = await localStorage.getItem('token');
-          // console.log(file, title)
-          await axios.post(`/api/user/${username}/createPost`, {
-              title,
-              photo,
-              description,
-              owner: apiData
-          },{ headers : { "Authorization" : `Bearer ${token}`}});
-          alert("Post created successfully!");
-          navigate('/Homepage')
+          // const response = await axios.post(`/api/user/${username}/createPost`, {
+          //     title,
+          //     photo,
+          //     description,
+          //     tags,
+          //     owner: apiData
+          // },{ headers : { "Authorization" : `Bearer ${token}`}});
+          // alert("Post created successfully!");
+          const promise = createPost(username, title, photo, description, tags, apiData, token);
+          toast.promise(promise, {
+            loading: 'Creating...',
+            success: () => <b>Post Created Successfully</b>,
+            error: <b>We're sorry something went wrong, try again later!</b>,
+          }).then(()=>{navigate('/Homepage')});
+          
       } catch (error) {
         console.error(error);
         alert("Failed to create post");
@@ -49,30 +55,6 @@ export default function CreatePost(){
       navigate('/')
     }
     return (
-    //   <form className="create-post-form" onSubmit={handleSubmit}>
-    //     <label>
-    //       Title:
-    //       <input type="text" value={title} onChange={handleTitleChange} />
-    //     </label>
-    //     <br />
-        
-          
-    //         {photo!=null? 
-    //       <label htmlFor="img">
-    //           <img src={photo} />
-    //           <input onChange={onUpload} type="file" id='img' name='img' />
-    //         </label>
-    //           : 
-    //         <label htmlFor="img">
-    //           Choose File
-    //         <input onChange={onUpload} type="file" id='img' name='img' />
-    //     </label>}
-    //     <br />
-    //     <label >Description: 
-    //       <input type="text" value={description} onChange={handleDescriptionChange}/>
-    //     </label>
-    //     <button type="submit">Create Post</button>
-    //   </form>
     <div>
       <nav>
         <div className="logo">
@@ -88,6 +70,7 @@ export default function CreatePost(){
         </ul>
       </nav>
     <form className="post-container" onSubmit={handleSubmit}>
+    <Toaster position='top-center' reverseOrder={false}></Toaster>
       {/* <h2 className="post-title" onChange={handleTitleChange}>{title}</h2> */}
       <label htmlFor="title">
         <input className="create-post-title" id="title" onChange={handleTitleChange} value={title} placeholder="Enter Title"/>
@@ -106,20 +89,37 @@ export default function CreatePost(){
         {/* <p className="post-description" onChange={handleDescriptionChange}>{description}</p> */}
         <textarea className="create-post-description" onChange={handleDescriptionChange} placeholder="Enter Description" type="textarea"/>
       </div>
-      <div className="gap4">
-            {tags? tags.map((tag)=>(
-            // {const url = `/Post/${post.Id}`};
-            <div className="tag">
-              {/* <img src={posts.photo} alt="Post Image" /> */}
-              <h3>{tag}</h3>
-              {/* <p>{post.description}</p> */}
-            </div>
-          )) :
-          <input placeholder="Enter tag" onChange={onTagAdd}/>}  
-      </div>
+      <input
+            className="create-post-tags"
+            placeholder="Enter tags (press Enter to add)"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                const newTag = e.target.value.trim();
+                if (newTag) {
+                  setTags([...tags, newTag]);
+                  e.target.value = "";
+                }
+              }
+            }}
+          />
+
+          <div className="create-post-tags-container">
+  {tags.map((tag, index) => (
+    <div key={index} className="create-post-tag">
+      {tag}
+      <RxCross2
+        onClick={() => {
+          setTags(tags.filter((t) => t !== tag));
+        }}
+      />
+    </div>
+  ))}
+</div>
 
     <button className="submit-post" type="submit">Create Post</button>
     </form>
+    
     </div>
       
     );

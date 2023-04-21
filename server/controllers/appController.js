@@ -390,15 +390,18 @@ export async function deletePost(req,res){
 }
 export async function viewPost(req,res){
     try{
-        const PostId = req.params.Id
-        let Post = await PostModel.findById(PostId).populate('owner', 'username')
-        if(!Post) {return res.status(404).send({error: "Post not found"})}
-        Post.owner = Post.owner.username;
-        return res.json(Post)
+        const postId = req.params.Id;
+        let post = await PostModel.findById(postId).populate({
+            path: 'comments.postedBy',
+            select: '_id username'
+        }).populate('owner', 'username');
+        if(!post) {return res.status(404).send({error: "Post not found"})}
+        return res.json(post)
     }catch(error){
         res.status(500).send({error: "Couldn't view this post"})
     }
 }
+
 
 export async function updatePost(req,res){
     try {
@@ -423,4 +426,50 @@ export async function updatePost(req,res){
         return res.status(401).send({ error });
     }
 }
+
+export async function addComment(req, res) {
+    const user = await UserModel.findById(req.body.postedBy);
+    console.log(user.username)
+    let comment = req.body
+    console.log(comment, req.params.Id)
+    const updatedPost = await PostModel.findByIdAndUpdate(
+      req.params.Id,
+      { $push: { comments: comment } },
+      { new: true }
+    )
+      .populate("comments.postedBy", "_id name")
+      .populate({
+        path: "comments.postedBy",
+        select: "_id username",
+        options: { strictPopulate: false } // add the strictPopulate option to override the error
+      })
+      .exec();
+  
+    res.json(updatedPost);
+  }
+  
 //this sends the post to the front with owner being the id and the username. we can modify this later 
+
+export async function addBookmark(req, res){
+    try{
+        const {username} = req.params
+        const postId = req.body.post
+        const post = await PostModel.findById(postId)
+        const user = await UserModel.findOneAndUpdate({ username: username }, { $push: { bookmarkedPosts: post } }, { new: true });
+        return res.status(201).send("Bookmark added!")
+    }catch(error){
+        res.status(500).send({error})
+    }
+    
+}
+
+export async function removeBookmark(req,res){
+    try{
+        const {username} = req.params
+        const postId = req.body.post
+        const user = await UserModel.findOneAndUpdate({ username: username }, { $pull: { bookmarkedPosts: postId } }, { new: true });
+        return res.status(201).send("Bookmark removed!")
+    }catch(error){
+        res.status(500).send({error})
+    }
+}

@@ -137,3 +137,50 @@ export async function updatePost(id,body){
         return Promise.reject({error})
     }
 }
+
+export async function createPost(username, title, photo, description, tags, apiData, token) {
+
+    try{
+        const response = await axios.post(`/api/user/${username}/createPost`, {
+            title,
+            photo,
+            description,
+            tags,
+            owner: apiData
+          }, { headers : { "Authorization" : `Bearer ${token}`}});
+          return response
+    }catch(error){
+        throw error
+    }
+  };
+  export async function addBookmark(username,postId){
+    try{
+
+        const response = await axios.put(`/api/user/${username}/Bookmark`,{post: postId})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+
+  export async function removeBookmark(username,postId){
+    try{
+
+        const response = await axios.put(`/api/user/${username}/removeBookmark`,{post: postId})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+
+  export async function addComment(id,body){
+    try{
+        console.log(body)
+        const response = await axios.put(`/api/Post/${id}/addComment`,body)
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
+  
+  

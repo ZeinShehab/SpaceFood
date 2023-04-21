@@ -29,7 +29,8 @@ export const UserSchema = new mongoose.Schema({
     mobile : { type : Number},
     address: { type: String},
     profile: { type: String},
-    certificationName: {type: String}
+    certificationName: {type: String},
+    bookmarkedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }]
 });
 
 export default mongoose.model.Users || mongoose.model('User', UserSchema);

@@ -15,6 +15,7 @@ import { AuthorizeUser, ProtectRoute } from './middleware/auth'
 import { AuthorizeUserAsChef } from './middleware/authChef';
 import PostList from './components/PostList';
 import CreatePost from './components/CreatePost';
+import ViewProfile from './components/ViewProfile';
 /** root routes */
 const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
     {
         path : '/Post',
         element: <AuthorizeUser><AuthorizeUserAsChef><CreatePost></CreatePost></AuthorizeUserAsChef></AuthorizeUser>
+    },
+    {
+        path: '/viewProfile/:params',
+        element: <ViewProfile></ViewProfile>
     }
     // ,
     // {
