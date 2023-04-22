@@ -19,6 +19,7 @@ export default function Post() {
   const[{isLoading, apiData, serverError}] = useFetch()
   const {params} = useParams()
   const [bookmarked, setBookmarked]= useState()
+  const [tags, setTags] = useState([])
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,6 +28,7 @@ export default function Post() {
         setComments(postData.data.comments)
         setRating(postData.data.rating)
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
+        setTags(postData.data.tags)
         
       } catch (error) {
         console.log(error);
@@ -44,6 +46,7 @@ export default function Post() {
     } catch (error) {
       console.log(error);
     }
+    console.log(rating)
   }
 
   const handleLikeClick = () => {
@@ -133,26 +136,29 @@ export default function Post() {
           */}
 
       <div className="post-interactions">
-        <div className="post-reactions">
-        <button className="like-btn" onClick={handleLikeClick}>{/*LIke count */}
-            <img src={require('../assets/burger.png')} alt="Burger Icon" />
-        </button>
-          <p className="likes-count">{likes}</p>{/*Image Backend */}
-        </div>
+        
         <div className="rating">
           <div className="stars">
-            <input type="radio" id="star5" name="rating" value="1" onChange={handleRatingChange} />{/*ratin callback */}
+            <input type="radio" id="star5" name="rating" value="5" onChange={handleRatingChange} />{/*ratin callback */}
             <label htmlFor="star5">&#9733;</label>
-            <input type="radio" id="star4" name="rating" value="2" onChange={handleRatingChange} />
+            <input type="radio" id="star4" name="rating" value="4" onChange={handleRatingChange} />
             <label htmlFor="star4">&#9733;</label>
             <input type="radio" id="star3" name="rating" value="3" onChange={handleRatingChange} />
             <label htmlFor="star3">&#9733;</label>
-            <input type="radio" id="star2" name="rating" value="4" onChange={handleRatingChange} />
+            <input type="radio" id="star2" name="rating" value="2" onChange={handleRatingChange} />
             <label htmlFor="star2">&#9733;</label>
-            <input type="radio" id="star1" name="rating" value="5" onChange={handleRatingChange} />
+            <input type="radio" id="star1" name="rating" value="1" onChange={handleRatingChange} />
             <label htmlFor="star1">&#9733;</label>
           </div>
         </div>
+      </div>
+
+      <div className="view-post-tag-container">
+      {tags.map((tag, index) => (
+          <div className="view-post-tag">
+            {tag}
+          </div>
+        ))}
       </div>
 
       <div className="comments-container">

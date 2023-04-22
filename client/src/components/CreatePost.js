@@ -106,9 +106,9 @@ export default function CreatePost(){
 
           <div className="create-post-tags-container">
   {tags.map((tag, index) => (
-    <div key={index} className="create-post-tag">
+    <div key={index} className="create-post-tag flex">
       {tag}
-      <RxCross2
+      <RxCross2 className="remove-tag"
         onClick={() => {
           setTags(tags.filter((t) => t !== tag));
         }}
