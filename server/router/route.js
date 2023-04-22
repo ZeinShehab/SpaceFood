@@ -25,5 +25,17 @@ router.route('/createResetSession').get(controller.createResetSession) // reset 
 router.route('/updateuser').put(Auth, controller.updateUser); // is use to update the user profile
 router.route('/resetPassword').put(controller.verifyUser, controller.resetPassword); // use to reset password
 
+/* PostModel */
+/* POST Methods */
+router.route('/user/:username/createPost').post(Auth,controller.createPost)
+
+/* GET Methods */
+router.route('/user/:username/getPosts').get(Auth,controller.getPosts)
+router.route('/chefs').get(controller.getChefs)
+router.route('/AllPosts').get(controller.getAllPosts)
+
+/* DELETE Methods */
+router.route('/user/:username/DeleteAllPosts').delete(Auth,controller.deleteAllPosts)
+router.route('/DeletePost/:Id').delete(controller.deletePost)
 
 export default router;
