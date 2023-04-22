@@ -62,10 +62,10 @@ export default function CreatePost(){
         </div>
         <ul className="nav-links">
           <li>
-            <Link to="/Username.js" onClick={userLogout}>Logout</Link>
+            <Link to="/" onClick={userLogout}>Logout</Link>
           </li>
           <li>
-            <Link to="/profile.js">Profile</Link>
+            <Link to="/profile">Profile</Link>
           </li>
         </ul>
       </nav>
