@@ -63,7 +63,7 @@ export default function Homepage() {
         </div>
       </nav>
 
-      <section className="recent-posts">
+      <div className="recent-posts">
           <h2 className="TempHeader">Recent Posts</h2>
         <div className="post-section">
           <form className="search-form">
@@ -86,7 +86,7 @@ export default function Homepage() {
 
         <div className="post-grid">
 
-          {posts ? posts.map((post) => (
+          {/* {posts ? posts.map((post) => (
             // {const url = `/Post/${post.Id}`};
             <Link className='card-link' to={`/post/${post._id}`} state={post._id}>
               <div className="post">
@@ -97,10 +97,9 @@ export default function Homepage() {
                     post.description
                 }</div>
               </div>
-            </Link>)) : <h1>Loading</h1>}
+            </Link>)) : <h1>Loading</h1>} */}
 
-// ????????
-     <!--     {filteredPosts ? filteredPosts.map(post => (
+         {filteredPosts ? filteredPosts.map(post => (
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
@@ -108,7 +107,7 @@ export default function Homepage() {
                 <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
               </div>
             </Link>
-          )) : <h1>Loading</h1>} --!>
+          )) : <h1>Loading</h1>}
           
         </div>
       </div>
