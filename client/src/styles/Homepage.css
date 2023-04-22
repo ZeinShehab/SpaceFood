@@ -160,4 +160,67 @@ nav {
 	
   }
   /* new changes */
+
+
+  /* recommended-posts container */
+  .recommended-carousel {
+	width: 100%;
+	margin: 0 auto;
+	max-width: 100%;
+  }
   
+  .carousel-image-container {
+	width: 100%;
+	height: 800px;
+	display: flex;
+	border-radius: 1px;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+  }
+  
+  .carousel-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+  }
+  
+  .post-title {
+	position: absolute;
+	top: 30%; /* Updated */
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3rem;
+	color: white;
+	text-shadow: 2px 2px 5px black;
+  }
+  
+  .post-description {
+	font-size: 1.5rem;
+	color: white;
+	text-shadow: 2px 2px 5px black;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+	background-image: none;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+	width: 5%;
+  }
+  
+  .carousel-control-prev {
+	left: 0;
+  }
+  
+  .carousel-control-next {
+	right: 0;
+  }
+  
+  .carousel-indicators {
+	display: none; /* Hide the indicators */
+  }

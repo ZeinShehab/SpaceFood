@@ -6,6 +6,8 @@ import useFetch from '../hooks/fetch.hook'
 import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
+import { Carousel } from 'react-bootstrap';
+
 // import {getCategories} from '../redux/actions/categoryActions';
 export default function Homepage() {
   const [text, setText] = useState('');
@@ -52,25 +54,34 @@ export default function Homepage() {
           </li>
         </div>
       </nav>
+      
+      <div className="recommended-posts">
+      <div className="recommended-header">Recommended Posts</div>
+      <div className="recommended-carousel">
+        <Carousel>
+          {posts ? posts.map((post) => (
+            <Carousel.Item key={post._id}>
+              <div className="carousel-image-container">
+                <img
+                  className="carousel-image"
+                  src={post.photo}
+                  alt={post.title}
+                />
+              </div>
+              <Carousel.Caption>
+                <h3 className ="post-title">{post.title}</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+          )) : <h1> loading</h1>}
+        </Carousel>
+      </div>
+    </div>
 
       <div className="recent-posts">
         <div className="post-section">
           <div className="TempHeader">Recent Posts</div>
         </div>
-        {/* <div className='search-bar'>
-          <div className='text-muted'>
-            Filters <span className='fad fa-sliders-h'> </span>
-          </div>
-          <nav className='navbar navbar-expand-lg navbar-light bg-light border-top p-3'>
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  />
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </nav>
-          <div>
 
-          </div>
-        </div> */}
         <div className="post-grid">
           {posts ? posts.map((post) => (
             // {const url = `/Post/${post.Id}`};
