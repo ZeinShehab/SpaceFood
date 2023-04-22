@@ -46,21 +46,21 @@ export default function Homepage() {
 
   return (
     <div>
-      <nav>
+      <nav className='homepage-header'>
         <div className="logo">
           <Link to="/Homepage">SpaceFood</Link>
         </div>
-        <ul className="nav-links">
-          <li>
-            <Link to="/" onClick={userLogout}>Logout</Link>
-          </li>
+        <div className="nav-links">
           <li>
             <Link to="/profile">Profile</Link>
           </li>
           <li>
             <Link to="/Post" >Post a recipe</Link>
           </li>
-        </ul>
+          <li>
+            <Link to="/" onClick={userLogout}>Logout</Link>
+          </li>
+        </div>
       </nav>
 
       <section className="recent-posts">
@@ -83,8 +83,24 @@ export default function Homepage() {
             />
           </form>
         </div>
+
         <div className="post-grid">
-          {filteredPosts ? filteredPosts.map(post => (
+
+          {posts ? posts.map((post) => (
+            // {const url = `/Post/${post.Id}`};
+            <Link className='card-link' to={`/post/${post._id}`} state={post._id}>
+              <div className="post">
+                <div className='card-title'>{post.title}</div>
+                <img src={post.photo} alt="Post Image" />
+                <div className='card-description'>{
+                  post.description.length >= 85 ? post.description.substring(0, 80) + "..." :
+                    post.description
+                }</div>
+              </div>
+            </Link>)) : <h1>Loading</h1>}
+
+// ????????
+     <!--     {filteredPosts ? filteredPosts.map(post => (
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
@@ -92,9 +108,10 @@ export default function Homepage() {
                 <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
               </div>
             </Link>
-          )) : <h1>Loading</h1>}
+          )) : <h1>Loading</h1>} --!>
+          
         </div>
-      </section>
+      </div>
     </div>
   )
 }

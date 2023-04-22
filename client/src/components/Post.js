@@ -110,10 +110,10 @@ export default function Post() {
         </div>
         <ul className="nav-links">
           <li>
-            <Link to="/Username" onClick={userLogout}>Logout</Link>
+            <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/Username" onClick={userLogout}>Logout</Link>
           </li>
         </ul>
       </nav>
@@ -122,8 +122,11 @@ export default function Post() {
       {/* {bookmarked ==true ? <BsBookmarksFill className='bookmark' onClick={handleBookmarks}/> : <BsBookmarks className='bookmark' onClick={handleBookmarks}/>} */}
       <h2 className="post-title">{postData&& postData.title}</h2>
       <h3>Posted by: {postData && postData.owner.username}</h3>
-      <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
-      <p className="post-description">{postData && postData.description}</p>{/*Description backend*/}
+      <div className = 'post-body'>
+        <p className="post-description">{postData && postData.description}</p>{/*Description backend*/}
+        <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
+        
+      </div>
       {/*Image Backend 
       <div className="other-images-container">
         <h3>Other Photos:</h3>
