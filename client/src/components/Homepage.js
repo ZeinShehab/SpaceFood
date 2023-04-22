@@ -36,21 +36,21 @@ export default function Homepage() {
             <div className="post">
               <img src="https://via.placeholder.com/300x200" alt="Post Image" />
               <h3>Delicious Pizza Recipe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper.</p>
+              <p> post 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut dolor eu nisl dictum fringilla. Etiam viverra metus a nisi bibendum, vel consequat enim ullamcorper.</p>
             </div>
           </Link>
           <Link to="/post/2">
             <div className="post">
               <img src="https://via.placeholder.com/300x200" alt="Post Image" />
               <h3>Tasty Sushi Rolls</h3>
-              <p>Nullam consequat, sapien at lobortis auctor, nulla elit ullamcorper lacus, sit amet venenatis nisl neque nec mi. Nullam eget nisi at enim luctus congue id ac ante.</p>
+              <p>post 2. Nullam consequat, sapien at lobortis auctor, nulla elit ullamcorper lacus, sit amet venenatis nisl neque nec mi. Nullam eget nisi at enim luctus congue id ac ante.</p>
             </div>
           </Link>
-          <Link to="/post/2">
+          <Link to="/post/3">
             <div className="post">
               <img src="https://via.placeholder.com/300x200" alt="Post Image" />
               <h3>Tasty Sushi Rolls</h3>
-              <p>Nullam consequat, sapien at lobortis auctor, nulla elit ullamcorper lacus, sit amet venenatis nisl neque nec mi. Nullam eget nisi at enim luctus congue id ac ante.</p>
+              <p> Nullam consequat, sapien at lobortis auctor, nulla elit ullamcorper lacus, sit amet venenatis nisl neque nec mi. Nullam eget nisi at enim luctus congue id ac ante.</p>
             </div>
           </Link>
         </div>

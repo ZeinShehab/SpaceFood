@@ -32,6 +32,37 @@ nav {
   .nav-links li a:hover {
 	color: #ff8c00;
   }
+  
+  .recent-posts {
+    margin: 50px auto;
+  }
+
+  
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  gap: 20px;
+}
+
+.post {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden; /* truncate extra content */
+  height: 400px; /* set fixed height for the post container */
+}
+
+.post-content {
+  height: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.post img {
+  width: 200%;
+  height: 250px;
+  object-fit: cover;
+}
+
 .post-container {
   background-color: #fff;
   border-radius: 10px;
