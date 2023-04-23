@@ -8,6 +8,8 @@ import { getAllPosts } from '../helper/helper';
 import Post from './Post'
 import { Carousel } from 'react-bootstrap';
 
+
+
 // import {getCategories} from '../redux/actions/categoryActions';
 export default function Homepage() {
   const [text, setText] = useState('');
