@@ -16,6 +16,7 @@ import { AuthorizeUserAsChef } from './middleware/authChef';
 import PostList from './components/PostList';
 import CreatePost from './components/CreatePost';
 import ViewProfile from './components/ViewProfile';
+import ViewBookmarks from './components/ViewBookmarks';
 /** root routes */
 const router = createBrowserRouter([
     {
@@ -62,6 +63,9 @@ const router = createBrowserRouter([
     {
         path: '/viewProfile/:params',
         element: <ViewProfile></ViewProfile>
+    },{
+        path: '/Bookmarks',
+        element: <ViewBookmarks></ViewBookmarks>
     }
     // ,
     // {

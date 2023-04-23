@@ -473,3 +473,29 @@ export async function removeBookmark(req,res){
         res.status(500).send({error})
     }
 }
+
+export async function viewBookmarks(req,res){
+    try{
+        const {username} = req.params
+        let user = await UserModel.findOne({ username });
+        if(user){
+        const bookmarkedPostIds = user.bookmarkedPosts;
+        const bookmarkedPosts = await Promise.all(
+          bookmarkedPostIds.map(async (postId) => {
+            const post = await PostModel.findById(postId).populate({
+                path: "owner",
+                select: "username",
+              }).exec();
+            return post
+          })
+        );
+        const validBookmarkedPosts = bookmarkedPosts.filter((post) => post !== null);
+        return res.json(validBookmarkedPosts);
+        }
+        else{
+            console.log("Can't find user")
+        }
+    }catch(error){
+        return res.status(500).send({error: "Please try again later"})
+    }
+}
