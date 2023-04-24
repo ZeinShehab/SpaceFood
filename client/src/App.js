@@ -9,6 +9,7 @@ import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
 import Post from './components/Post';
+import ViewPosts from './components/ViewPosts'
 
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
@@ -66,6 +67,9 @@ const router = createBrowserRouter([
     },{
         path: '/Bookmarks',
         element: <ViewBookmarks></ViewBookmarks>
+    },{
+        path: 'ViewPosts/:params',
+        element: <ViewPosts></ViewPosts>
     }
     // ,
     // {
