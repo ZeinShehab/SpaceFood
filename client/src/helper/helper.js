@@ -186,6 +186,7 @@ export async function createPost(username, title, photo, description, tags, apiD
   
   export async function modifyRating(username,postId,body){
     try{
+        console.log(body)
         const response = await axios.put(`/api/user/${username}/post/${postId}`,body)
         return Promise.resolve(response)
     }catch(error){
