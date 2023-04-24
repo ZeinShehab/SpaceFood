@@ -31,7 +31,14 @@ export default function Post() {
         setPostData(postData.data);
         setComments(postData.data.comments)
         setPostRating(postData.data.rating)
-        setUserRating(2)          // Everytime page refreshes, its like the user rated, user can rate multiple times
+        // setUserRating(2)          // Everytime page refreshes, its like the user rated, user can rate multiple times
+        const postRating =apiData?.ratedPosts.find((rating)=>rating.postId == postData.data._id)
+        if(postRating){
+          setUserRating(postRating.rating)
+        }
+        else{
+          setUserRating(0)
+        }
         setRatings(postData.data.ratings)
         setHoverRating(postData.data.rating)
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
@@ -51,32 +58,32 @@ export default function Post() {
     setHoverRating(0);
   };
 
-  useEffect(() => {
-    console.log("Average: ", postRating);
-    try {
-      const response = updatePost(params,{postRating})
-    } catch (error) {
-      console.log(error);
-    }
-  }, [postRating])
+  // useEffect(() => {
+  //   // console.log("Average: ", postRating);
+  //   try {
+  //     const response = updatePost(params,{postRating})
+  //   } catch (error) {
+  //     // console.log(error);
+  //   }
+  // }, [postRating])
   
-  useEffect(() => {
-    console.log("Array: ", ratings);
-    try {
-      const response = updatePost(params,{ratings})
+  // useEffect(() => {
+  //   // console.log("Array: ", ratings);
+  //   try {
+  //     const response = updatePost(params,{ratings})
 
-      let avgRating = 0;
-      let i = 0;
-      for (i=0; i<ratings.length; i++) {
-        avgRating += ratings[i];
-      }
-      avgRating /= i;
-      setPostRating(avgRating);
+  //     let avgRating = 0;
+  //     let i = 0;
+  //     for (i=0; i<ratings.length; i++) {
+  //       avgRating += ratings[i];
+  //     }
+  //     avgRating /= i;
+  //     setPostRating(avgRating);
 
-    } catch (error) {
-      console.log(error);
-    }
-  }, [ratings])
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [ratings])
 
   useEffect(() => {
     console.log("UserRating:", userRating);

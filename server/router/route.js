@@ -44,4 +44,7 @@ router.route('/Post/:Id/updatePost').put(controller.updatePost)
 router.route('/Post/:Id/addComment').put(controller.addComment)
 router.route('/user/:username/Bookmark').put(controller.addBookmark)
 router.route('/user/:username/removeBookmark').put(controller.removeBookmark)
+router.route('/user/:username/post/:postId').put(controller.modifyRating)
+router.route('/post/:Id/updateRatings').put(controller.updatePostRatings)
+router.route('/user/:username/updateRatings').put(controller.updateUserRatings)
 export default router;
