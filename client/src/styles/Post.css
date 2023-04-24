@@ -62,9 +62,9 @@ nav {
 }
 
 .create-post-tags{
-  width: 28%;
+  max-width: 155px;
   display: flex;
-  border-color: #1c1c1c;
+  border: 1px #1c1c1c;
 }
 
 
