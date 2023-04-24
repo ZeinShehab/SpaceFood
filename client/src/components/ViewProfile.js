@@ -45,22 +45,22 @@ export default function ViewProfile() {
         <table>
           <tbody>
           <tr>
-            <td colSpan={2}><input style={{width: '100%', height: '50px'}} disabled value={"User Name: "+user.username +"\n"}></input></td>
-          </tr>
-          <tr>
-            <td>
-              <input style={{height: '50px'}} disabled value={"First Name: "+user.firstName}></input>
-            </td>
-            <td>
-              <input style={{height: '50px'}} disabled value={"Last Name: "+user.lastName}></input>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input style={{height: '50px'}} disabled value={user.email}></input>
-            </td>
+            <td><input style={{height: '50px'}} disabled value={"Username: "+user.username +"\n"}></input></td>
             <td>
             <input style={{height: '50px'}} disabled value={"Role: "+user.role}></input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input style={{height: '50px'}} disabled value={user.firstName}></input>
+            </td>
+            <td>
+              <input style={{height: '50px'}} disabled value={user.lastName}></input>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <input style={{width: '100%', height: '50px'}} disabled value={user.email}></input>
             </td>
           </tr>
           </tbody>
