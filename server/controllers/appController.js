@@ -504,7 +504,6 @@ export async function modifyRating(req, res) {
     try {
       const { username, postId } = req.params;
       const { rating } = req.body;
-  
       // Find the user
       const user = await UserModel.findOne({ username });
       if (!user) {
@@ -512,40 +511,45 @@ export async function modifyRating(req, res) {
       }
       // Check if the user has already rated the post
       const hasRatedPost = user.ratedPosts.some((ratedPost) => ratedPost.postId && ratedPost.postId.equals(postId));
-
       // Find the post
       const post = await PostModel.findById(postId);
       if (!post) {
         return res.status(400).send("Post not found");
       }
-      console.log(hasRatedPost)
       if (hasRatedPost) {
         // Update the rating value for the post
         const existingRatingIndex = user.ratedPosts.findIndex(
           (ratedPost) => ratedPost.postId && ratedPost.postId.equals(post._id)
         );
-        if (existingRatingIndex === -1) {
-          return res.status(400).send("User has not rated this post");
+        if(rating == 0){
+            user.ratedPosts.splice(existingRatingIndex,1);
+            const index = post.ratings.findIndex((rating) => rating.ratedBy && rating.ratedBy.equals(user._id))
+            post.ratings.splice(index, 1);
         }
-        user.ratedPosts[existingRatingIndex].rating = rating;
-        const index = post.ratings.findIndex((rating) => rating.ratedBy && rating.ratedBy.equals(user._id))
-        if(index === -1){
-            return res.status(400).send("Post does not have rating from this user")
-        }
-        post.ratings[index] = {rating,ratedBy:user._id}; // if you put user the whole user will show
+        else{
+            if (existingRatingIndex === -1) {
+            return res.status(400).send("User has not rated this post");
+            }
+            user.ratedPosts[existingRatingIndex].rating = rating;
+            const index = post.ratings.findIndex((rating) => rating.ratedBy && rating.ratedBy.equals(user._id))
+            if(index === -1){
+                return res.status(400).send("Post does not have rating from this user")
+            }
+            post.ratings[index] = {rating,ratedBy:user._id}; // if you put user the whole user will show
+    }
       } else {
         // Add the rating value to the post and add the post ID to the user's ratedPosts
-        console.log(user.username)
+        
         post.ratings.push({rating, ratedBy: user._id });
+        
         user.ratedPosts.push({postId,rating});
+        
       }
   
-      // Save the changes
       await post.save();
       await user.save();
       res.json(post);
     } catch (error) {
-      console.log(error);
       res.status(500).send({ error });
     }
   }
