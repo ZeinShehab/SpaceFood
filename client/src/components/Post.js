@@ -7,7 +7,7 @@ import axios from "axios";
 import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
-import { addBookmark, getPost, updatePost, removeBookmark, addComment} from '../helper/helper';
+import { addBookmark, getPost, updatePost, removeBookmark, addComment, modifyRating} from '../helper/helper';
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
 
 export default function Post() {
@@ -92,6 +92,15 @@ export default function Post() {
 
   const handleRatingChange = async (userRating) => {{/*Rating Callback */}
     setUserRating(userRating)
+    const username = apiData?.username;
+    const postId = postData._id
+    const response = await modifyRating(username,postId,{rating:userRating})
+    if(response){
+      console.log("Success")
+    }
+    else{
+      console.log("Failed")
+    }
     // setPostRating(parseInt(event));
   }
 
