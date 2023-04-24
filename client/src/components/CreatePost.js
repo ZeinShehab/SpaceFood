@@ -87,12 +87,12 @@ export default function CreatePost() {
           }
 
           {/* <p className="post-description" onChange={handleDescriptionChange}>{description}</p> */}
+        
+        <div className="create-post-description-tags">
           <textarea className="create-post-description" onChange={handleDescriptionChange} placeholder="Enter Description" type="textarea" />
-        </div>
-
-        <div className="create-post-tags-container">
+        <div className="create-post-tag-input-container">
           <input
-            className="create-post-tags"
+            className="create-post-tag-input"
             placeholder="Tags (Enter to add)"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -105,8 +105,9 @@ export default function CreatePost() {
               }
             }}
           />
+          <div className="create-post-tag-container">
           {tags.map((tag, index) => (
-            <div key={index} className="create-post-tag flex">
+            <div key={index} className="create-post-tag">
               {tag}
               <RxCross2 className="remove-tag"
                 onClick={() => {
@@ -115,11 +116,13 @@ export default function CreatePost() {
               />
             </div>
           ))}
-          <button className="submit-post" type="submit">Create Post</button>
+          </div>
         </div>
+        </div>
+          <button className="submit-post" type="submit">Create Post</button>
 
+     </div>
       </form>
-
     </div>
 
   );
