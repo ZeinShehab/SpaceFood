@@ -27,6 +27,7 @@ nav {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
 .post-body{
   display: flex;
   justify-content: space-between;
@@ -36,6 +37,12 @@ nav {
 .nav-links li a:hover {
   color: #ff8c00;
 }
+.post-a-recipe-card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .post-container {
   background-color: #fff;
@@ -44,8 +51,20 @@ nav {
   padding: 30px;
   margin: 20px auto;
   /* Set margin to auto for centering and adjust top/bottom margin */
-  max-width: 80%;
+  max-width: 65%;
   /* Set a max-width to limit container width */
+}
+.create-post-tags-container{
+  align-items: end;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+}
+
+.create-post-tags{
+  width: 28%;
+  display: flex;
+  border-color: #1c1c1c;
 }
 
 
@@ -68,12 +87,20 @@ nav {
 
 }
 
+.title-glass{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
 .post-description {
   font-size: 18px;
   line-height: 1.5;
   word-break: break-word;
   margin-right: 70px;
-  text-align: justify;
+  text-align: center;
 }
 
 .other-images-container {
@@ -341,12 +368,15 @@ nav {
 .create-post-title {
   font-size: 350%;
   font-weight: bold;
+  text-align: center;
+  width: 50vw;
 }
 
 .create-post-description {
   font-size: 18px;
   line-height: 1.5;
-  width: 30%;
+  width: 50vw;
+  height: 20vh;
   margin-bottom: 20px;
   margin-left: 20px;
   text-align: left;
