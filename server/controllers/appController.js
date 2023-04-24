@@ -505,17 +505,19 @@ export async function modifyRating(req, res) {
       const { username, postId } = req.params;
       const { rating } = req.body;
       // Find the user
+      
       const user = await UserModel.findOne({ username });
       if (!user) {
         return res.status(400).send("User not found");
       }
       // Check if the user has already rated the post
       const hasRatedPost = user.ratedPosts.some((ratedPost) => ratedPost.postId && ratedPost.postId.equals(postId));
-      // Find the post
       const post = await PostModel.findById(postId);
+      post.ratings = post.ratings.filter(rating=>rating!==0)
       if (!post) {
         return res.status(400).send("Post not found");
       }
+      console.log(post.ratings)
       if (hasRatedPost) {
         // Update the rating value for the post
         const existingRatingIndex = user.ratedPosts.findIndex(
