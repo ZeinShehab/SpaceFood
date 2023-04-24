@@ -92,6 +92,7 @@ export default function CreatePost() {
           <textarea className="create-post-description" onChange={handleDescriptionChange} placeholder="Enter Description" type="textarea" />
         <div className="create-post-tag-input-container">
           <input
+            maxLength={17}
             className="create-post-tag-input"
             placeholder="Tags (Enter to add)"
             onKeyDown={(e) => {
