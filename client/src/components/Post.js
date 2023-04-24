@@ -7,7 +7,7 @@ import axios from "axios";
 import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
-import { addBookmark, getPost, updatePost, removeBookmark, addComment} from '../helper/helper';
+import { addBookmark, getPost, updatePost, removeBookmark, addComment, modifyRating} from '../helper/helper';
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
 
 export default function Post() {
@@ -31,7 +31,14 @@ export default function Post() {
         setPostData(postData.data);
         setComments(postData.data.comments)
         setPostRating(postData.data.rating)
-        setUserRating(2)          // Everytime page refreshes, its like the user rated, user can rate multiple times
+        // setUserRating(2)          // Everytime page refreshes, its like the user rated, user can rate multiple times
+        const postRating =apiData?.ratedPosts.find((rating)=>rating.postId == postData.data._id)
+        if(postRating){
+          setUserRating(postRating.rating)
+        }
+        else{
+          setUserRating(0)
+        }
         setRatings(postData.data.ratings)
         setHoverRating(postData.data.rating)
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
@@ -51,32 +58,32 @@ export default function Post() {
     setHoverRating(0);
   };
 
-  useEffect(() => {
-    console.log("Average: ", postRating);
-    try {
-      const response = updatePost(params,{postRating})
-    } catch (error) {
-      console.log(error);
-    }
-  }, [postRating])
+  // useEffect(() => {
+  //   // console.log("Average: ", postRating);
+  //   try {
+  //     const response = updatePost(params,{postRating})
+  //   } catch (error) {
+  //     // console.log(error);
+  //   }
+  // }, [postRating])
   
-  useEffect(() => {
-    console.log("Array: ", ratings);
-    try {
-      const response = updatePost(params,{ratings})
+  // useEffect(() => {
+  //   // console.log("Array: ", ratings);
+  //   try {
+  //     const response = updatePost(params,{ratings})
 
-      let avgRating = 0;
-      let i = 0;
-      for (i=0; i<ratings.length; i++) {
-        avgRating += ratings[i];
-      }
-      avgRating /= i;
-      setPostRating(avgRating);
+  //     let avgRating = 0;
+  //     let i = 0;
+  //     for (i=0; i<ratings.length; i++) {
+  //       avgRating += ratings[i];
+  //     }
+  //     avgRating /= i;
+  //     setPostRating(avgRating);
 
-    } catch (error) {
-      console.log(error);
-    }
-  }, [ratings])
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [ratings])
 
   useEffect(() => {
     console.log("UserRating:", userRating);
@@ -85,6 +92,15 @@ export default function Post() {
 
   const handleRatingChange = async (userRating) => {{/*Rating Callback */}
     setUserRating(userRating)
+    const username = apiData?.username;
+    const postId = postData._id
+    const response = await modifyRating(username,postId,{rating:userRating})
+    if(response){
+      console.log("Success")
+    }
+    else{
+      console.log("Failed")
+    }
     // setPostRating(parseInt(event));
   }
 

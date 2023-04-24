@@ -26,9 +26,11 @@ export const PostSchema = new mongoose.Schema({
     rating: {
         type: Number
     },
-    ratings: {
-        type: [Number]
-    },
+    ratings: [{
+        rating: Number,
+        ratedBy: {type:mongoose.Schema.Types.ObjectId,ref:"User"}
+
+    }],
     comments: [{
         text: String,
         created: {type: Date, default: Date.now},

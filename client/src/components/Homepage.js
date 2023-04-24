@@ -60,6 +60,9 @@ export default function Homepage() {
           <li>
             <Link to="/" onClick={userLogout}>Logout</Link>
           </li>
+          <li>
+            <Link to ="/Bookmarks">Bookmarks</Link>
+          </li>
         </div>
       </nav>
 
