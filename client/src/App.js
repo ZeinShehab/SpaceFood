@@ -9,6 +9,18 @@ import Reset from './components/Reset';
 import Homepage from './components/Homepage';
 import PageNotFound from './components/PageNotFound';
 import Post from './components/Post';
+//start MUI imports
+ import HomePage from "./scenes/homePage";
+// import LoginPage from "./scenes/loginPage";
+// import ProfilePage from "./scenes/profilePage";
+import { themeSettings } from "./theme";
+import { BrowserRouter, Navigate, Routes} from "react-router-dom";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+//end
+
 
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
