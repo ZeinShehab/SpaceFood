@@ -473,3 +473,109 @@ export async function removeBookmark(req,res){
         res.status(500).send({error})
     }
 }
+
+export async function viewBookmarks(req,res){
+    try{
+        const {username} = req.params
+        let user = await UserModel.findOne({ username });
+        if(user){
+        const bookmarkedPostIds = user.bookmarkedPosts;
+        const bookmarkedPosts = await Promise.all(
+          bookmarkedPostIds.map(async (postId) => {
+            const post = await PostModel.findById(postId).populate({
+                path: "owner",
+                select: "username",
+              }).exec();
+            return post
+          })
+        );
+        const validBookmarkedPosts = bookmarkedPosts.filter((post) => post !== null);
+        return res.json(validBookmarkedPosts);
+        }
+        else{
+            console.log("Can't find user")
+        }
+    }catch(error){
+        return res.status(500).send({error: "Please try again later"})
+    }
+}
+
+export async function modifyRating(req, res) {
+    try {
+      const { username, postId } = req.params;
+      const { rating } = req.body;
+      // Find the user
+      
+      const user = await UserModel.findOne({ username });
+      if (!user) {
+        return res.status(400).send("User not found");
+      }
+      // Check if the user has already rated the post
+      const hasRatedPost = user.ratedPosts.some((ratedPost) => ratedPost.postId && ratedPost.postId.equals(postId));
+      const post = await PostModel.findById(postId);
+      post.ratings = post.ratings.filter(rating=>rating!==0)
+      if (!post) {
+        return res.status(400).send("Post not found");
+      }
+      console.log(post.ratings)
+      if (hasRatedPost) {
+        // Update the rating value for the post
+        const existingRatingIndex = user.ratedPosts.findIndex(
+          (ratedPost) => ratedPost.postId && ratedPost.postId.equals(post._id)
+        );
+        if(rating == 0){
+            user.ratedPosts.splice(existingRatingIndex,1);
+            const index = post.ratings.findIndex((rating) => rating.ratedBy && rating.ratedBy.equals(user._id))
+            post.ratings.splice(index, 1);
+        }
+        else{
+            if (existingRatingIndex === -1) {
+            return res.status(400).send("User has not rated this post");
+            }
+            user.ratedPosts[existingRatingIndex].rating = rating;
+            const index = post.ratings.findIndex((rating) => rating.ratedBy && rating.ratedBy.equals(user._id))
+            if(index === -1){
+                return res.status(400).send("Post does not have rating from this user")
+            }
+            post.ratings[index] = {rating,ratedBy:user._id}; // if you put user the whole user will show
+    }
+      } else {
+        // Add the rating value to the post and add the post ID to the user's ratedPosts
+        
+        post.ratings.push({rating, ratedBy: user._id });
+        
+        user.ratedPosts.push({postId,rating});
+        
+      }
+  
+      await post.save();
+      await user.save();
+      res.json(post);
+    } catch (error) {
+      res.status(500).send({ error });
+    }
+  }
+
+  export async function updatePostRatings(req,res){
+    try{
+        const postId = req.params.Id
+        const post = await PostModel.findById(postId)
+        post.ratings=[]
+        await post.save()
+        res.json(post)
+    }catch(error){
+        res.status(500).send({error})
+    }
+}
+export async function updateUserRatings(req,res){
+    try{
+        const username = req.params.username
+        const user = await UserModel.findOne({username})
+        user.ratedPosts=[]
+        await user.save()
+        res.json(user)
+    }catch(error){
+        res.status(500).send({error})
+    }
+}
+

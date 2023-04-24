@@ -30,7 +30,11 @@ export const UserSchema = new mongoose.Schema({
     address: { type: String},
     profile: { type: String},
     certificationName: {type: String},
-    bookmarkedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }]
+    bookmarkedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    ratedPosts:[{
+        postId: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'},
+        rating: {type: Number}
+    }]
 });
 
 export default mongoose.model.Users || mongoose.model('User', UserSchema);
