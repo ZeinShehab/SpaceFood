@@ -369,6 +369,7 @@ nav {
   font-weight: bold;
   text-align: center;
   width: 50vw;
+  outline: none;
 }
 
 .create-post-description {
@@ -441,4 +442,30 @@ textarea:focus {
 .view-post-tag {
   @apply px-2 border rounded-lg text-center text-white;
   background-color: #ff6a6a;
+}
+
+.create-post-tag-input-container {
+  @apply flex gap-3 pb-10 flex-nowrap; 
+}
+
+.create-post-tag-input {
+  border-right: 2px solid #ff6a6a;  
+  width: 200px;
+  outline: none;
+  text-align: center;
+}
+
+.create-post-tag-container {
+  @apply flex gap-1 flex-wrap;
+}
+
+.create-post-tag {
+  @apply px-2 py-2 border rounded-lg text-center text-white flex;
+  background-color: #ff6a6a;
+  white-space: nowrap;
+}
+
+.create-post-description-tags {
+  @apply grid w-3/4;
+  justify-content: center;
 }
