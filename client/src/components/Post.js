@@ -240,7 +240,7 @@ export default function Post() {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/Username" onClick={userLogout}>Logout</Link>
+            <Link to="/" onClick={userLogout}>Logout</Link>
           </li>
         </ul>
       </nav>
