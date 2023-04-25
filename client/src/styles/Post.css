@@ -44,6 +44,12 @@ nav {
   flex-direction: column;
 }
 
+.post-image img {
+  margin: auto;
+  /* Center the image horizontally */
+  max-width: 100%;
+  /* Make sure the image doesn't overflow its container */
+}
 
 .title-glass{
   display: flex;
