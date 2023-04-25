@@ -5,7 +5,6 @@ import useFetch from '../hooks/fetch.hook'
 import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
-import SearchIcon from '@mui/icons-material/Search';
 
 export default function Homepage() {
   const navigate = useNavigate()
@@ -85,9 +84,9 @@ export default function Homepage() {
       </nav>
 
       <div className="recent-posts">
-        <div className="TempHeader">Recent Posts</div>
 
-
+      <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
+        
         <div className="post-grid">
 
           {/* {posts ? posts.map((post) => (
@@ -104,7 +103,9 @@ export default function Homepage() {
           </Link>)) : <h1>Loading</h1>} */}
 
           <button className='post-a-recipe-button'><Link to="/Post" className="post-a-recipe-button-circle">Post a Recipe</Link> </button>
-          {filteredPosts ? filteredPosts.map(post => (
+
+         {filteredPosts ? filteredPosts.length == 0 ? <p className='no-results'>No results</p> : filteredPosts.map(post => (
+
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />

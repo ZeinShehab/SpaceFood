@@ -6,10 +6,11 @@ import { profileValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
 import useFetch from '../hooks/fetch.hook';
 import { updateUser } from '../helper/helper'
-import { useNavigate } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
+import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
+
 
 export default function Profile() {
 
@@ -92,6 +93,10 @@ export default function Profile() {
     navigate('/Homepage');
   }
 
+  function goToBookmarks() {
+    navigate('/Bookmarks');
+  }
+
   if(isLoading) return <div className='Loading'>Loading</div>;
   if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
@@ -110,9 +115,15 @@ export default function Profile() {
               <button onClick={userLogout} className='text-red-500 text-2xl pt-3' to="/">Logout</button>
               {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
             </div>
-            <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
+          <div className='grid'>
+            <span className='py-4 text-xl  text-center text-gray-500'>
                 You can update the details.
             </span>
+            <div className={`${styles.profilebookmark} ${extend.profilebookmark}`} onClick={goToBookmarks}>
+                Bookmarks
+                <BsBookmarksFill className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
+            </div> 
+          </div>
           </div>
 
           <form className='py-1' onSubmit={formik.handleSubmit}>
