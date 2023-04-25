@@ -51,8 +51,6 @@ export default function Post() {
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
         setTags(postData.data.tags)
         setDate((new Date(postData.data.createdAt)).toUTCString())
-
-        console.log(typeof(date))
         
       } catch (error) {
         console.log(error);
@@ -96,8 +94,8 @@ export default function Post() {
   // }, [ratings])
 
   useEffect(() => {
-    console.log("UserRating:", userRating);
     setRatings(ratings => [...ratings, userRating])
+    
   }, [userRating])
 
   const handleRatingChange = async (userRating) => {{/*Rating Callback */}
@@ -248,7 +246,7 @@ export default function Post() {
         <div className='post-interactions'>
           <div className='post-rating'>
             <p className='pt-1'>Rating</p>
-            <Rating name="read-only" precision={0.5} value={postData&& postData.rating} readOnly/>
+            <Rating name="read-only" precision={0.5} value={postData ? postData.rating : 0} readOnly/>
             <span className='divider'></span>
           </div>
           <Popup trigger={
