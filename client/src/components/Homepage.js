@@ -39,7 +39,7 @@ export default function Homepage() {
       post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase()))
     )
   }
-  
+
   if (tag.trim() !== '' && posts) {
     filteredPosts = filteredPosts.filter(post =>
       post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
@@ -49,22 +49,22 @@ export default function Homepage() {
   return (
     <div>
       <nav className='homepage-header'>
-          <div className="logo">
-            <Link to="/Homepage">SpaceFood</Link>
-          </div>
-        <div className='search-container'>
-            <input
-              className="searchBar"
-              type="text"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-
-            {/* <SearchIcon className='fa input-icons'></SearchIcon> */}
-            
+        <div className="logo">
+          <Link to="/Homepage">SpaceFood</Link>
         </div>
-            {/* <input
+        <div className='search-container'>
+          <input
+            className="searchBar"
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          {/* <SearchIcon className='fa input-icons'></SearchIcon> */}
+
+        </div>
+        {/* <input
               className="searchBar"
               type="text"
               placeholder="Search by tag"
@@ -76,10 +76,7 @@ export default function Homepage() {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/Post" >Post a recipe</Link>
-          </li>
-          <li>
-            <Link to ="/Bookmarks">Bookmarks</Link>
+            <Link to="/Bookmarks">Bookmarks</Link>
           </li>
           <li>
             <Link to="/" onClick={userLogout}>Logout</Link>
@@ -88,25 +85,26 @@ export default function Homepage() {
       </nav>
 
       <div className="recent-posts">
-          <div className="TempHeader">Recent Posts</div>
-        
+        <div className="TempHeader">Recent Posts</div>
+
 
         <div className="post-grid">
 
           {/* {posts ? posts.map((post) => (
             // {const url = `/Post/${post.Id}`};
             <Link className='card-link' to={`/post/${post._id}`} state={post._id}>
-              <div className="post">
-                <div className='card-title'>{post.title}</div>
-                <img src={post.photo} alt="Post Image" />
-                <div className='card-description'>{
-                  post.description.length >= 85 ? post.description.substring(0, 80) + "..." :
-                    post.description
-                }</div>
-              </div>
-            </Link>)) : <h1>Loading</h1>} */}
+            <div className="post">
+            <div className='card-title'>{post.title}</div>
+            <img src={post.photo} alt="Post Image" />
+            <div className='card-description'>{
+              post.description.length >= 85 ? post.description.substring(0, 80) + "..." :
+              post.description
+            }</div>
+            </div>
+          </Link>)) : <h1>Loading</h1>} */}
 
-         {filteredPosts ? filteredPosts.map(post => (
+          <button className='post-a-recipe-button'><Link to="/Post" className="post-a-recipe-button-circle">Post a Recipe</Link> </button>
+          {filteredPosts ? filteredPosts.map(post => (
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
@@ -115,7 +113,7 @@ export default function Homepage() {
               </div>
             </Link>
           )) : <div className='Loading'>Loading</div>}
-          
+
         </div>
       </div>
     </div>
