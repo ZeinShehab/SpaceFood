@@ -41,21 +41,21 @@ export default function ViewProfile() {
     <div className="user-profile">
       <div className='user-profile-body'>
         <div className='profile'>User Profile</div>
-        <div className='user-image'> <img src={user.profile} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" /></div>
+        <div className='user-image'> <img src={user.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" /></div>
         <table>
           <tbody>
           <tr>
             <td><input style={{height: '50px'}} disabled value={"Username: "+user.username +"\n"}></input></td>
             <td>
-            <input style={{height: '50px'}} disabled value={"Role: "+user.role}></input>
+            <input style={{height: '50px'}} disabled value={"Role: "+ user.role}></input>
             </td>
           </tr>
           <tr>
             <td>
-              <input style={{height: '50px'}} disabled value={user.firstName}></input>
+              <input style={{height: '50px'}} disabled value={ (user.firstName != null) ? user.firstName : "n/a"}></input>
             </td>
             <td>
-              <input style={{height: '50px'}} disabled value={user.lastName}></input>
+              <input style={{height: '50px'}} disabled value={(user.lastName != null) ? user.lastName : "n/a"}></input>
             </td>
           </tr>
           <tr>
