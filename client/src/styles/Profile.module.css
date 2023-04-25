@@ -18,7 +18,7 @@
 }
 
 .btnsmall{
-    @apply border bg-indigo-500 w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    @apply  bg-indigo-500 w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
 }
 
 .btnsmall:hover{
@@ -34,10 +34,31 @@
 }
 
 .btnremove{
-    @apply border py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    @apply py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
     background-color: #ff6a6a;
 }
 
 .btnremove:hover{
-    @apply border bg-indigo-500
+    @apply bg-indigo-500
 }
+
+.profilebookmark {
+    color: white;
+    @apply flex gap-1 py-1 px-2 text-center rounded-xl shadow-sm text-center cursor-pointer;
+    text-align: center;
+    justify-content: center;
+    background-color: #ff6a6a;
+    border: 1px solid #ff6f69;
+
+  }
+  
+  .profilebookmark:hover {
+    color: #ff6a6a;
+    background-color: white;
+    border: 1px solid #ff6f69;
+  }
+
+  .profilebookmarkicon {
+    @apply pt-1 pb-1 flex;
+    font-size: x-large;
+  }
