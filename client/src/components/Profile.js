@@ -90,7 +90,7 @@ export default function Profile() {
   }
 
   function goBack(){
-    navigate('/Homepage');
+    navigate(-1);
   }
 
   function goToBookmarks() {
