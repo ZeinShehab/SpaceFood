@@ -21,6 +21,10 @@ nav {
 
 .TempHeader {
 	font-size: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 20px;
 	font-weight: bold;
 }
 
@@ -70,6 +74,20 @@ nav {
 	margin-left: 20px;
 }
 
+.page-title{
+	padding-top: 100px;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.Loading{
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	font-size: 50px;
+	font-weight: bold;
+	padding-top: 100px;
+}
 .nav-links {
 	list-style: none;
 	display: flex;
