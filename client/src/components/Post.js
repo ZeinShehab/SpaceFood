@@ -210,6 +210,12 @@ export default function Post() {
     });
   }
 
+  function goToUserProfile() {
+    if (postData) {
+      navigate(`/viewProfile/${postData.owner.username}`);
+    }
+  }
+
   let labels = {0.5: "Terrible", 1:"Terrible+", 1.5:"Poor", 2:"Poor+", 2.5:"Ok", 3:"Ok+", 3.5:"Good", 4:"Good+", 4.5:"Excellent", 5:"Excellent+"}
 
   return (
@@ -232,9 +238,9 @@ export default function Post() {
     <div className="post-container">
 
       <div className='post-header'>
-        <div className="post-title">{postData&& postData.title}</div>
+        <div className="post-title">{postData && postData.title}</div>
         <div className='post-details'>
-          <p className='post-author'>by: {postData && postData.owner.username}</p>
+          <p className='post-author' onClick={goToUserProfile}>by: {postData && postData.owner.username}</p>
           <span className='divider'></span>
           <p className='post-date'>Updated at: {postData && date}</p>
         </div>

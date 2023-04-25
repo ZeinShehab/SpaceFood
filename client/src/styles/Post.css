@@ -463,6 +463,7 @@ textarea:focus {
 
 .post-author {
   padding-right: 5px;
+  cursor: pointer;
   /* border-right: 1px solid #555555; */
 }
 
@@ -568,8 +569,4 @@ textarea:focus {
 .post-print:hover {
   background-color: #ff6a6a;
   color: white;
-}
-
-.post-rating-popup {
-  
 }
