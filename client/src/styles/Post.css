@@ -203,6 +203,7 @@ nav {
 }
 
 .comment {
+  @apply flex w-full flex-nowrap;
   font-size: 18px;
   margin-bottom: 10px;
   margin: 10px;
@@ -570,4 +571,12 @@ textarea:focus {
 .post-print:hover {
   background-color: #ff6a6a;
   color: white;
+}
+
+.delete-comment-button {
+  @apply w-fit;
+  font-size: xx-large;
+  text-align: center;
+  color: #ff6a6a;
+  justify-content: center;
 }

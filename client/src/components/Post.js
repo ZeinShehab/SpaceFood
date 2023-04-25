@@ -350,13 +350,16 @@ export default function Post() {
         </form>
         <ul className="comments-list">
           {comments&&comments.map((comment, index) => (
-            <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}
-            { userId&&(comment.postedBy._id ==userId) &&(
-              <button onClick={() => deleteCommentFromList(apiData?.username,postData._id,comment._id)}>
-                Delete
-              </button >
-            )}
-            </li>
+            <div className='flex flex-nowrap'>
+
+              <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}
+              </li>
+              { userId&&(comment.postedBy._id ==userId) &&(
+                <button className='delete-comment-button' onClick={() => deleteCommentFromList(apiData?.username,postData._id,comment._id)}>
+                  🗑
+                </button >
+              )}
+            </div>
           ))}
         </ul>
       </div>
