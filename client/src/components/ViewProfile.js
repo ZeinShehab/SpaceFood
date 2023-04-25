@@ -17,6 +17,7 @@ export default function ViewProfile() {
   const [{ apiData }] = useFetch();
   const [user, setUser ] = useState();
   const { params } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -37,10 +38,15 @@ export default function ViewProfile() {
   if(!user){
     return <div>Loading...</div>
   }
+  function goBack(){
+    navigate(-1);
+  }
   return (
     <div className="user-profile">
       <div className='user-profile-body'>
-        <div className='profile'>User Profile</div>
+      <div className='flex align-items'><button onClick={goBack} className='text-red-500 text-7xl' >←</button> </div>
+
+        <div className='profile'>  User Profile</div>
         <div className='user-image'> <img src={user.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" /></div>
         <table>
           <tbody>
