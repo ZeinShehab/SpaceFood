@@ -5,6 +5,7 @@ import useFetch from '../hooks/fetch.hook'
 import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Homepage() {
   const navigate = useNavigate()
@@ -34,7 +35,8 @@ export default function Homepage() {
 
   if (search.trim() !== '' && posts) {
     filteredPosts = filteredPosts.filter(post =>
-      post.title.toLowerCase().includes(search.toLowerCase())
+      post.title.toLowerCase().includes(search.toLowerCase()) ||
+      post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase()))
     )
   }
   
@@ -47,9 +49,28 @@ export default function Homepage() {
   return (
     <div>
       <nav className='homepage-header'>
-        <div className="logo">
-          <Link to="/Homepage">SpaceFood</Link>
+          <div className="logo">
+            <Link to="/Homepage">SpaceFood</Link>
+          </div>
+        <div className='search-container'>
+            <input
+              className="searchBar"
+              type="text"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {/* <SearchIcon className='fa input-icons'></SearchIcon> */}
+            
         </div>
+            {/* <input
+              className="searchBar"
+              type="text"
+              placeholder="Search by tag"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+            /> */}
         <div className="nav-links">
           <li>
             <Link to="/profile">Profile</Link>
@@ -68,24 +89,7 @@ export default function Homepage() {
 
       <div className="recent-posts">
           <h2 className="TempHeader">Recent Posts</h2>
-        <div className="post-section">
-          <form className="search-form">
-            <input
-              className="searchBar"
-              type="text"
-              placeholder="Search by title"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <input
-              className="searchBar"
-              type="text"
-              placeholder="Search by tag"
-              value={tag}
-              onChange={(e) => setTag(e.target.value)}
-            />
-          </form>
-        </div>
+        
 
         <div className="post-grid">
 
