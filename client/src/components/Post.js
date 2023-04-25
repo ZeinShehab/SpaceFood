@@ -50,8 +50,9 @@ export default function Post() {
         setHoverRating(postData.data.rating)
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
         setTags(postData.data.tags)
-        setDate(postData.data.createdAt)
-        console.log(date)
+        setDate((new Date(postData.data.createdAt)).toUTCString())
+
+        console.log(typeof(date))
         
       } catch (error) {
         console.log(error);
