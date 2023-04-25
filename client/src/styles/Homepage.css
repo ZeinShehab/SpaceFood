@@ -74,13 +74,13 @@ nav {
 	margin-left: 20px;
 }
 
-.page-title{
+.page-title {
 	padding-top: 100px;
 	font-size: 50px;
 	font-weight: bold;
 }
 
-.Loading{
+.Loading {
 	align-items: center;
 	justify-content: center;
 	display: flex;
@@ -88,6 +88,45 @@ nav {
 	font-weight: bold;
 	padding-top: 100px;
 }
+
+.post-a-recipe-button {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	padding-bottom: 50px;
+	padding-right: 50px;
+	border-radius: 50px;
+}
+
+.post-a-recipe-button-circle:hover {
+	background-color: rgb(228, 225, 225);
+	color: #312f2f;
+
+}
+
+.post-a-recipe-button-circle {
+	cursor: pointer;
+	display: flex;
+	border-radius: 20px;
+	border-width: 1px;
+	align-items: center;
+	justify-content: center;
+	--tw-bg-opacity: 1;
+	background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	text-align: center;
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	--tw-text-opacity: 1;
+	color: rgb(0 0 0 / var(--tw-text-opacity));
+	--tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .nav-links {
 	list-style: none;
 	display: flex;
@@ -173,11 +212,13 @@ nav {
 	font-size: 2.5rem;
 	font-weight: bold;
 	margin-bottom: 50px;
-	color: #0a0a0a; /* orange color, can be adjusted as needed */
-	font-family: 'Poppins', sans-serif; /* or any other font that you prefer */
-  }
-  
-  .searchBar {
+	color: #0a0a0a;
+	/* orange color, can be adjusted as needed */
+	font-family: 'Poppins', sans-serif;
+	/* or any other font that you prefer */
+}
+
+.searchBar {
 	border: none;
 	border-radius: 10px;
 	margin: auto 0;
@@ -190,38 +231,39 @@ nav {
 	height: 32px;
 	display: flex;
 	align-items: left;
-	padding:20px;
+	padding: 20px;
 	text-align: left;
 }
-  
-  .searchBar:focus {
+
+.searchBar:focus {
 	outline: none;
 	background-color: #ffffff;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-  }
+}
 
-  .searchBar::placeholder{
+.searchBar::placeholder {
 	text-align: left;
-  }
+}
 
-  .searchForm{
+.searchForm {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-top: 20px;
 	margin-bottom: 100px;
-  }
+}
 
-  /* .search-container {
+/* .search-container {
 	justify-content: left;
 	align-items: left;
   } */
 
-  .search-container {
+.search-container {
 	@apply grid gap-20 w-3/4;
-  }
 
+}
   .no-results {
 	text-align: center;
 	font-size: x-large;
   }
+
