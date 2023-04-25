@@ -216,7 +216,18 @@ export default function Post() {
   }
 
   let labels = {0.5: "Terrible", 1:"Terrible+", 1.5:"Poor", 2:"Poor+", 2.5:"Ok", 3:"Ok+", 3.5:"Good", 4:"Good+", 4.5:"Excellent", 5:"Excellent+"}
-
+  const deleteCommentFromList = async (username, postId, commentId) => {
+    try {
+      const respone = await deleteComment(username, postId, commentId);
+      if(respone){
+        console.log("Success")
+      }
+      setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
     <div>
       <Toaster position='top-center' reverseOrder={false}></Toaster>
@@ -340,7 +351,7 @@ export default function Post() {
           {comments&&comments.map((comment, index) => (
             <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}
             { comment.postedBy._id ==apiData?._id &&(
-              <button onClick={() => deleteComment(apiData?.username,postData._id,comment._id)}>
+              <button onClick={() => deleteCommentFromList(apiData?.username,postData._id,comment._id)}>
                 Delete
               </button >
             )}
