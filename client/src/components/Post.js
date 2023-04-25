@@ -247,7 +247,7 @@ export default function Post() {
         <div className='post-interactions'>
           <div className='post-rating'>
             <p className='pt-1'>Rating</p>
-            <Rating name="read-only" precision={0.5} value={3.5} readOnly/>
+            <Rating name="read-only" precision={0.5} value={postData&& postData.rating} readOnly/>
             <span className='divider'></span>
           </div>
           <Popup trigger={
