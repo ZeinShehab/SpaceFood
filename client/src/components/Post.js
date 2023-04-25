@@ -7,7 +7,7 @@ import axios from "axios";
 import '../styles/Post.css'
 import useFetch from '../hooks/fetch.hook'; 
 import convertToBase64 from "../helper/convert";
-import { addBookmark, getPost, updatePost, removeBookmark, addComment, modifyRating} from '../helper/helper';
+import { addBookmark, getPost, updatePost, removeBookmark, addComment, modifyRating, deleteComment} from '../helper/helper';
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
 import { Rating } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
@@ -338,7 +338,13 @@ export default function Post() {
         </form>
         <ul className="comments-list">
           {comments&&comments.map((comment, index) => (
-            <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}</li>
+            <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}
+            { comment.postedBy._id ==apiData?._id &&(
+              <button onClick={() => deleteComment(apiData?.username,postData._id,comment._id)}>
+                Delete
+              </button >
+            )}
+            </li>
           ))}
         </ul>
       </div>

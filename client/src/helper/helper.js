@@ -193,3 +193,13 @@ export async function createPost(username, title, photo, description, tags, apiD
         return Promise.reject({error})
     }
   }
+
+  export async function deleteComment(username,postId,commentId){
+    try{
+        console.log(username,postId, {comment:commentId})
+        const response = await axios.put(`/api/user/${username}/post/${postId}/deleteComment`,{comment:commentId})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }

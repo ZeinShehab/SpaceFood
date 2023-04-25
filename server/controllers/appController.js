@@ -582,3 +582,40 @@ export async function updateUserRatings(req,res){
     }
 }
 
+export async function deleteComment(req,res){
+    try{
+        const postId = req.params.Id
+    
+        const commentId = req.body.comment
+        
+        const username = req.params.username
+        
+        console.log('user: ',username)
+        const post = await PostModel.findById(postId)
+        console.log('post: ',post._id)
+        const user = await UserModel.findOne({username})
+
+        const comment = post.comments.find((comment) => comment._id == commentId);
+        
+        console.log(comment.postedBy," ",user._id)
+
+        if (!comment) {
+            
+            return res.status(400).send("Comment not found");
+        }
+        if(!comment.postedBy.equals(user._id)){
+            
+            return res.status(400).send("User doesn't own this comment")
+        }
+        
+        const index = post.comments.findIndex((comment) => comment._id == commentId);
+        
+        post.comments.splice(index, 1);
+        
+        // Save the post
+        await post.save();
+        res.json(post);
+    }catch(error){
+        res.status(500).send({error})
+    }
+}

@@ -38,7 +38,6 @@ router.route('/user/:username/Bookmarks').get(controller.viewBookmarks)
 /* DELETE Methods */
 router.route('/user/:username/DeleteAllPosts').delete(Auth,controller.deleteAllPosts)
 router.route('/DeletePost/:Id').delete(controller.deletePost)
-
 /* PUT Methods */
 router.route('/Post/:Id/updatePost').put(controller.updatePost)
 router.route('/Post/:Id/addComment').put(controller.addComment)
@@ -47,4 +46,5 @@ router.route('/user/:username/removeBookmark').put(controller.removeBookmark)
 router.route('/user/:username/post/:postId').put(controller.modifyRating)
 router.route('/post/:Id/updateRatings').put(controller.updatePostRatings)
 router.route('/user/:username/updateRatings').put(controller.updateUserRatings)
+router.route('/user/:username/post/:Id/deleteComment').put(controller.deleteComment)
 export default router;
