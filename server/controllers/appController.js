@@ -590,14 +590,14 @@ export async function deleteComment(req,res){
         
         const username = req.params.username
         
-        console.log('user: ',username)
+        
         const post = await PostModel.findById(postId)
-        console.log('post: ',post._id)
+        
         const user = await UserModel.findOne({username})
 
         const comment = post.comments.find((comment) => comment._id == commentId);
         
-        console.log(comment.postedBy," ",user._id)
+        
 
         if (!comment) {
             
