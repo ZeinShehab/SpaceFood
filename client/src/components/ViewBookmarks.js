@@ -40,15 +40,16 @@ export default function ViewBookmarks() {
                         <Link to="/Post" >Post a recipe</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={userLogout}>Logout</Link>
+                        <Link to="/Bookmarks">Bookmarks</Link>
                     </li>
                     <li>
-                        <Link to="/Bookmarks">Bookmarks</Link>
+                        <Link to="/" onClick={userLogout}>Logout</Link>
                     </li>
                 </div>
             </nav>
 
             <div className="post-grid">
+                <div className="page-title">BookMarks</div>
                 {bookmarks ? bookmarks.map(post => (
                     <Link to={`/post/${post._id}`} state={post._id}>
                         <div className="post" key={post._id}>
@@ -57,7 +58,7 @@ export default function ViewBookmarks() {
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
                         </div>
                     </Link>
-                )) : <h1 style = {{padding: '100px'} }>Loading</h1>}
+                )) : <div className="Loading">Loading</div>}
             </div>
         </div>
     );

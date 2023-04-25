@@ -159,7 +159,7 @@ export default function Post() {
     }
   }
   if( isLoading){
-    return <h1>Loading...</h1>
+    return <div className='Loading'>Loading</div>
   }
 
   function StarIcon(props) {

@@ -26,7 +26,7 @@ export default function ViewProfile() {
         if(userData){
             setUser(userData.data);
         }else{
-            <h1>Loading...</h1>
+            <div className='Loading'>Loading</div>
         }
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ export default function ViewProfile() {
     fetchData();
   }, []);
   if(!user){
-    return <h1>Loading...</h1>
+    return <div>Loading...</div>
   }
   return (
     <div className="user-profile">

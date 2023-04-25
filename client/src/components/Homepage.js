@@ -79,16 +79,16 @@ export default function Homepage() {
             <Link to="/Post" >Post a recipe</Link>
           </li>
           <li>
-            <Link to="/" onClick={userLogout}>Logout</Link>
+            <Link to ="/Bookmarks">Bookmarks</Link>
           </li>
           <li>
-            <Link to ="/Bookmarks">Bookmarks</Link>
+            <Link to="/" onClick={userLogout}>Logout</Link>
           </li>
         </div>
       </nav>
 
       <div className="recent-posts">
-          <h2 className="TempHeader">Recent Posts</h2>
+          <div className="TempHeader">Recent Posts</div>
         
 
         <div className="post-grid">
@@ -114,7 +114,7 @@ export default function Homepage() {
                 <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
               </div>
             </Link>
-          )) : <h1>Loading</h1>}
+          )) : <div className='Loading'>Loading</div>}
           
         </div>
       </div>

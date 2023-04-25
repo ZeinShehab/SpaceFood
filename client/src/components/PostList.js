@@ -25,7 +25,7 @@ function PostList() {
           <div>posted by: {post.owner}</div>
           <div>Description: {post.description && post.description}</div>
         </div>
-      )) : <h1>Loading Posts</h1>}
+      )) : <div className='Loading'>Loading Posts</div>}
     </div>
 
   );
