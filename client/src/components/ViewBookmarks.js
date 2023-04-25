@@ -44,7 +44,7 @@ export default function ViewBookmarks() {
 
             <div className="post-grid">
                 <div className="page-title">BookMarks</div>
-                {bookmarks ? bookmarks.map(post => (
+                {bookmarks ? bookmarks.length == 0 ? <p className="no-results">No Bookmarks</p>: bookmarks.map(post => (
                     <Link to={`/post/${post._id}`} state={post._id}>
                         <div className="post" key={post._id}>
                             <img className = 'bookmark-posts' src={post.photo} alt="Post Image" />
