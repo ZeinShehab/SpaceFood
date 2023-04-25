@@ -517,7 +517,6 @@ export async function modifyRating(req, res) {
       if (!post) {
         return res.status(400).send("Post not found");
       }
-      console.log(post.ratings)
       if (hasRatedPost) {
         // Update the rating value for the post
         const existingRatingIndex = user.ratedPosts.findIndex(
@@ -547,6 +546,10 @@ export async function modifyRating(req, res) {
         user.ratedPosts.push({postId,rating});
         
       }
+    
+    const sumOfRatings = post.ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    const averageRating = sumOfRatings / post.ratings.length;
+    post.rating = averageRating;
   
       await post.save();
       await user.save();
