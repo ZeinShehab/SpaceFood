@@ -31,6 +31,7 @@ export default function Post() {
   const {params} = useParams()
   const [bookmarked, setBookmarked]= useState()
   const [tags, setTags] = useState([])
+  const [userId, setUserId] = useState()
   useEffect(() => {
     async function fetchData() {
       try {
@@ -51,13 +52,13 @@ export default function Post() {
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
         setTags(postData.data.tags)
         setDate((new Date(postData.data.createdAt)).toUTCString())
-        
+        setUserId(apiData?._id)
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
-  }, [apiData]);
+  }, [apiData,comments]);
 
   const onMouseEnter = (index) => {
     setHoverRating(index);
@@ -350,7 +351,7 @@ export default function Post() {
         <ul className="comments-list">
           {comments&&comments.map((comment, index) => (
             <li key={index} className="comment"><Link to={`/viewProfile/${comment.postedBy.username}`}>{comment.postedBy.username}</Link>: {comment.text}
-            { comment.postedBy._id ==apiData?._id &&(
+            { userId&&(comment.postedBy._id ==userId) &&(
               <button onClick={() => deleteCommentFromList(apiData?.username,postData._id,comment._id)}>
                 Delete
               </button >
