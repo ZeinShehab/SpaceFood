@@ -5,7 +5,6 @@ import useFetch from '../hooks/fetch.hook'
 import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
-import SearchIcon from '@mui/icons-material/Search';
 
 export default function Homepage() {
   const navigate = useNavigate()
