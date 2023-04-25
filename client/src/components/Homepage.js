@@ -88,7 +88,7 @@ export default function Homepage() {
       </nav>
 
       <div className="recent-posts">
-          <div className="TempHeader">Recent Posts</div>
+          <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
         
 
         <div className="post-grid">
@@ -106,7 +106,7 @@ export default function Homepage() {
               </div>
             </Link>)) : <h1>Loading</h1>} */}
 
-         {filteredPosts ? filteredPosts.map(post => (
+         {filteredPosts ? filteredPosts.length == 0 ? <p className='no-results'>No results</p> : filteredPosts.map(post => (
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
@@ -115,7 +115,6 @@ export default function Homepage() {
               </div>
             </Link>
           )) : <div className='Loading'>Loading</div>}
-          
         </div>
       </div>
     </div>

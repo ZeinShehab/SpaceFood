@@ -220,3 +220,8 @@ nav {
   .search-container {
 	@apply grid gap-20 w-3/4;
   }
+
+  .no-results {
+	text-align: center;
+	font-size: x-large;
+  }
