@@ -44,47 +44,11 @@ nav {
   flex-direction: column;
 }
 
-.post-container {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  margin: 20px auto;
-  /* Set margin to auto for centering and adjust top/bottom margin */
-  max-width: 65%;
-  /* Set a max-width to limit container width */
-}
-.create-post-tags-container{
-  align-items: end;
-  display: flex;
-  justify-content: end;
-  flex-direction: column;
-}
-
-.create-post-tags{
-  max-width: 155px;
-  display: flex;
-  border: 1px #1c1c1c;
-}
-
-
-.post-image {
-  width: 50%;
-  border-radius: 5px;
-}
-
 .post-image img {
   margin: auto;
   /* Center the image horizontally */
   max-width: 100%;
   /* Make sure the image doesn't overflow its container */
-}
-
-.post-title {
-  font-size: 350%;
-  font-weight: bold;
-  text-align: center;
-
 }
 
 .title-glass{
@@ -440,7 +404,7 @@ textarea:focus {
 }
 
 .view-post-tag {
-  @apply px-2 border rounded-lg text-center text-white;
+  @apply px-2 py-1 rounded-xl text-center text-white;
   background-color: #ff6a6a;
 }
 
@@ -460,7 +424,7 @@ textarea:focus {
 }
 
 .create-post-tag {
-  @apply px-2 py-2 border rounded-lg text-center text-white flex;
+  @apply px-2 py-1 rounded-xl text-center text-white flex;
   background-color: #ff6a6a;
   white-space: nowrap;
 }
@@ -468,4 +432,144 @@ textarea:focus {
 .create-post-description-tags {
   @apply grid w-3/4;
   justify-content: center;
+}
+
+.post-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px auto;
+  /* Set margin to auto for centering and adjust top/bottom margin */
+  max-width: 65%;
+  /* Set a max-width to limit container width */
+}
+
+.post-header {
+  @apply grid gap-2;
+}
+
+.post-title {
+  font-size: 350%;
+  font-weight: bold;
+  text-align: left;
+}
+
+.post-details {
+  font-size: small;
+  color: #555555;
+  @apply flex gap-2;
+}
+
+.post-author {
+  padding-right: 5px;
+  /* border-right: 1px solid #555555; */
+}
+
+.post-date {
+  padding-left: 5px;
+}
+
+.post-interactions {
+  @apply flex gap-2;
+  font-size: small;
+  color: #555555;
+}
+
+.post-rating {
+  @apply flex gap-2;
+}
+
+.divider {
+  border-right: 1px solid #b4b4b4;
+}
+
+.divider-hoz {
+  border-bottom: 1px solid #b4b4b4;
+} 
+
+.post-rate-button {
+  @apply py-1 px-2 rounded-xl flex-1 text-gray-50 shadow-sm text-center cursor-pointer;
+  background-color: #ff6a6a;
+  border: 1px solid #ff6a6a;
+  
+}
+
+.post-rate-button:hover {
+  background-color: white;
+  color: #ff6a6a;
+  border: 1px solid #ff6a6a;
+}
+
+.post-comments-link {
+  @apply pt-1;
+  padding-left: 10px;
+  border-left: 1px solid #b4b4b4;
+}
+
+.post-comments-link:hover {
+  color: #ff6a6a;
+}
+
+.post-image-container {
+  @apply flex;
+}
+
+.post-image {
+  width: 50%;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.post-image img {
+  margin: auto;
+  /* Center the image horizontally */
+  max-width: 100%;
+  /* Make sure the image doesn't overflow its container */
+}
+
+.post-image-border {
+  border: 1px solid #b4b4b4;
+  border-left: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.bookmark-icon {
+  @apply pt-1 pb-1 flex;
+  font-size: x-large;
+}
+
+.post-bookmark {
+  color: #ff6a6a;
+  border: 1px solid #ff6f69;
+  @apply flex gap-1 py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
+  justify-content: center;
+}
+
+.post-bookmark:hover {
+  background-color: #ff6a6a;
+  color: white;
+}
+
+.post-side {
+  @apply grid gap-5;
+}
+
+.post-print {
+  color: #ff6a6a;
+  border: 1px solid #ff6f69;
+  @apply py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
+}
+
+.post-print:hover {
+  background-color: #ff6a6a;
+  color: white;
+}
+
+.post-rating-popup {
+  
 }
