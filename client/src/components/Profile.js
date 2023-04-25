@@ -105,12 +105,12 @@ export default function Profile() {
 
       <Toaster position='top-center' reverseOrder={false}></Toaster>
 
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center h-fit'>
         <div className={`${styles.glass} ${extend.glass}`} style={{ width: "820px", paddingTop: '3em'}}>
 
           <div className="title flex flex-col items-center">
             <div className="flex gap-40">
-              <button onClick={goBack} className='text-red-500 text-7xl' to="/Homepage">←</button>
+              <button onClick={goBack} className='text-red-500 text-7xl'>←</button>
               <h4 className='text-5xl font-bold pt-5'>Profile</h4>
               <button onClick={userLogout} className='text-red-500 text-2xl pt-3' to="/">Logout</button>
               {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}

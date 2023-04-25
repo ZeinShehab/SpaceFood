@@ -37,12 +37,6 @@ export default function ViewBookmarks() {
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                        <Link to="/Post" >Post a recipe</Link>
-                    </li>
-                    <li>
-                        <Link to="/Bookmarks">Bookmarks</Link>
-                    </li>
-                    <li>
                         <Link to="/" onClick={userLogout}>Logout</Link>
                     </li>
                 </div>
