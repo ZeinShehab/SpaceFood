@@ -9,12 +9,19 @@ import useFetch from '../hooks/fetch.hook';
 import convertToBase64 from "../helper/convert";
 import { addBookmark, getPost, updatePost, removeBookmark, addComment, modifyRating} from '../helper/helper';
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
+import { Rating } from '@mui/material';
+import ShareIcon from '@mui/icons-material/Share';
+import toast, { Toaster } from 'react-hot-toast';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 export default function Post() {
   const navigate = useNavigate()
   const [postRating, setPostRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const [ratings, setRatings] = useState([]);
+  const [date, setDate] = useState("");
+  const [hover, setHover] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
@@ -43,6 +50,8 @@ export default function Post() {
         setHoverRating(postData.data.rating)
         setBookmarked(apiData?.bookmarkedPosts.some(item=>item==params))
         setTags(postData.data.tags)
+        setDate(postData.data.createdAt)
+        console.log(date)
         
       } catch (error) {
         console.log(error);
@@ -192,8 +201,20 @@ export default function Post() {
     )
   }
 
+  async function copyLinkToClip() {
+    let copyPromise = navigator.clipboard.writeText(window.location.href);
+    toast.promise(copyPromise, {
+      loading: 'Copying...',
+      success : <b>Link copied to clipboard!</b>,
+      error: <b>Could not share!</b>
+    });
+  }
+
+  let labels = {0.5: "Terrible", 1:"Terrible+", 1.5:"Poor", 2:"Poor+", 2.5:"Ok", 3:"Ok+", 3.5:"Good", 4:"Good+", 4.5:"Excellent", 5:"Excellent+"}
+
   return (
     <div>
+      <Toaster position='top-center' reverseOrder={false}></Toaster>
       <nav>
         <div className="logo">
           <Link to="/Homepage">SpaceFood</Link>
@@ -207,14 +228,66 @@ export default function Post() {
           </li>
         </ul>
       </nav>
+
     <div className="post-container">
-      {bookmarked? <BsBookmarksFill className='bookmark' onClick={handleBookmarks}/>:<BsBookmarks className='bookmark' onClick={handleBookmarks}/>}
+
+      <div className='post-header'>
+        <div className="post-title">{postData&& postData.title}</div>
+        <div className='post-details'>
+          <p className='post-author'>by: {postData && postData.owner.username}</p>
+          <span className='divider'></span>
+          <p className='post-date'>Updated at: {postData && date}</p>
+        </div>
+        <div className='post-interactions'>
+          <div className='post-rating'>
+            <p className='pt-1'>Rating</p>
+            <Rating name="read-only" precision={0.5} value={3.5} readOnly/>
+            <span className='divider'></span>
+          </div>
+          <Popup trigger={
+            <div>
+              <button className='post-rate-button'>Rate</button>
+            </div>
+          } position="right center">
+            <div className='flex gap-1'>
+              <Rating
+              name="rating"
+              value={userRating}
+              precision={0.5}
+              onChange={(event, newValue) => handleRatingChange(newValue)}
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
+            / >{
+                userRating !== null && (
+                <div sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : userRating]}</div>)}
+            </div>
+          </Popup>
+          <div className='flex-1'>
+            <a className='post-comments-link' href="#comments">Comments({comments.length})</a>
+          </div>
+        </div>
+      </div>
+
+      <div className='post-image-container'>
+        <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
+        <div className='post-image-border'>
+          <div className='post-side'>
+            <div className='post-bookmark' onClick={handleBookmarks}>
+              Bookmark
+                {bookmarked? <BsBookmarksFill className='bookmark-icon'/>:<BsBookmarks className='bookmark-icon'/>}
+            </div>  
+            <span className='divider-hoz'></span>
+            <div className='post-print' onClick={window.print}>Print ⎙</div>
+            <span className='divider-hoz'></span>
+            <div className='post-bookmark' onClick={copyLinkToClip}>Share <ShareIcon></ShareIcon></div>
+          </div>
+        </div>
+      </div>
       {/* {bookmarked ==true ? <BsBookmarksFill className='bookmark' onClick={handleBookmarks}/> : <BsBookmarks className='bookmark' onClick={handleBookmarks}/>} */}
-      <h2 className="post-title">{postData&& postData.title}</h2>
-      <h3>Posted by: {postData && postData.owner.username}</h3>
+      
       <div className = 'post-body'>
         <p className="post-description">{postData && postData.description}</p>{/*Description backend*/}
-        <img className="post-image" src={postData && postData.photo} alt="Main Post Image" />{/*Image Backend */}
         
       </div>
       {/*Image Backend 
@@ -228,7 +301,7 @@ export default function Post() {
       </div>
           */}
 
-<div className="box flex">
+{/* <div className="box flex">
       {[1, 2, 3, 4, 5].map((index) => {
         return (
           <RatingIcon 
@@ -240,7 +313,7 @@ export default function Post() {
             onHandleRatingChange={handleRatingChange} />
         )
       })}
-    </div>
+    </div> */}
       
 
 
@@ -252,7 +325,7 @@ export default function Post() {
         ))}
       </div>
 
-      <div className="comments-container">
+      <div className="comments-container" id="comments">
         <h3>Comments:</h3>
         <form onSubmit={handleCommentSubmit}>{/*Comments handler */}
           <input type="text" placeholder="Add a comment..." value={commentInput} onChange={(event) => setCommentInput(event.target.value)} className="comment-input" />
