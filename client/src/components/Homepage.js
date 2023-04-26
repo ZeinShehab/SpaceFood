@@ -18,6 +18,10 @@ export default function Homepage() {
     navigate('/')
   }
 
+  function userLogin() {
+    navigate('/')
+  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -75,7 +79,10 @@ export default function Homepage() {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/" onClick={userLogout}>Logout</Link>
+            {apiData && apiData.email? 
+            <Link to="/" onClick={userLogout}>Logout</Link> :
+            <Link to="/" onClick={userLogin}>Login</Link>
+            }
           </li>
         </div>
       </nav>

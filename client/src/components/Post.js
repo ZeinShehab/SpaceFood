@@ -134,6 +134,11 @@ export default function Post() {
     localStorage.removeItem('token')
     navigate('/')
   }
+
+  function userLogin() {
+    navigate('/')
+  }
+  
   async function handleBookmarks(){
     const username = apiData?.username
     const postId = postData._id
@@ -241,7 +246,10 @@ export default function Post() {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/" onClick={userLogout}>Logout</Link>
+          {apiData && apiData.email? 
+            <Link to="/" onClick={userLogout}>Logout</Link> :
+            <Link to="/" onClick={userLogin}>Login</Link>
+            }
           </li>
         </ul>
       </nav>
