@@ -99,7 +99,8 @@ export default function Homepage() {
             </div>
           </Link>)) : <h1>Loading</h1>} */}
 
-          <button className='post-a-recipe-button'><Link to="/Post" className="post-a-recipe-button-circle">Post a Recipe</Link> </button>
+          {apiData && apiData.role == "Chef" ? 
+          <button className='post-a-recipe-button'><Link to="/Post" className="post-a-recipe-button-circle">Post a Recipe</Link> </button> : <p></p>}
 
          {filteredPosts ? filteredPosts.length == 0 ? <p className='no-results'>No results</p> : filteredPosts.map(post => (
 
