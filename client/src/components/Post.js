@@ -58,7 +58,7 @@ export default function Post() {
       }
     }
     fetchData();
-  }, [apiData,comments]);
+  }, [apiData]);
 
   const onMouseEnter = (index) => {
     setHoverRating(index);
@@ -98,6 +98,8 @@ export default function Post() {
     setRatings(ratings => [...ratings, userRating])
     
   }, [userRating])
+
+
 
   const handleRatingChange = async (userRating) => {{/*Rating Callback */}
     setUserRating(userRating)
