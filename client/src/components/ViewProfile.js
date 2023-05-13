@@ -23,18 +23,17 @@ export default function ViewProfile() {
     async function fetchData() {
       try {
         const username = params
-        const userData = await getUser({username});
-        if(userData){
+        if (username) {
+            const userData = await getUser({username});
             setUser(userData.data);
-        }else{
-            <div className='Loading'>Loading</div>
+          }
+        } catch (error) {
+          console.log(error.response.data.error);
         }
-      } catch (error) {
-        console.log(error);
-      }
     }
     fetchData();
   }, []);
+
   if(!user){
     return <div>Loading...</div>
   }
