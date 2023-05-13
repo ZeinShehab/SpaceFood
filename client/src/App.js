@@ -68,9 +68,10 @@ const router = createBrowserRouter([
         path: '/Bookmarks',
         element: <ViewBookmarks></ViewBookmarks>
     },{
-        path: 'ViewPosts/:params',
+        path: '/viewPosts/:params',
         element: <ViewPosts></ViewPosts>
     }
+
     // ,
     // {
     //     path: '/AllPosts',

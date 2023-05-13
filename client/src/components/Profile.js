@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
+import {BiFork} from 'react-icons/bi';
 
 
 export default function Profile() {
@@ -97,6 +98,10 @@ export default function Profile() {
     navigate('/Bookmarks');
   }
 
+  function goToRecipes() {
+    navigate('/myrecipes');
+  }
+
   if(isLoading) return <div className='Loading'>Loading</div>;
   if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
 
@@ -119,10 +124,18 @@ export default function Profile() {
             <span className='py-4 text-xl  text-center text-gray-500'>
                 You can update the details.
             </span>
-            <div className={`${styles.profilebookmark} ${extend.profilebookmark}`} onClick={goToBookmarks}>
-                Bookmarks
-                <BsBookmarksFill className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
-            </div> 
+            <div className='flex gap-10'>
+              <div className={`${styles.profilebookmark} ${extend.profilebookmark}`} onClick={goToBookmarks}>
+                  Bookmarks
+                  <BsBookmarksFill className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
+              </div> 
+              <Link to={`/viewPosts/${apiData?.username}`}>
+                <div className={`${styles.profilebookmark} ${extend.profilebookmark}`}>
+                    My Recipes
+                    <BiFork className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
+                </div> 
+              </Link>
+            </div>
           </div>
           </div>
 
