@@ -155,6 +155,7 @@ nav {
 .post-grid {
 	display: flex;
 	flex-direction: column;
+	/* flex-wrap: wrap; */
 	align-items: center;
 	justify-content: center;
 }
@@ -268,13 +269,14 @@ nav {
 }
 
 .sort {
-	width: 50%;
+	width: 20%;
 	margin: auto;
+	/* background-color: white; */
 }
 
 .sort-container {
 	@apply flex gap-5 text-center content-center rounded-lg;
-	width: 50%;
+	width: 100%;
 	margin: auto;
 	background-color: white;
 }

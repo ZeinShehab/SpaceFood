@@ -112,19 +112,18 @@ export default function Homepage() {
 
       <div className="recent-posts">
 
-        <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
+          <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
 
-      <div className='sort'>
-        <div className="sort-container">
-          <div className='sort-label'>Sort</div>
-          <select className='sort-options' id='sort-options' onChange={handleSort}>
-              <option value="date">Date</option>
-              <option value="rating">Rating</option>
-              {/* <option value="date-up">Date ↗</option> */}
-          </select>
-        </div>
-      </div>
-        
+          <div className='sort'>
+            <div className="sort-container">
+              <div className='sort-label'>Sort</div>
+              <select className='sort-options' id='sort-options' onChange={handleSort}>
+                  <option value="date">Date</option>
+                  <option value="rating">Rating</option>
+                  {/* <option value="date-up">Date ↗</option> */}
+              </select>
+            </div>
+          </div>
         <div className="post-grid">
 
           {/* {posts ? posts.map((post) => (
