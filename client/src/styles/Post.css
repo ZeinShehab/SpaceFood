@@ -580,3 +580,18 @@ textarea:focus {
   color: #ff6a6a;
   justify-content: center;
 }
+
+.actions{
+  color: white;
+  @apply flex gap-1 py-1 px-2 text-center rounded-xl shadow-sm text-center cursor-pointer;
+  text-align: center;
+  justify-content: center;
+  background-color: #ff6a6a;
+  border: 1px solid #ff6f69;
+}
+
+.actions:hover {
+  color: #ff6a6a;
+  background-color: white;
+  border: 1px solid #ff6f69;
+}

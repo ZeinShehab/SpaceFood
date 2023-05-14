@@ -43,7 +43,7 @@ export default function EditPost() {
             loading: 'updating...',
             success: 'Post updated successfully',
             error: 'Something went wrong. Try again later.'
-        }).then(() => { navigate('/Homepage') });
+        }).then(() => { navigate(-1) });
     } catch (error) {
       console.error(error);
       alert("Failed to create post");
