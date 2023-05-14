@@ -6,6 +6,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import ConfirmDelete from "./ConfirmDelete";
 import Popup from 'reactjs-popup';
 import { AiFillEdit } from 'react-icons/ai';
+import {MdDeleteForever} from 'react-icons/md'
 
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
@@ -86,18 +87,17 @@ export default function ViewPosts() {
                 <div className="page-title">My Recipes</div>
                 {recipes ? recipes.length == 0 ? <p className="no-results">No Recipes</p> : recipes.map(post => (
                     <Link to={`/post/${post._id}`} state={post._id} onClick={(event) => {
-                        if (modalOpen) {
-                            event.preventDefault();
-                        }
                     }}>
+                        
                         <div className="post" key={post._id}>
                             <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                            <div className="flex">
                             <Popup 
                                 trigger={
                                     <div>
-                                        <button className='delete-comment-button' onClick={(event)=>{event.preventDefault()}}>🗑</button>
+                                        <button className='delete-button' onClick={(event)=>{event.preventDefault()}}><MdDeleteForever size={50}/></button>
                                     </div>
                                 }
                                 position="right center" onOpen={(openPopup) => setOpen(openPopup)} >
@@ -108,8 +108,9 @@ export default function ViewPosts() {
                             </Popup>
                             {/* <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button> */}
                             {/* {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>} */}
-                            <div onClick={(event)=>event.preventDefault()}>
-                                <Link to={`/EditPost/${post._id}`}><AiFillEdit/></Link>
+                            <div className='edit-button' onClick={(event)=>event.preventDefault()}>
+                                    <Link to={`/EditPost/${post._id}`}><AiFillEdit size={50}/></Link>
+                            </div>
                             </div>
                         </div>
                     </Link>

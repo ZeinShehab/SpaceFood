@@ -580,6 +580,20 @@ textarea:focus {
   color: #ff6a6a;
   justify-content: center;
 }
+.delete-button {
+  @apply w-fit;
+  font-size: xx-large;
+  text-align: center;
+  color: #ff6a6a;
+  justify-content: flex-end;
+}
+.edit-button {
+  @apply w-fit;
+  font-size: xx-large;
+  text-align: center;
+  color: #ff6a6a;
+  justify-content: center;
+}
 
 .actions{
   color: white;
@@ -595,3 +609,8 @@ textarea:focus {
   background-color: white;
   border: 1px solid #ff6f69;
 }
+
+
+/* .Edit{
+
+} */
