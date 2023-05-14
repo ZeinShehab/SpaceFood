@@ -5,6 +5,7 @@ import useFetch from '../hooks/fetch.hook'
 import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
+import {BsArrowUpRight, BsArrowDownRight} from 'react-icons/bs'
 
 export default function Homepage() {
   const navigate = useNavigate()
@@ -12,6 +13,7 @@ export default function Homepage() {
   const [{ apiData }] = useFetch()
   const [search, setSearch] = useState('')
   const [tag, setTag] = useState('')
+  const [sort, setSort] = useState('date')
 
   function userLogout() {
     localStorage.removeItem('token')
@@ -43,10 +45,29 @@ export default function Homepage() {
     )
   }
 
-  if (tag.trim() !== '' && posts) {
-    filteredPosts = filteredPosts.filter(post =>
-      post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
-    )
+  // if (tag.trim() !== '' && posts) {
+  //   filteredPosts = filteredPosts.filter(post =>
+  //     post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
+  //   )
+  // }
+
+  if (sort === "date" && posts) {
+    filteredPosts = filteredPosts.sort((a, b) => a.date > b.date ? -1 : 1)
+  }
+
+  if (sort === "rating" && posts) {
+    filteredPosts = filteredPosts.sort((a, b) => a.rating > b.rating ? -1 : 1)
+  }
+
+  if (posts) {
+    posts.array.forEach(post => {
+      console.log(post.title + " " + post.rating);
+    });
+  }
+
+  const handleSort = (e) => {
+    console.log(e.target.value);
+    setSort(e.target.value);
   }
 
   return (
@@ -90,7 +111,18 @@ export default function Homepage() {
 
       <div className="recent-posts">
 
-      <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
+        <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
+
+      <div className='sort'>
+        <div className="sort-container">
+          <div className='sort-label'>Sort</div>
+          <select className='sort-options' id='sort-options' onChange={handleSort}>
+              <option value="date">Date</option>
+              <option value="rating">Rating</option>
+              {/* <option value="date-up">Date ↗</option> */}
+          </select>
+        </div>
+      </div>
         
         <div className="post-grid">
 

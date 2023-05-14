@@ -262,8 +262,27 @@ nav {
 	@apply grid gap-20 w-3/4;
 
 }
-  .no-results {
+.no-results {
 	text-align: center;
 	font-size: x-large;
-  }
+}
 
+.sort {
+	width: 50%;
+	margin: auto;
+}
+
+.sort-container {
+	@apply flex gap-5 text-center content-center;
+	width: 50%;
+	margin: auto;
+}
+
+.sort-label {
+	@apply w-1/4;
+}
+
+.sort-options {
+	@apply text-center rounded-lg w-3/4; 
+	/* border-radius: b; */
+}
