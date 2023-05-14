@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom';
 import Username from './components/Username';
 import Password from './components/Password';
@@ -80,10 +80,12 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
+    useEffect(() => {
+        document.title = 'SpaceFood';
+      }, []);
   return (
     <main>
         <RouterProvider router={router}></RouterProvider>
-
     </main>
   )
 }
