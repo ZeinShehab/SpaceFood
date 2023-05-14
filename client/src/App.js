@@ -18,6 +18,7 @@ import PostList from './components/PostList';
 import CreatePost from './components/CreatePost';
 import ViewProfile from './components/ViewProfile';
 import ViewBookmarks from './components/ViewBookmarks';
+import EditPost from './components/EditPost';
 /** root routes */
 const router = createBrowserRouter([
     {
@@ -70,6 +71,9 @@ const router = createBrowserRouter([
     },{
         path: '/viewPosts/:params',
         element: <ViewPosts></ViewPosts>
+    },{
+        path: '/EditPost/:params',
+        element: <EditPost></EditPost>
     }
 
     // ,
