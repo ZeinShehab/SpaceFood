@@ -309,3 +309,8 @@ nav {
 	/* border-inline-width: 50%; */
 	padding-bottom: 10px;
 }
+
+.delete-btn {
+	margin-left: auto;
+  }
+  

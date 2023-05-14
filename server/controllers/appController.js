@@ -429,9 +429,7 @@ export async function updatePost(req,res){
 
 export async function addComment(req, res) {
     const user = await UserModel.findById(req.body.postedBy);
-    console.log(user.username)
     let comment = req.body
-    console.log(comment, req.params.Id)
     const updatedPost = await PostModel.findByIdAndUpdate(
       req.params.Id,
       { $push: { comments: comment } },

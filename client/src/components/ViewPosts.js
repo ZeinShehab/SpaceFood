@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/fetch.hook";
 import axios from "axios";
 import { Link, useNavigate, useParams } from 'react-router-dom'
-
+import {toast, Toaster} from 'react-hot-toast'
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
     const [{ isLoading, apiData }] = useFetch()
+    const[deletedPost, setDeletedPosts] = useState()
     const { params } = useParams();
     const navigate = useNavigate()
 
@@ -24,6 +25,31 @@ export default function ViewPosts() {
         }
         fetchRecipes();
     }, [apiData]);
+
+    useEffect(()=>{
+        async function displayRecipes(id){
+            try{
+                setRecipes(recipes.filter((p) => p._id !== id));
+                console.log(id)
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
+        displayRecipes(deletedPost)
+    },[deletedPost])
+    const handleDeletePost = async (postId) => {
+        try {
+          const res = await axios.delete(`/api/DeletePost/${postId}`);
+          if(res.status === 200) {
+            setDeletedPosts(postId)
+          } else {
+            throw new Error("Failed to delete your post");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
     function userLogout() {
         localStorage.removeItem('token')
         navigate('/')
@@ -52,6 +78,7 @@ export default function ViewPosts() {
                             <img className = 'bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                            <button className="delete-btn" onClick={(event) => {event.preventDefault(); event.stopPropagation(); handleDeletePost(post._id);}}>🗑</button>
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}
