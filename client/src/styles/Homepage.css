@@ -180,12 +180,12 @@ nav {
 
 }
 
-.card-description {
+/* .card-description {
 	width: inherit;
 	text-align: justify;
 	padding: 20px;
 	word-break: break-all;
-}
+} */
 
 .card-title {
 	font-size: 35px;
@@ -273,9 +273,10 @@ nav {
 }
 
 .sort-container {
-	@apply flex gap-5 text-center content-center;
+	@apply flex gap-5 text-center content-center rounded-lg;
 	width: 50%;
 	margin: auto;
+	background-color: white;
 }
 
 .sort-label {
@@ -283,6 +284,28 @@ nav {
 }
 
 .sort-options {
-	@apply text-center rounded-lg w-3/4; 
+	@apply text-center rounded-lg w-3/4 cursor-pointer; 
 	/* border-radius: b; */
+}
+
+.post-card-details {
+	@apply flex gap-2 pt-2 px-5;
+	border-top: 1px solid #ff8c00;
+	
+}
+
+.post-card-details-text {
+	font-size: small;
+	color: #555555;
+	padding-top: 2px;
+}
+
+.divider {
+	border-right: 1px solid #b4b4b4;
+}
+
+.post-card-description {
+	/* border-bottom: 1px solid #ff8c00; */
+	/* border-inline-width: 50%; */
+	padding-bottom: 10px;
 }

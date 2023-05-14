@@ -6,6 +6,8 @@ import PostList from './PostList'
 import { getAllPosts } from '../helper/helper';
 import Post from './Post'
 import {BsArrowUpRight, BsArrowDownRight} from 'react-icons/bs'
+import { Rating } from '@mui/material';
+
 
 export default function Homepage() {
   const navigate = useNavigate()
@@ -59,14 +61,13 @@ export default function Homepage() {
     filteredPosts = filteredPosts.sort((a, b) => a.rating > b.rating ? -1 : 1)
   }
 
-  if (posts) {
-    posts.array.forEach(post => {
-      console.log(post.title + " " + post.rating);
-    });
-  }
+  // if (posts) {
+  //   posts.forEach(post => {
+  //     console.log(post.title + " " + post.rating);
+  //   });
+  // }
 
   const handleSort = (e) => {
-    console.log(e.target.value);
     setSort(e.target.value);
   }
 
@@ -148,7 +149,14 @@ export default function Homepage() {
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
                 <h3>{post.title}</h3>
-                <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                <p className='post-card-description'>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                <div className='post-card-details'>
+                  <div className='post-card-details-text'>{post.owner}</div>
+                  <span className='divider'></span>
+                  <div className='post-card-details-text'>{new Date(post.createdAt).toDateString()}</div>
+                  <span className='divider'></span>
+                  <Rating className='post-card-rating' name="read-only" precision={0.5} value={post.rating} readOnly/>
+                </div>
               </div>
             </Link>
           )) : <div className='Loading'>Loading</div>}
