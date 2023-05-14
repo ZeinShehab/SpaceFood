@@ -429,9 +429,7 @@ export async function updatePost(req,res){
 
 export async function addComment(req, res) {
     const user = await UserModel.findById(req.body.postedBy);
-    console.log(user.username)
     let comment = req.body
-    console.log(comment, req.params.Id)
     const updatedPost = await PostModel.findByIdAndUpdate(
       req.params.Id,
       { $push: { comments: comment } },
@@ -618,4 +616,24 @@ export async function deleteComment(req,res){
     }catch(error){
         res.status(500).send({error})
     }
+}
+
+export async function editPost(req,res){
+    const id  = req.params.Id;
+    const { title, description, photo, tags } = req.body;
+    try {
+        const post = await PostModel.findById(id);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        post.title = title || post.title;
+        post.description = description || post.description;
+        post.photo = photo || post.photo;
+        post.tags = tags || post.tags;
+        await post.save();
+        res.json({ message: 'Post updated successfully' });
+  } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+  }
 }

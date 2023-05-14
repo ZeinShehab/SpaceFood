@@ -47,4 +47,5 @@ router.route('/user/:username/post/:postId').put(controller.modifyRating)
 router.route('/post/:Id/updateRatings').put(controller.updatePostRatings)
 router.route('/user/:username/updateRatings').put(controller.updateUserRatings)
 router.route('/user/:username/post/:Id/deleteComment').put(controller.deleteComment)
+router.route('/Post/:Id/editPost').put(controller.editPost)
 export default router;
