@@ -1,19 +1,22 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import useFetch from "../hooks/fetch.hook";
 import axios from "axios";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast, Toaster } from 'react-hot-toast'
 import ConfirmDelete from "./ConfirmDelete";
 import Popup from 'reactjs-popup';
+import { AiFillEdit } from 'react-icons/ai';
+import {MdDeleteForever} from 'react-icons/md'
 
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
     const [{ isLoading, apiData }] = useFetch()
     const [deletedPost, setDeletedPosts] = useState()
     const { params } = useParams();
-    const [modalOpen,setModalOpen] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
     const navigate = useNavigate()
-    const [PostToDelete,setPostToDelete] = useState()
+    const [PostToDelete, setPostToDelete] = useState()
+    const [open,setOpen] = useState()
     useEffect(() => {
         async function fetchRecipes() {
             try {
@@ -40,13 +43,19 @@ export default function ViewPosts() {
             }
         }
         displayRecipes(deletedPost)
-    }, [deletedPost])
+    }, [deletedPost]);
+    
+
     const handleDeletePost = async (postId) => {
         try {
-            setModalOpen(true)
             const res = await axios.delete(`/api/DeletePost/${postId}`);
             if (res.status === 200) {
                 setDeletedPosts(postId)
+                toast.promise(res, {
+                    loading: 'Deleting Post...',
+                    success: 'Post deleted successfully',
+                    error: 'Error has occured. Please try again later.'
+                })
             } else {
                 throw new Error("Failed to delete your post");
             }
@@ -73,30 +82,36 @@ export default function ViewPosts() {
                     </li>
                 </div>
             </nav>
-            
+
             <div className="post-grid">
                 <div className="page-title">My Recipes</div>
                 {recipes ? recipes.length == 0 ? <p className="no-results">No Recipes</p> : recipes.map(post => (
-                    <Link to={`/post/${post._id}`} state={post._id} onClick={(event) => { 
-                        if (modalOpen) {
-                          event.preventDefault();
-                        }
-                      }}>
+                    <Link to={`/post/${post._id}`} state={post._id} onClick={(event) => {
+                    }}>
+                        
                         <div className="post" key={post._id}>
                             <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
-                            <Popup trigger={
-                                <div>
-                                    <button className='delete-comment-button'>🗑</button>
-                                </div>
-                            } position="right center">
+                            <div className="flex">
+                            <Popup 
+                                trigger={
+                                    <div>
+                                        <button className='delete-button' onClick={(event)=>{event.preventDefault()}}><MdDeleteForever size={50}/></button>
+                                    </div>
+                                }
+                                position="right center" onOpen={(openPopup) => setOpen(openPopup)} >
+                                
                                 <div className='flex gap-1'>
-                                    test
+                                    <button className="actions" onClick={ () => handleDeletePost(post._id)}>confirm</button>
                                 </div>
                             </Popup>
                             {/* <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button> */}
                             {/* {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>} */}
+                            <div className='edit-button' onClick={(event)=>event.preventDefault()}>
+                                    <Link to={`/EditPost/${post._id}`}><AiFillEdit size={50}/></Link>
+                            </div>
+                            </div>
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}
