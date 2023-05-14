@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast, Toaster } from 'react-hot-toast'
 import ConfirmDelete from "./ConfirmDelete";
+import Popup from 'reactjs-popup';
+
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
     const [{ isLoading, apiData }] = useFetch()
@@ -84,8 +86,17 @@ export default function ViewPosts() {
                             <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
-                            <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button>
-                            {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>}
+                            <Popup trigger={
+                                <div>
+                                    <button className='delete-comment-button'>🗑</button>
+                                </div>
+                            } position="right center">
+                                <div className='flex gap-1'>
+                                    test
+                                </div>
+                            </Popup>
+                            {/* <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button> */}
+                            {/* {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>} */}
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}
