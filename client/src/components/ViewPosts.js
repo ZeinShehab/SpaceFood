@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import useFetch from "../hooks/fetch.hook";
 import axios from "axios";
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import {toast, Toaster} from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast'
+import ConfirmDelete from "./ConfirmDelete";
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
     const [{ isLoading, apiData }] = useFetch()
-    const[deletedPost, setDeletedPosts] = useState()
+    const [deletedPost, setDeletedPosts] = useState()
     const { params } = useParams();
+    const [modalOpen,setModalOpen] = useState(false)
     const navigate = useNavigate()
-
+    const [PostToDelete,setPostToDelete] = useState()
     useEffect(() => {
         async function fetchRecipes() {
             try {
@@ -26,30 +28,30 @@ export default function ViewPosts() {
         fetchRecipes();
     }, [apiData]);
 
-    useEffect(()=>{
-        async function displayRecipes(id){
-            try{
+    useEffect(() => {
+        async function displayRecipes(id) {
+            try {
                 setRecipes(recipes.filter((p) => p._id !== id));
-                console.log(id)
             }
-            catch(error){
+            catch (error) {
                 console.log(error)
             }
         }
         displayRecipes(deletedPost)
-    },[deletedPost])
+    }, [deletedPost])
     const handleDeletePost = async (postId) => {
         try {
-          const res = await axios.delete(`/api/DeletePost/${postId}`);
-          if(res.status === 200) {
-            setDeletedPosts(postId)
-          } else {
-            throw new Error("Failed to delete your post");
-          }
+            setModalOpen(true)
+            const res = await axios.delete(`/api/DeletePost/${postId}`);
+            if (res.status === 200) {
+                setDeletedPosts(postId)
+            } else {
+                throw new Error("Failed to delete your post");
+            }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+    };
     function userLogout() {
         localStorage.removeItem('token')
         navigate('/')
@@ -69,16 +71,21 @@ export default function ViewPosts() {
                     </li>
                 </div>
             </nav>
-
+            
             <div className="post-grid">
                 <div className="page-title">My Recipes</div>
-                {recipes ? recipes.length == 0 ? <p className="no-results">No Recipes</p>: recipes.map(post => (
-                    <Link to={`/post/${post._id}`} state={post._id}>
+                {recipes ? recipes.length == 0 ? <p className="no-results">No Recipes</p> : recipes.map(post => (
+                    <Link to={`/post/${post._id}`} state={post._id} onClick={(event) => { 
+                        if (modalOpen) {
+                          event.preventDefault();
+                        }
+                      }}>
                         <div className="post" key={post._id}>
-                            <img className = 'bookmark-posts' src={post.photo} alt="Post Image" />
+                            <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
-                            <button className="delete-btn" onClick={(event) => {event.preventDefault(); event.stopPropagation(); handleDeletePost(post._id);}}>🗑</button>
+                            <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button>
+                            {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>}
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}
