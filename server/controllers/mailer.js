@@ -104,7 +104,38 @@ export const verifyChef = async (req, res) => {
       request.end();
     });
 
-    // const verificationLink = `http://localhost:8080/api/verifyOTP?username=${username}&code=${generatedOTP}`;
+    const verificationLink = `http://localhost:8080/api/verifyOTP?username=${username}&code=${generatedOTP}`;
+    const email = {
+        body: {
+          name: username,
+          intro: 'Please click on the button below to verify your account:',
+          action: {
+            instructions: 'Verify Account',
+            button: {
+              color: '#22BC66',
+              text: 'Verify',
+              link: verificationLink,
+            },
+          },
+          outro: 'Thank you for using our service.',
+        },
+      };
+    
+    var emailBody = MailGenerator.generate(email);
+    
+    let message = {
+        from : `smtp.ethereal.email`,
+        to: userEmail,
+        subject : "Verification Email for SpaceFood",
+        html : emailBody
+    }
+    
+    // send mail
+    transporter.sendMail(message)
+        .then(() => {
+            return res.status(200).send({ msg: "You should receive an email from us."})
+        })
+        .catch(error => res.status(500).send({ error }))
 
     let isVerified;
 
@@ -147,41 +178,41 @@ export const verifyChef = async (req, res) => {
 };
 
 
-export const sendEmail = async (req,res) =>{
-    const { username, userEmail} = req.body;
-    // try{
-    const email = {
-            body: {
-              name: username,
-              intro: 'Please click on the button below to verify your account:',
-            //   action: {
-            //     instructions: 'Verify Account',
-            //     button: {
-            //       color: '#22BC66',
-            //       text: 'Verify',
-            //       link: verificationLink,
-            //     },
-            //   },
-              outro: 'Thank you for using our service.',
-            },
-          };
+// export const sendEmail = async (req,res) =>{
+//     const { username, userEmail} = req.body;
+//     try{
+//     const email = {
+//             body: {
+//               name: username,
+//               intro: 'Please click on the button below to verify your account:',
+//               action: {
+//                 instructions: 'Verify Account',
+//                 button: {
+//                   color: '#22BC66',
+//                   text: 'Verify',
+//                   link: 'https:://twitch.tv',
+//                 },
+//               },
+//               outro: 'Thank you for using our service.',
+//             },
+//           };
         
-        var emailBody = MailGenerator.generate(email);
+//         var emailBody = MailGenerator.generate(email);
         
-        let message = {
-            from : `smtp.ethereal.email`,
-            to: userEmail,
-            subject : "Verification Email for SpaceFood",
-            html : emailBody
-        }
+//         let message = {
+//             from : `smtp.ethereal.email`,
+//             to: userEmail,
+//             subject : "Verification Email for SpaceFood",
+//             html : emailBody
+//         }
         
-        // send mail
-        transporter.sendMail(message)
-            .then(() => {
-                return res.status(200).send({ msg: "You should receive an email from us."})
-            })
-            .catch(error => res.status(500).send({ error }))
-        // }catch(error){
-        //     res.status(500).send({error: "Error has occured"})
-        // }
-}
+//         // send mail
+//         transporter.sendMail(message)
+//             .then(() => {
+//                 return res.status(200).send({ msg: "You should receive an email from us."})
+//             })
+//             .catch(error => res.status(500).send({ error }))
+//         }catch(error){
+//             res.status(500).send({error: "Error has occured"})
+//         }
+// }

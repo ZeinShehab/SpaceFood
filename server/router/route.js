@@ -3,7 +3,7 @@ const router = Router();
 
 /** import all controllers */
 import * as controller from '../controllers/appController.js';
-import { registerMail, sendEmail, verifyChef } from '../controllers/mailer.js'
+import { registerMail, verifyChef } from '../controllers/mailer.js'
 import Auth, { localVariables } from '../middleware/auth.js';
 
 
@@ -12,7 +12,7 @@ import Auth, { localVariables } from '../middleware/auth.js';
 router.route('/register').post(controller.register); // register user
 router.route('/registerMail').post(registerMail); // send the email
 
-router.route('/verifyChef').post(sendEmail)
+router.route('/verifyChef').post(verifyChef)
 
 
 router.route('/authenticate').post(controller.verifyUser, (req, res) => res.end()); // authenticate user
