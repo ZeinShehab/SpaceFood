@@ -381,7 +381,16 @@ textarea:focus {
 }
 
 .submit-post {
-  @apply border bg-indigo-500 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+  background-color: #f16b27;
+  border: 2px solid #f16b27;
+  @apply py-3 px-3 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+}
+
+.submit-post:hover {
+  background-color: white;
+  border: 2px solid #f16b27;
+  color: #f16b27;
+  /* @apply border py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer; */
 }
 
 .tag-btn {
