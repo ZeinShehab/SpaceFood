@@ -38,37 +38,9 @@ export default function Homepage() {
     fetchData()
   }, [])
 
-  let filteredPosts = posts
-
-  if (search.trim() !== '' && posts) {
-    filteredPosts = filteredPosts.filter(post =>
-      post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase()))
-    )
-  }
-
-  // if (tag.trim() !== '' && posts) {
-  //   filteredPosts = filteredPosts.filter(post =>
-  //     post.tags.some(postTag => postTag.toLowerCase().includes(tag.toLowerCase()))
-  //   )
-  // }
-
-  if (sort === "date" && posts) {
-    filteredPosts = filteredPosts.sort((a, b) => a.date > b.date ? -1 : 1)
-  }
-
-  if (sort === "rating" && posts) {
-    filteredPosts = filteredPosts.sort((a, b) => a.rating > b.rating ? -1 : 1)
-  }
-
-  // if (posts) {
-  //   posts.forEach(post => {
-  //     console.log(post.title + " " + post.rating);
-  //   });
-  // }
-
   const handleSort = (e) => {
     setSort(e.target.value);
+
   }
 
   return (
@@ -145,7 +117,14 @@ export default function Homepage() {
           {apiData && apiData.role == "Chef" ? 
           <button className='post-a-recipe-button'><Link to="/Post" className="post-a-recipe-button-circle">Post a Recipe</Link> </button> : <p></p>}
 
-         {filteredPosts ? filteredPosts.length == 0 ? <p className='no-results'>No results</p> : filteredPosts.map(post => (
+
+
+         {posts ? posts.length == 0 ? <p className='no-results'>No results</p> : 
+          posts.filter(post =>
+          post.title.toLowerCase().includes(search.toLowerCase()) ||
+          post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase())))
+          .sort(sort == "date" ? (a, b) => a.date > b.date ? -1 : 1 : (a, b) => a.rating > b.rating ? -1 : 1)
+          .map(post => (
 
             <Link to={`/post/${post._id}`} state={post._id}>
               <div className="post" key={post._id}>
