@@ -89,6 +89,9 @@ export default function Homepage() {
 
           <div className="TempHeader">{search.trim() !== '' ? "Search Results" : "Recent Posts"}</div>
 
+          {posts && posts.length != 0 && posts.filter(post =>
+          post.title.toLowerCase().includes(search.toLowerCase()) ||
+          post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase()))).length != 0 ?
           <div className='sort'>
             <div className="sort-container">
               <div className='sort-label'>Sort</div>
@@ -98,7 +101,8 @@ export default function Homepage() {
                   {/* <option value="date-up">Date ↗</option> */}
               </select>
             </div>
-          </div>
+          </div> :
+          <p></p>}
         <div className="post-grid">
 
           {/* {posts ? posts.map((post) => (
@@ -119,7 +123,9 @@ export default function Homepage() {
 
 
 
-         {posts ? posts.length == 0 ? <p className='no-results'>No results</p> : 
+         {posts ? posts.length == 0 || posts.filter(post =>
+          post.title.toLowerCase().includes(search.toLowerCase()) ||
+          post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase()))).length == 0? <p className='no-results'>No results</p> : 
           posts.filter(post =>
           post.title.toLowerCase().includes(search.toLowerCase()) ||
           post.tags.some(postTag => postTag.toLowerCase().includes(search.toLowerCase())))
