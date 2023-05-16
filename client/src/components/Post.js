@@ -122,6 +122,7 @@ export default function Post() {
       const id = await apiData?._id
       const username = await apiData?.username
       const newComment = { text: commentInput, postedBy: { username: username} }
+      if (commentInput == "") return;
       const updatedComments = [...comments, newComment]
       // const response = await updatePost(params,{...postData, comments: [...comments,{text:commentInput,postedBy:id}]})
       const body = {text:commentInput,postedBy:id}
