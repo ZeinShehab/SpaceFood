@@ -13,7 +13,7 @@ import ViewPosts from './components/ViewPosts'
 
 /** auth middleware */
 import { AuthorizeUser, ProtectRoute } from './middleware/auth'
-import { AuthorizeUserAsChef } from './middleware/authChef';
+import { AuthorizeUserAsChef, AuthorizeOwner } from './middleware/authChef';
 import PostList from './components/PostList';
 import CreatePost from './components/CreatePost';
 import ViewProfile from './components/ViewProfile';
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         element: <ViewPosts></ViewPosts>
     },{
         path: '/EditPost/:params',
-        element: <AuthorizeUser><EditPost></EditPost></AuthorizeUser>
+        element: <AuthorizeUser><AuthorizeUserAsChef><AuthorizeOwner><EditPost></EditPost></AuthorizeOwner></AuthorizeUserAsChef></AuthorizeUser>
     }
 
     // ,
