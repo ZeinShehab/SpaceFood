@@ -135,7 +135,7 @@ nav {
 }
 
 .comment-submit-btn {
-  background-color: #FF6347;
+  background-color: #f16b27;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -145,7 +145,7 @@ nav {
 }
 
 .comment-submit-btn:hover {
-  background-color: #FF5733;
+  background-color: #ec5c24;
 }
 
 .rating {
@@ -225,7 +225,7 @@ nav {
 
 .comment-submit-btn {
   margin-top: 10px;
-  background-color: #ff6f69;
+  background-color: #f16b27;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -238,7 +238,7 @@ nav {
 }
 
 .comment-submit-btn:hover {
-  background-color: #d7385e;
+  background-color: #d04f1b;
 }
 
 .create-post-form {
@@ -407,7 +407,7 @@ textarea:focus {
 
 .view-post-tag {
   @apply px-2 py-1 rounded-xl text-center text-white;
-  background-color: #ff6a6a;
+  background-color: #f16b27;
 }
 
 .create-post-tag-input-container {
@@ -415,7 +415,7 @@ textarea:focus {
 }
 
 .create-post-tag-input {
-  border-right: 2px solid #ff6a6a;  
+  border-right: 2px solid #f16b27;  
   width: 200px;
   outline: none;
   text-align: center;
@@ -427,7 +427,7 @@ textarea:focus {
 
 .create-post-tag {
   @apply px-2 py-1 rounded-xl text-center text-white flex;
-  background-color: #ff6a6a;
+  background-color: #f16b27;
   white-space: nowrap;
 }
 
@@ -493,15 +493,15 @@ textarea:focus {
 
 .post-rate-button {
   @apply py-1 px-2 rounded-xl flex-1 text-gray-50 shadow-sm text-center cursor-pointer;
-  background-color: #ff6a6a;
-  border: 1px solid #ff6a6a;
+  background-color: #f16b27;
+  border: 1px solid #f16b27;
   
 }
 
 .post-rate-button:hover {
   background-color: white;
-  color: #ff6a6a;
-  border: 1px solid #ff6a6a;
+  color: #f16b27;
+  border: 1px solid #f16b27;
 }
 
 .post-comments-link {
@@ -511,7 +511,7 @@ textarea:focus {
 }
 
 .post-comments-link:hover {
-  color: #ff6a6a;
+  color: #f16b27;
 }
 
 .post-image-container {
@@ -519,8 +519,8 @@ textarea:focus {
 }
 
 .post-image {
-  width: auto;
-  height: 500px;
+  width: 50%;
+  /* height: 500px; */
   border-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -548,14 +548,14 @@ textarea:focus {
 }
 
 .post-bookmark {
-  color: #ff6a6a;
-  border: 1px solid #ff6f69;
+  color: #f16b27;
+  border: 1px solid #f16b27;
   @apply flex gap-1 py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
   justify-content: center;
 }
 
 .post-bookmark:hover {
-  background-color: #ff6a6a;
+  background-color: #f16b27;
   color: white;
 }
 
@@ -564,13 +564,13 @@ textarea:focus {
 }
 
 .post-print {
-  color: #ff6a6a;
-  border: 1px solid #ff6f69;
+  color: #f16b27;
+  border: 1px solid #f16b27;
   @apply py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
 }
 
 .post-print:hover {
-  background-color: #ff6a6a;
+  background-color: #f16b27;
   color: white;
 }
 
@@ -578,21 +578,21 @@ textarea:focus {
   @apply w-fit;
   font-size: xx-large;
   text-align: center;
-  color: #ff6a6a;
+  color: #f16b27;
   justify-content: center;
 }
 .delete-button {
-  @apply w-fit;
+  @apply w-fit pt-2;
   font-size: xx-large;
   text-align: center;
-  color: #ff6a6a;
+  color: #f16b27;
   justify-content: flex-end;
 }
 .edit-button {
-  @apply w-fit;
+  @apply w-fit pt-2;
   font-size: xx-large;
   text-align: center;
-  color: #ff6a6a;
+  color: #f16b27;
   justify-content: center;
 }
 
@@ -601,17 +601,29 @@ textarea:focus {
   @apply flex gap-1 py-1 px-2 text-center rounded-xl shadow-sm text-center cursor-pointer;
   text-align: center;
   justify-content: center;
-  background-color: #ff6a6a;
-  border: 1px solid #ff6f69;
+  background-color: #f16b27;
+  border: 1px solid #f16b27;
 }
 
 .actions:hover {
-  color: #ff6a6a;
+  color: #f16b27;
   background-color: white;
-  border: 1px solid #ff6f69;
+  border: 1px solid #f16b27;
 }
 
+.confirm-delete {
+  @apply rounded-lg text-center cursor-pointer px-1;
+  background-color: #f16b27;
+  color: white;
 
+}
+
+.confirm-text {
+  /* white-space: pre-wrap; */
+  white-space: nowrap;
+  word-wrap: nowrap;
+  padding-right: 7px;
+}
 /* .Edit{
 
 } */

@@ -97,19 +97,22 @@ export default function ViewPosts() {
                             <Popup 
                                 trigger={
                                     <div>
-                                        <button className='delete-button' onClick={(event)=>{event.preventDefault()}}><MdDeleteForever size={50}/></button>
+                                        <button className='delete-button' onClick={(event)=>{event.preventDefault()}}><MdDeleteForever size={40}/></button>
                                     </div>
                                 }
+                                contentStyle={{ width: '230px' }}
+                                className="popup-wrapper" 
                                 position="right center" onOpen={(openPopup) => setOpen(openPopup)} >
                                 
-                                <div className='flex gap-1'>
-                                    <button className="actions" onClick={ () => handleDeletePost(post._id)}>confirm</button>
+                                <div className='flex gap-1 flex-nowrap'>
+                                    <div className="confirm-text">Confirm delete?</div>
+                                    <button className="confirm-delete" onClick={ () => handleDeletePost(post._id)}>CONFIRM</button>
                                 </div>
                             </Popup>
                             {/* <button className="delete-btn" onClick={(event) => { event.preventDefault(); event.stopPropagation(); setPostToDelete(post._id);setModalOpen(true) }}>🗑</button> */}
                             {/* {modalOpen &&<ConfirmDelete onClick={(event)=>{event.preventDefault();event.stopPropagation();}} setOpenModal={setModalOpen} handleDelete= {handleDeletePost} PostToDelete={PostToDelete}/>} */}
                             <div className='edit-button' onClick={(event)=>event.preventDefault()}>
-                                    <Link to={`/EditPost/${post._id}`}><AiFillEdit size={50}/></Link>
+                                    <Link to={`/EditPost/${post._id}`}><AiFillEdit size={40}/></Link>
                             </div>
                             </div>
                         </div>
