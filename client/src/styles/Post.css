@@ -519,7 +519,8 @@ textarea:focus {
 }
 
 .post-image {
-  width: 50%;
+  width: auto;
+  height: 500px;
   border-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
