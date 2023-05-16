@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import avatar from '../assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { profileValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
 import useFetch from '../hooks/fetch.hook';
-import { updateUser } from '../helper/helper'
+import { sendEmail, updateUser, verifyOTP } from '../helper/helper'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
 import {BsBookmarksFill, BsBookmarks} from 'react-icons/bs'
 import {BiFork} from 'react-icons/bi';
-
 
 export default function Profile() {
 
@@ -20,6 +19,9 @@ export default function Profile() {
   const [certName, setName] = useState();
   const [removeCert, setRemove] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
+  const [sentEmail, setSentEmail] = useState(false)
+  const [code,setCode] = useState()
+  const [verified, setVerified] = useState(false)
   const navigate = useNavigate()
  
   const formik = useFormik({
@@ -40,7 +42,7 @@ export default function Profile() {
     onSubmit : async values => {
       values = await Object.assign(values, { profile : file || apiData?.profile || ''})
 
-      if (cert != null) {
+      if (cert != null && verified) {
         values.certification = cert;
         values.certificationName = certName;
 
@@ -63,6 +65,35 @@ export default function Profile() {
 
     }
   })
+
+  useEffect(() => {
+    if (code) {
+      handleVerification(apiData?.username, code);
+    }
+  }, [code]);
+
+  const handleVerification = async (username,code)=>{
+    console.log(code)
+    try{
+      
+      const response = await verifyOTP({username,code:parseInt(code)})
+      if(response.status ===201){
+        setVerified(true)
+      }
+    }catch(error){
+      console.log({error})
+    }
+  }
+  const handleSendEmail = async (username,userEmail)=>{
+    try{
+      const response = await sendEmail(username,userEmail)
+      if(response.status === 200 ){
+        setSentEmail(true)
+      }
+    }catch(error){
+      console.log({error})
+    }
+  }
 
   /** formik doensn't support file upload so we need to create this handler */
   const onUpload = async e => {
@@ -173,7 +204,21 @@ export default function Profile() {
                       <button className={`${styles.btnremove} ${extend.btnremove}`} onClick={onRemoveCert}>Remove</button>
                     </div>
                   
-                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={onUploadCert}/>
+                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={(event)=>{onUploadCert(event); handleSendEmail(apiData?.username,apiData?.email)}}/>
+                  {sentEmail&&<h1>Please check you email for your verification code and enter it here</h1>&&
+
+                  <input className='flex gap-10'
+                    type="number"
+                    onBlur={(event) => {setCode(event.target.value);handleVerification(apiData?.username, code)}}
+                    name="otp"
+                    placeholder="Enter Code"
+                    pattern='\d{6}'
+                    maxLength="6"
+                  />
+                  }
+                  {
+                    verified&&<h1>Thank you for becoming a chef. Please <b>save your changes.</b></h1>
+                  }
                 </div>
                   
                 <button className={styles.btn} type='submit'>Save Changes</button>

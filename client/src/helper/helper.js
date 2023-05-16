@@ -203,3 +203,12 @@ export async function createPost(username, title, photo, description, tags, apiD
         return Promise.reject({error})
     }
   }
+
+  export async function sendEmail(username, userEmail){
+    try{
+        const response = await axios.post(`/api/verifyChef`,{username:username,userEmail:userEmail})
+        return Promise.resolve(response)
+    }catch(error){
+        return Promise.reject({error})
+    }
+  }
