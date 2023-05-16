@@ -1,8 +1,6 @@
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
-
-// import ENV from '../config.js';
-// import { generateOTP, verifyOTP } from './appController.js';
+import {google} from 'googleapis'
 import http from 'http';
 // https://ethereal.email/create
 // let nodeConfig = {
@@ -14,12 +12,31 @@ import http from 'http';
 //         pass: ENV.PASSWORD, // generated ethereal password
 //     }
 // }
+const clientId = '201255915563-4tmjquusheuksbj0gf5q63nfp9utjdfc.apps.googleusercontent.com'
+const clientSecret = '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'
+const refreshToken = '1//04Xcm8hpXfRN0CgYIARAAGAQSNwF-L9IrsZ4edKvJT_zxRYd8QTQUQ8YB6r77Q397w5zL2Tej-om0sB8i6kZV7YxHMtYhW8teAX8'
+const user = 'mail.spacefood@gmail.com'
+const OAuth2 = google.auth.OAuth2
+const OAuth2_client = new OAuth2(clientId,clientSecret)
+OAuth2_client.setCredentials({refresh_token: refreshToken})
+
+const accessToken = OAuth2_client.getAccessToken()
+
+
+
+// const user = 'emilie.frami@ethereal.email'
+// const password = 'vZmyC2uBM9C6wnu8ME'
 const nodeConfig = {
-    host: 'smtp.ethereal.email',
-    port: 587,
+    service: 'gmail',
+    // host: 'smtp.ethereal.email',
+    // port: 587,
     auth: {
-        user: 'victor31@ethereal.email',
-        pass: 'hGU85NVbJ32RwsU3hn'
+        type: 'OAuth2',
+        user: user,
+        clientId:clientId,
+        clientSecret: clientSecret,
+        refreshToken: refreshToken,
+        accessToken: accessToken
     }
 };
 
@@ -124,8 +141,8 @@ export const verifyChef = async (req, res) => {
     var emailBody = MailGenerator.generate(email);
     
     let message = {
-        from : `smtp.ethereal.email`,
-        to: userEmail,
+        from : user,
+        to: userEmail, // put real email
         subject : "Verification Email for SpaceFood",
         html : emailBody
     }
@@ -135,7 +152,7 @@ export const verifyChef = async (req, res) => {
         .then(() => {
             return res.status(200).send({ msg: "You should receive an email from us."})
         })
-        .catch(error => res.status(500).send({ error }))
+        .catch(error => {res.status(500).send({ error });console.log(error)})
 
     // let isVerified;
 
