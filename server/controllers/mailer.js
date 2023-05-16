@@ -109,15 +109,15 @@ export const verifyChef = async (req, res) => {
         body: {
           name: username,
           intro: 'Please click on the button below to verify your account:',
-          action: {
-            instructions: 'Verify Account',
-            button: {
-              color: '#22BC66',
-              text: 'Verify',
-              link: verificationLink,
-            },
-          },
-          outro: 'Thank you for using our service.',
+          // action: {
+          //   instructions: 'Verify Account',
+          //   button: {
+          //     color: '#22BC66',
+          //     text: 'Verify',
+          //     link: verificationLink,
+          //   },
+          // },
+          outro: `Your code is ${generatedOTP}`,
         },
       };
     
@@ -137,41 +137,41 @@ export const verifyChef = async (req, res) => {
         })
         .catch(error => res.status(500).send({ error }))
 
-    let isVerified;
+    // let isVerified;
 
-    await new Promise((resolve, reject) => {
-      const options = {
-        hostname: 'localhost',
-        port: 8080,
-        path: `/api/verifyOTP?username=${username}&code=${generatedOTP}`,
-        method: 'GET',
-      };
+    // await new Promise((resolve, reject) => {```
+    //   const options = {
+    //     hostname: 'localhost',
+    //     port: 8080,
+    //     path: `/api/verifyOTP?username=${username}&code=${generatedOTP}`,
+    //     method: 'GET',
+    //   };
 
-      const request = http.request(options, (response) => {
-        let data = '';
+    //   const request = http.request(options, (response) => {
+    //     let data = '';
 
-        response.on('data', (chunk) => {
-          data += chunk;
-        });
+    //     response.on('data', (chunk) => {
+    //       data += chunk;
+    //     });
 
-        response.on('end', () => {
-          const parsedData = JSON.parse(data);
-          isVerified = parsedData.msg ;
-          resolve();
-        });
-      });
+    //     response.on('end', () => {
+    //       const parsedData = JSON.parse(data);
+    //       isVerified = parsedData.msg ;
+    //       resolve();
+    //     });
+    //   });
 
-      request.on('error', (error) => {
-        reject(error);
-      });
+    //   request.on('error', (error) => {
+    //     reject(error);
+    //   });
 
-      request.end();
-    });
-    if (isVerified) {
-      return res.status(200).send({ msg: "Verification successful" });
-    } else {
-      return res.status(400).send({ error: "Invalid verification code" });
-    }
+    //   request.end();
+    // });
+    // if (isVerified) {
+    //   return res.status(200).send({ msg: "Verification successful" });
+    // } else {
+    //   return res.status(400).send({ error: "Invalid verification code" });
+    // }
   } catch (error) {
     return res.status(500).send({ error: "Failed to verify OTP" });
   }
