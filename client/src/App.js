@@ -23,7 +23,7 @@ import EditPost from './components/EditPost';
 const router = createBrowserRouter([
     {
         path : '/',
-        element : <Username></Username>
+        element : <Homepage></Homepage>
     },
     {
         path : '/register',
@@ -50,8 +50,8 @@ const router = createBrowserRouter([
         element : <PageNotFound></PageNotFound>
     },
     {
-        path : '/Homepage',
-        element : <Homepage></Homepage>
+        path : '/login',
+        element : <Username></Username>
     },
     {
         path : '/post/:params',
@@ -67,13 +67,13 @@ const router = createBrowserRouter([
         element: <ViewProfile></ViewProfile>
     },{
         path: '/Bookmarks',
-        element: <ViewBookmarks></ViewBookmarks>
+        element:<AuthorizeUser><ViewBookmarks></ViewBookmarks></AuthorizeUser>
     },{
         path: '/viewPosts/:params',
         element: <ViewPosts></ViewPosts>
     },{
         path: '/EditPost/:params',
-        element: <EditPost></EditPost>
+        element: <AuthorizeUser><EditPost></EditPost></AuthorizeUser>
     }
 
     // ,

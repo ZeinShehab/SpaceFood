@@ -51,20 +51,20 @@ export default function EditPost() {
   };
   function userLogout() {
     localStorage.removeItem('token')
-    navigate('/')
+    navigate('/login')
   }
   return (
     <div>
       <nav>
         <div className="logo">
-          <Link to="/Homepage">SpaceFood</Link>
+          <Link to="/">SpaceFood</Link>
         </div>
         <ul className="nav-links">
           <li>
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/" onClick={userLogout}>Logout</Link>
+            <Link to="/login" onClick={userLogout}>Logout</Link>
           </li>
         </ul>
       </nav>

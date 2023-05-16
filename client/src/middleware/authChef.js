@@ -31,7 +31,7 @@ export const AuthorizeUserAsChef = ({ children }) => {
   if (isAuthorized) {
     return <>{children}</>;
   } else {
-    return <Navigate to={"/Homepage"} replace={true} />;
+    return <Navigate to={"/"} replace={true} />;
   }
 };
 

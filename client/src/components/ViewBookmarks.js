@@ -24,22 +24,32 @@ export default function ViewBookmarks() {
     }, [apiData]);
     function userLogout() {
         localStorage.removeItem('token')
-        navigate('/')
+        navigate('/login')
+    }
+    function userLogin() {
+        navigate('/login')
     }
     return (
         <div>
             <nav className='homepage-header'>
                 <div className="logo">
-                    <Link to="/Homepage">SpaceFood</Link>
+                    <Link to="/">SpaceFood</Link>
                 </div>
-                <div className="nav-links">
+                {apiData && apiData.email?
+                    <div className="nav-links">
                     <li>
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={userLogout}>Logout</Link>
+                        <Link to="/login" onClick={userLogout}>Logout</Link>
                     </li>
-                </div>
+                    </div> :
+                    <div className="nav-links">
+                        <li>
+                        <Link to="/login" onClick={userLogin}>Login</Link>
+                        </li>
+                    </div>
+                    }
             </nav>
 
             <div className="post-grid">

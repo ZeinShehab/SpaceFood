@@ -19,11 +19,11 @@ export default function Homepage() {
 
   function userLogout() {
     localStorage.removeItem('token')
-    navigate('/')
+    navigate('/login')
   }
 
   function userLogin() {
-    navigate('/')
+    navigate('/login')
   }
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Homepage() {
     <div>
       <nav className='homepage-header'>
         <div className="logo">
-          <Link to="/Homepage">SpaceFood</Link>
+          <Link to="/">SpaceFood</Link>
         </div>
         <div className='search-container'>
           <input
@@ -96,18 +96,21 @@ export default function Homepage() {
               value={tag}
               onChange={(e) => setTag(e.target.value)}
             /> */}
+      {apiData && apiData.email?
         <div className="nav-links">
           <li>
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            {apiData && apiData.email? 
-            <Link to="/" onClick={userLogout}>Logout</Link> :
-            <Link to="/" onClick={userLogin}>Login</Link>
-            }
-    
+            <Link to="/login" onClick={userLogout}>Logout</Link>
           </li>
-        </div>
+        </div> :
+          <div className="nav-links">
+            <li>
+              <Link to="/login" onClick={userLogin}>Login</Link>
+            </li>
+          </div>
+          }
       </nav>
 
       <div className="recent-posts">

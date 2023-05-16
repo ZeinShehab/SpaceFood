@@ -118,7 +118,7 @@ export default function Profile() {
   // logout handler function
   function userLogout(){
     localStorage.removeItem('token');
-    navigate('/');
+    navigate('/login');
   }
 
   function goBack(){
@@ -148,7 +148,7 @@ export default function Profile() {
             <div className="flex gap-40">
               <button onClick={goBack} className='text-orange-500 text-7xl'>←</button>
               <h4 className='text-5xl font-bold pt-5'>Profile</h4>
-              <button onClick={userLogout} className='text-orange-500 text-2xl pt-3' to="/">Logout</button>
+              <button onClick={userLogout} className='text-orange-500 text-2xl pt-3' to="/login">Logout</button>
               {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
             </div>
           <div className='grid'>

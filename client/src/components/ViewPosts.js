@@ -65,26 +65,36 @@ export default function ViewPosts() {
     };
     function userLogout() {
         localStorage.removeItem('token')
-        navigate('/')
+        navigate('/login')
+    }
+    function userLogin() {
+        navigate('/login')
     }
     return (
         <div>
             <nav className='homepage-header'>
                 <div className="logo">
-                    <Link to="/Homepage">SpaceFood</Link>
+                    <Link to="/">SpaceFood</Link>
                 </div>
-                <div className="nav-links">
+                {apiData && apiData.email?
+                    <div className="nav-links">
                     <li>
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={userLogout}>Logout</Link>
+                        <Link to="/login" onClick={userLogout}>Logout</Link>
                     </li>
-                </div>
+                    </div> :
+                    <div className="nav-links">
+                        <li>
+                        <Link to="/login" onClick={userLogin}>Login</Link>
+                        </li>
+                    </div>
+                    }
             </nav>
 
             <div className="post-grid">
-                <div className="page-title">My Recipes</div>
+                <div className="page-title">{apiData && (apiData.username == params) ? "My Recipes" : "Recipes by " + params}</div>
                 {recipes ? recipes.length == 0 ? <p className="no-results">No Recipes</p> : recipes.map(post => (
                     <Link to={`/post/${post._id}`} state={post._id} onClick={(event) => {
                     }}>
@@ -93,6 +103,8 @@ export default function ViewPosts() {
                             <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
                             <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                            {apiData && (apiData.username == params)?
+                            
                             <div className="flex">
                             <Popup 
                                 trigger={
@@ -114,7 +126,7 @@ export default function ViewPosts() {
                             <div className='edit-button' onClick={(event)=>event.preventDefault()}>
                                     <Link to={`/EditPost/${post._id}`}><AiFillEdit size={40}/></Link>
                             </div>
-                            </div>
+                            </div> :<p></p>}
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}

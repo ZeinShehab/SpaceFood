@@ -119,7 +119,7 @@ export default function Post() {
     event.preventDefault();
     
     try{
-      if (commentInput == "") return;
+      if (commentInput == "" || !apiData?.username) return;
       const id = await apiData?._id
       const username = await apiData?.username
       const newComment = { text: commentInput, postedBy: { username: username} }
@@ -135,11 +135,11 @@ export default function Post() {
   }
   function userLogout() {
     localStorage.removeItem('token')
-    navigate('/')
+    navigate('/login')
   }
 
   function userLogin() {
-    navigate('/')
+    navigate('/login')
   }
   
   async function handleBookmarks(){
@@ -242,19 +242,24 @@ export default function Post() {
       <Toaster position='top-center' reverseOrder={false}></Toaster>
       <nav>
         <div className="logo">
-          <Link to="/Homepage">SpaceFood</Link>
+          <Link to="/">SpaceFood</Link>
         </div>
-        <ul className="nav-links">
+        
+        {apiData && apiData.email?
+        <div className="nav-links">
           <li>
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-          {apiData && apiData.email? 
-            <Link to="/" onClick={userLogout}>Logout</Link> :
-            <Link to="/" onClick={userLogin}>Login</Link>
-            }
+            <Link to="/login" onClick={userLogout}>Logout</Link>
           </li>
-        </ul>
+        </div> :
+          <div className="nav-links">
+            <li>
+              <Link to="/login" onClick={userLogin}>Login</Link>
+            </li>
+          </div>
+          }
       </nav>
 
     <div className="post-container">
