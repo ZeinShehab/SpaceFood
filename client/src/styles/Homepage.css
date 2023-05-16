@@ -96,10 +96,12 @@ nav {
 	padding-bottom: 50px;
 	padding-right: 50px;
 	border-radius: 50px;
+    transition: background-color 0.2s ease;
 }
 
 .post-a-recipe-button-circle:hover {
 	background-color: rgb(228, 225, 225);
+	/* background-color: #f16b27; */
 	color: #312f2f;
 
 }

@@ -17,7 +17,7 @@ export default function Profile() {
   const [file, setFile] = useState();
   const [cert, setcert] = useState();
   const [certName, setName] = useState();
-  const [removeCert, setRemove] = useState();
+  const [notChef, setNotChef] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const [sentEmail, setSentEmail] = useState(false)
   const [code,setCode] = useState()
@@ -49,7 +49,7 @@ export default function Profile() {
         // Set role to chef directly without validation of uploaded file
         values.role ="Chef";
       }
-      if (removeCert) {
+      if (notChef) {
         values.certification = null;
         values.certificationName = "";
         values.role = "User";
@@ -105,14 +105,14 @@ export default function Profile() {
     const base64 = await convertToBase64(e.target.files[0]);
     setName(e.target.files[0].name);
     setcert(base64);
-    setRemove(false);
+    setNotChef(false);
   }
 
   const onRemoveCert = async e => {
     e.preventDefault();
     setName("");
     setcert(null);
-    setRemove(true);
+    setNotChef(true);
   }
 
   // logout handler function
@@ -146,16 +146,22 @@ export default function Profile() {
 
           <div className="title flex flex-col items-center">
             <div className="flex gap-40">
-              <button onClick={goBack} className='text-red-500 text-7xl'>←</button>
+              <button onClick={goBack} className='text-orange-500 text-7xl'>←</button>
               <h4 className='text-5xl font-bold pt-5'>Profile</h4>
-              <button onClick={userLogout} className='text-red-500 text-2xl pt-3' to="/">Logout</button>
+              <button onClick={userLogout} className='text-orange-500 text-2xl pt-3' to="/">Logout</button>
               {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
             </div>
           <div className='grid'>
             <span className='py-4 text-xl  text-center text-gray-500'>
                 You can update the details.
             </span>
-            <div className='flex gap-10'>
+            {apiData && apiData.role == "User" || notChef ?
+            
+              <div className={`${styles.profilebookmark} ${extend.profilebookmark}`} onClick={goToBookmarks}>
+              Bookmarks
+              <BsBookmarksFill className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
+              </div> :
+              <div className='flex gap-10'>
               <div className={`${styles.profilebookmark} ${extend.profilebookmark}`} onClick={goToBookmarks}>
                   Bookmarks
                   <BsBookmarksFill className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
@@ -167,6 +173,7 @@ export default function Profile() {
                 </div> 
               </Link>
             </div>
+            }
           </div>
           </div>
 
@@ -196,7 +203,7 @@ export default function Profile() {
                   
                     <div className='flex gap-11'>
                       <h3 className='label flex w-3/4'>Upload a certificate to become a chef and post recipes.</h3>
-                      <label for="certName" className={`${styles.label} ${extend.label}`}>{ removeCert ? certName : (apiData?.certificationName || certName)}</label>
+                      <label for="certName" className={`${styles.label} ${extend.label}`}>{ notChef ? certName : (apiData?.certificationName || certName)}</label>
                     </div>
                     
                     <div className='flex gap-10'>

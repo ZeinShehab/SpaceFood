@@ -134,20 +134,6 @@ nav {
   margin-right: 10px;
 }
 
-.comment-submit-btn {
-  background-color: #f16b27;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.comment-submit-btn:hover {
-  background-color: #ec5c24;
-}
-
 .rating {
   display: flex;
   align-items: center;
@@ -228,17 +214,23 @@ nav {
   background-color: #f16b27;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 10px;
+  padding: 5px 15px;
   font-size: 16px;
   font-weight: bold;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  border: 2px solid #f16b27;
+
 }
 
+
 .comment-submit-btn:hover {
-  background-color: #d04f1b;
+  /* background-color: #ec5c24; */
+  @apply bg-white;
+  color: #f16b27;
+  border: 2px solid #f16b27;
 }
 
 .create-post-form {
@@ -495,6 +487,7 @@ textarea:focus {
   @apply py-1 px-2 rounded-xl flex-1 text-gray-50 shadow-sm text-center cursor-pointer;
   background-color: #f16b27;
   border: 1px solid #f16b27;
+  transition: background-color 0.2s ease;
   
 }
 
@@ -550,8 +543,10 @@ textarea:focus {
 .post-bookmark {
   color: #f16b27;
   border: 1px solid #f16b27;
-  @apply flex gap-1 py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
+  @apply flex gap-1 py-1 px-2 rounded-lg bg-white shadow-sm text-center cursor-pointer;
   justify-content: center;
+  transition: background-color 0.2s ease;
+
 }
 
 .post-bookmark:hover {
@@ -566,7 +561,9 @@ textarea:focus {
 .post-print {
   color: #f16b27;
   border: 1px solid #f16b27;
-  @apply py-1 px-2 rounded-xl bg-white shadow-sm text-center cursor-pointer;
+  @apply py-1 px-2 rounded-lg bg-white shadow-sm text-center cursor-pointer;
+  transition: background-color 0.2s ease;
+
 }
 
 .post-print:hover {

@@ -14,32 +14,45 @@
 .label{
     text-align: center;
     font-size: smaller;
-    color: #ff6a6a;
+    color: #f16b27;
 }
 
 .btnsmall{
-    @apply  bg-indigo-500 w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    border: 2px solid #f16b27;
+    background-color: #f16b27;
+    transition: background-color 0.2s ease;
+    @apply w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
 }
 
 .btnsmall:hover{
-    background-color: #ff6a6a;
+    /* background-color: #f16b27;
+     */
+     @apply bg-white;
+     color: #f16b27;
+     border: 2px solid #f16b27;
+     /* @apply bg-indigo-500; */
 }
 
 .chefform{
     @apply w-3/4 gap-5 pt-4 pb-4 grid;
-    border-top: 5px solid #ff6a6a;
-    border-bottom: 5px solid #ff6a6a;
+    border-top: 5px solid #f16b27;
+    border-bottom: 5px solid #f16b27;
     border-top-width: 2px;
     border-bottom-width: 2px;
 }
 
 .btnremove{
     @apply py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
-    background-color: #ff6a6a;
+    transition: background-color 0.2s ease;
+    background-color: #f16b27;
+    border: 2px solid #f16b27;
+
 }
 
 .btnremove:hover{
-    @apply bg-indigo-500
+    @apply bg-white;
+    color: #f16b27;
+    border: 2px solid #f16b27;
 }
 
 .profilebookmark {
@@ -47,15 +60,16 @@
     @apply flex gap-1 py-1 px-2 text-center rounded-xl shadow-sm text-center cursor-pointer;
     text-align: center;
     justify-content: center;
-    background-color: #ff6a6a;
-    border: 1px solid #ff6f69;
+    transition: background-color 0.2s ease;
+    background-color: #f16b27;
+    border: 2px solid #f16b27;
 
   }
   
   .profilebookmark:hover {
-    color: #ff6a6a;
+    color: #f16b27;
     background-color: white;
-    border: 1px solid #ff6f69;
+    border: 2px solid #f16b27;
   }
 
   .profilebookmarkicon {
