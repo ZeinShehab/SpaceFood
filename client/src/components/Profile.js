@@ -32,7 +32,7 @@ export default function Profile() {
       mobile: apiData?.mobile || '',
       address : apiData?.address || '',
       certification: apiData?.certification || '',
-      role : apiData?.roles || '',
+      role : apiData?.roles || 'User',
       certificationName : apiData?.certificationName || ''
     },
     enableReinitialize: true,
@@ -41,22 +41,23 @@ export default function Profile() {
     validateOnChange: false,
     onSubmit : async values => {
       values = await Object.assign(values, { profile : file || apiData?.profile || ''})
-
-      if (cert != null && verified) {
+      const isVerified = apiData?.role == "Chef"
+      console.log(isVerified, apiData?.role)
+      if(!verified && isVerified){
+        values.role = "Chef"
+      }
+      if (verified && !isVerified) {
         values.certification = cert;
         values.certificationName = certName;
-
         // Set role to chef directly without validation of uploaded file
         values.role ="Chef";
       }
-      if (notChef) {
-        values.certification = null;
-        values.certificationName = "";
-        values.role = "User";
+      if(!verified && !isVerified){
+        values.role = "User"
       }
 
-      let updatePromise = updateUser(values);
 
+      let updatePromise = updateUser(values);
       toast.promise(updatePromise, {
         loading: 'Updating...',
         success : <b>Update Successfully...!</b>,
@@ -203,15 +204,15 @@ export default function Profile() {
                   
                     <div className='flex gap-11'>
                       <h3 className='label flex w-3/4'>Upload a certificate to become a chef and post recipes.</h3>
-                      <label for="certName" className={`${styles.label} ${extend.label}`}>{ notChef ? certName : (apiData?.certificationName || certName)}</label>
+                      {/* <label for="certName" className={`${styles.label} ${extend.label}`}>{ notChef ? certName : (apiData?.certificationName || certName)}</label> */}
                     </div>
                     
                     <div className='flex gap-10'>
-                      <label for="file" className={`${styles.btnsmall} ${extend.btnsmall}`}>Upload</label>
+                      <label for="file" className={`${styles.btnsmall} ${extend.btnsmall}`}>Become a chef</label>
                       <button className={`${styles.btnremove} ${extend.btnremove}`} onClick={onRemoveCert}>Remove</button>
                     </div>
                   
-                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={(event)=>{onUploadCert(event); handleSendEmail(apiData?.username,apiData?.email)}}/>
+                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={(event)=>{handleSendEmail(apiData?.username,apiData?.email)}}/>
                   {sentEmail&&<h1>Please check you email for your verification code and enter it here</h1>&&
 
                   <input className='flex gap-10'
