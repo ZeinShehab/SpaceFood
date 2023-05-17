@@ -22,6 +22,7 @@ export default function Profile() {
   const [sentEmail, setSentEmail] = useState(false)
   const [code,setCode] = useState()
   const [verified, setVerified] = useState(false)
+  const [alreadyVerified, setAlreadyVerified] = useState(apiData && apiData?.role == "Chef");
   const navigate = useNavigate()
  
   const formik = useFormik({
@@ -44,7 +45,7 @@ export default function Profile() {
       const isVerified = apiData?.role == "Chef"
       console.log(isVerified, apiData?.role)
       if(!verified && isVerified){
-        values.role = "Chef"
+        values.role = "Chef";
       }
       if (verified && !isVerified) {
         values.certification = cert;
@@ -102,6 +103,16 @@ export default function Profile() {
     setFile(base64);
   }
 
+  const sendEmailHandler = async e => {
+    e.preventDefault();
+    if (apiData?.role != "Chef") {
+      handleSendEmail(apiData?.username,apiData?.email);
+    }
+    else {
+      setAlreadyVerified(true);
+    }
+  }
+
   const onUploadCert = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
     setName(e.target.files[0].name);
@@ -148,7 +159,7 @@ export default function Profile() {
           <div className="title flex flex-col items-center">
             <div className="flex gap-40">
               <button onClick={goBack} className='text-orange-500 text-7xl'>←</button>
-              <h4 className='text-5xl font-bold pt-5'>Profile</h4>
+              <h4 className='text-5xl font-bold pt-5'>{apiData?.username}</h4>
               <button onClick={userLogout} className='text-orange-500 text-2xl pt-3' to="/login">Logout</button>
               {/* <img src={logout} onClick={goBack} className='w-20 cursor-pointer' to="/"/> */}
             </div>
@@ -200,36 +211,39 @@ export default function Profile() {
                
                   <input {...formik.getFieldProps('address')} className={`${styles.textbox} ${extend.textbox}`} type="text" placeholder='Address' />
                
-                  <div className={`${styles.chefform} ${extend.chefform}`}>
+                  {(!(apiData && apiData?.role == "Chef"))&&<div className={`${styles.chefform} ${extend.chefform}`}>
                   
-                    <div className='flex gap-11'>
-                      <h3 className='label flex w-3/4'>Upload a certificate to become a chef and post recipes.</h3>
-                      {/* <label for="certName" className={`${styles.label} ${extend.label}`}>{ notChef ? certName : (apiData?.certificationName || certName)}</label> */}
-                    </div>
+                
                     
                     <div className='flex gap-10'>
-                      <label for="file" className={`${styles.btnsmall} ${extend.btnsmall}`}>Become a chef</label>
-                      <button className={`${styles.btnremove} ${extend.btnremove}`} onClick={onRemoveCert}>Remove</button>
-                    </div>
-                  
-                  <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={(event)=>{handleSendEmail(apiData?.username,apiData?.email)}}/>
-                  {sentEmail&&<h1>Please check you email for your verification code and enter it here</h1>&&
+                      <button className={`${styles.btnsmall} ${extend.btnsmall}`} onClick={(event) => {sendEmailHandler(event)}}>Send Verification Email</button>
+                      {sentEmail&&
 
-                  <input className='flex gap-10'
-                    type="number"
-                    onBlur={(event) => {setCode(event.target.value);handleVerification(apiData?.username, code)}}
-                    name="otp"
-                    placeholder="Enter Code"
-                    pattern='\d{6}'
-                    maxLength="6"
-                  />
-                  }
-                  {
-                    verified&&<h1>Thank you for becoming a chef. Please <b>save your changes.</b></h1>
-                  }
-                </div>
+                        <input className={`${styles.codeinput} ${extend.codeinput}`}
+                          // type="number"
+                          onBlur={(event) => {setCode(event.target.value);handleVerification(apiData?.username, code)}}
+                          name="otp"
+                          placeholder="Enter Code"
+                          pattern='\d{6}'
+                          maxLength="6"
+                        />
+                        }
+                        
+                      {/* <button className={`${styles.btnremove} ${extend.btnremove}`} onClick={onRemoveCert}>Remove</button> */}
+                    </div>
+                        {
+                          verified&&<h1 className='text-center'>Thank you for becoming a chef. Please <b>save your changes.</b></h1>
+                        }
+                        {
+                          (alreadyVerified)&&<h1 className='text-center'>You are already a Chef.</h1>
+                        }
                   
-                <button className={styles.btn} type='submit'>Save Changes</button>
+                  {/* <input {...formik.getFieldProps('certification')} value = {null}className={`${styles.textbox} ${extend.textbox}`} type="file" id="file" name="file" onChange={(event)=>{handleSendEmail(apiData?.username,apiData?.email)}}/> */}
+                  
+                </div>}
+                <div className={`${styles.formdivider} ${extend.formdivider}`}>
+                  <button className={styles.btn2} type='submit'>Save Changes</button>
+                </div>
               </div>
 
               

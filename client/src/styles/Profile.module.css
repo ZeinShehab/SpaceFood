@@ -21,7 +21,8 @@
     border: 2px solid #f16b27;
     background-color: #f16b27;
     transition: background-color 0.2s ease;
-    @apply w-3/4 py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
+    width: 100%;
+    @apply  py-4 px-4 rounded-lg text-gray-50 text-xl shadow-sm text-center cursor-pointer;
 }
 
 .btnsmall:hover{
@@ -34,11 +35,11 @@
 }
 
 .chefform{
-    @apply w-3/4 gap-5 pt-4 pb-4 grid;
+    @apply w-3/4 gap-5 pt-4 pb-1 grid;
     border-top: 5px solid #f16b27;
-    border-bottom: 5px solid #f16b27;
+    /* border-bottom: 5px solid #f16b27; */
     border-top-width: 2px;
-    border-bottom-width: 2px;
+    /* border-bottom-width: 2px; */
 }
 
 .btnremove{
@@ -75,4 +76,15 @@
   .profilebookmarkicon {
     @apply pt-1 pb-1 flex;
     font-size: x-large;
+  }
+
+  .codeinput {
+    @apply w-1/4 rounded-lg;
+    outline: none;
+  }
+
+  .formdivider {
+    width: 75%;
+    border-top: 2px solid #f16b27;
+    padding-top: 15px;
   }

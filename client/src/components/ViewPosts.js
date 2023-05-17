@@ -23,7 +23,7 @@ export default function ViewPosts() {
                 const username = params
                 if (username) {
                     const recipes = await axios.get(`/api/user/${username}/getPosts`)
-                    setRecipes(recipes.data)
+                    setRecipes(recipes.data);
                 }
             } catch (error) {
                 console.log(error.response.data.error);
