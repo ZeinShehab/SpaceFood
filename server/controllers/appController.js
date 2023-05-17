@@ -637,3 +637,24 @@ export async function editPost(req,res){
         res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+export async function getUserByEmail(req, res) {
+    const username = "raedfidawi";
+    try {
+      const user = await UserModel.findOne({ username: username });
+  
+      if (!user) {
+        // User not found
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Delete the user
+    //   await user.remove();
+  
+      return res.status(200).json({ message: user._id });
+    } catch (error) {
+      // Handle any errors that occur during the process
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  }
+  
