@@ -630,6 +630,11 @@ textarea:focus {
   word-wrap: nowrap;
   padding-right: 7px;
 }
+
+.edit-buttons {
+  @apply flex pt-2;
+  /* border-top: 1px solid #ff8c00; */
+}
 /* .Edit{
 
 } */

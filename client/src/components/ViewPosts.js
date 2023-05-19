@@ -7,6 +7,8 @@ import ConfirmDelete from "./ConfirmDelete";
 import Popup from 'reactjs-popup';
 import { AiFillEdit } from 'react-icons/ai';
 import {MdDeleteForever} from 'react-icons/md'
+import { Rating } from '@mui/material';
+
 
 export default function ViewPosts() {
     const [recipes, setRecipes] = useState()
@@ -102,10 +104,20 @@ export default function ViewPosts() {
                         <div className="post" key={post._id}>
                             <img className='bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
-                            <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                            <div className='post-card-description'>
+                  <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}
+                  </p>
+                </div>
+                            <div className='post-card-details'>
+                                <div className='post-card-details-text'>{post.owner}</div>
+                                <span className='divider'></span>
+                                <div className='post-card-details-text'>{new Date(post.createdAt).toDateString()}</div>
+                                <span className='divider'></span>
+                                <Rating className='post-card-rating' name="read-only" precision={0.5} value={post.rating} readOnly/>
+                            </div>
                             {apiData && (apiData.username == params)?
                             
-                            <div className="flex">
+                            <div className="edit-buttons">
                             <Popup 
                                 trigger={
                                     <div>

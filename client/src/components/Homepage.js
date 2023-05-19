@@ -136,7 +136,10 @@ export default function Homepage() {
               <div className="post" key={post._id}>
                 <img src={post.photo} alt="Post Image" />
                 <h3>{post.title}</h3>
-                <p className='post-card-description'>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                <div className='post-card-description'>
+                  <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}
+                  </p>
+                </div>
                 <div className='post-card-details'>
                   <div className='post-card-details-text'>{post.owner}</div>
                   <span className='divider'></span>

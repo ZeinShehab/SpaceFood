@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/fetch.hook";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom'
+import { Rating } from '@mui/material';
+
 
 export default function ViewBookmarks() {
     const [bookmarks, setBookmarks] = useState()
@@ -59,7 +61,17 @@ export default function ViewBookmarks() {
                         <div className="post" key={post._id}>
                             <img className = 'bookmark-posts' src={post.photo} alt="Post Image" />
                             <h3>{post.title}</h3>
-                            <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}</p>
+                            <div className='post-card-description'>
+                  <p>{post.description.length >= 85 ? `${post.description.substring(0, 80)}...` : post.description}
+                  </p>
+                </div>
+                            <div className='post-card-details'>
+                                <div className='post-card-details-text'>{post.owner.username}</div>
+                                <span className='divider'></span>
+                                <div className='post-card-details-text'>{new Date(post.createdAt).toDateString()}</div>
+                                <span className='divider'></span>
+                                <Rating className='post-card-rating' name="read-only" precision={0.5} value={post.rating} readOnly/>
+                            </div>
                         </div>
                     </Link>
                 )) : <div className="Loading">Loading</div>}
