@@ -9,6 +9,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { profileValidation } from '../helper/validate';
 import { updateUser } from '../helper/helper'
+import {BiFork} from 'react-icons/bi';
+
 
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
@@ -40,32 +42,69 @@ export default function ViewProfile() {
   function goBack(){
     navigate(-1);
   }
+  function userLogout() {
+    localStorage.removeItem('token')
+    navigate('/login')
+}
+function userLogin() {
+    navigate('/login')
+}
   return (
-    <div className="user-profile">
+    <div className='grid'>
+         <nav className='homepage-header'>
+                <div className="logo">
+                    <Link to="/">SpaceFood</Link>
+                </div>
+                {apiData && apiData.email?
+                    <div className="nav-links">
+                    <li>
+                        <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                        <Link to="/login" onClick={userLogout}>Logout</Link>
+                    </li>
+                    </div> :
+                    <div className="nav-links">
+                        <li>
+                        <Link to="/login" onClick={userLogin}>Login</Link>
+                        </li>
+                    </div>
+                    }
+            </nav>
+      <div className="user-profile">
+     
       <div className='user-profile-body'>
-      <div className='flex align-items'><button onClick={goBack} className='text-red-500 text-7xl' >←</button> </div>
+      <div className='flex align-items'><button onClick={goBack} className='text-orange-500 text-7xl' >←</button> </div>
 
-        <div className='profile'>  User Profile</div>
+        <div className='profile'>  {user && user.username}</div>
+        {user && user.role == "Chef" && <Link to={`/viewPosts/${user.username}`}>
+                <div className='viewprofilebookmark'>
+                    Recipes
+                    <BiFork className={`${styles.profilebookmarkicon} ${extend.profilebookmarkicon}`}/>
+                </div> 
+        </Link>}
+        
+        <div style={{paddingBottom: '20px'}}></div>
         <div className='user-image'> <img src={user.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" /></div>
         <table>
           <tbody>
           <tr>
-            <td><input style={{height: '50px'}} disabled value={"Username: "+user.username +"\n"}></input></td>
+            <td><input className='viewprofiletextbox' disabled value={"Username: "+user.username +"\n"}></input></td>
             <td>
-            <input style={{height: '50px'}} disabled value={"Role: "+ user.role}></input>
+            <input className='viewprofiletextbox' disabled value={"Role: "+ user.role}></input>
             </td>
           </tr>
           <tr>
             <td>
-              <input style={{height: '50px'}} disabled value={ (user.firstName != null) ? user.firstName : "n/a"}></input>
+              <input className='viewprofiletextbox' disabled value={ (user.firstName != "") ? user.firstName : "n/a"}></input>
             </td>
             <td>
-              <input style={{height: '50px'}} disabled value={(user.lastName != null) ? user.lastName : "n/a"}></input>
+              <input className='viewprofiletextbox' disabled value={(user.lastName != "") ? user.lastName : "n/a"}></input>
             </td>
           </tr>
           <tr>
             <td colSpan={2}>
-              <input style={{width: '100%', height: '50px'}} disabled value={user.email}></input>
+              <input className='viewprofiletextbox' disabled value={user.email}></input>
             </td>
           </tr>
           </tbody>
@@ -77,5 +116,7 @@ export default function ViewProfile() {
         <input disabled value={user.role}></input> */}
       </div>
     </div>
+    </div>
+    
   );
 }
